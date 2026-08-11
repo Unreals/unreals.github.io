@@ -301,5 +301,362 @@ async function loadAllProperties() {
 
 loadAllProperties();
 </script>
+<!-- ======================================================= -->
+<!-- INÍCIO DA SECÇÃO DE SIMULADORES (CRÉDITO E IMT)        -->
+<!-- ======================================================= -->
+
+<style>
+  .sim-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+  }
+  .sim-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .sim-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .sim-eyebrow {
+    color: #c99b32;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .sim-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+  }
+  .sim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .sim-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sim-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+  .sim-group input, .sim-group select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+  }
+  .sim-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #c99b32;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .sim-btn:hover {
+    background-color: #b08528;
+  }
+  .sim-btn-wa {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .sim-results {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px dashed #eee;
+  }
+  .sim-res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .sim-res-card {
+    background: #fdfbf7;
+    border: 1px solid #f3e5c8;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .sim-res-card.highlight {
+    background: #0c1b24;
+    color: #fff;
+  }
+  .sim-res-card span {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #666;
+  }
+  .sim-res-card.highlight span {
+    color: #c99b32;
+  }
+  .sim-res-card strong {
+    display: block;
+    font-size: 20px;
+    color: #0c1b24;
+    margin-top: 5px;
+  }
+  .sim-res-card.highlight strong {
+    color: #fff;
+    font-size: 24px;
+  }
+</style>
+
+<!-- 1. SIMULADOR DE CRÉDITO À HABITAÇÃO -->
+<section class="sim-section" id="simulador-credito">
+  <div class="sim-container">
+    <div class="sim-title">
+      <p class="sim-eyebrow">FINANCIAMENTO</p>
+      <h2 style="color: #0c1b24; font-size: 28px; margin-top: 5px;">Simulador de Crédito à Habitação</h2>
+      <p style="color: #666; font-size: 15px; margin-top: 8px;">Calcule a estimativa da sua prestação mensal de forma rápida e simples.</p>
+    </div>
+
+    <div class="sim-card">
+      <form id="calcForm" onsubmit="calcularCredito(event)" class="sim-grid">
+        <div class="sim-group">
+          <label>Valor do Imóvel (€) *</label>
+          <input type="number" id="calcPrice" placeholder="Ex: 250000" required value="250000" oninput="atualizarEntradaMinima()">
+        </div>
+        <div class="sim-group">
+          <label>Valor de Entrada (€)</label>
+          <input type="number" id="calcDown" placeholder="Ex: 25000" value="25000">
+          <small style="font-size: 11px; color: #777;">(Min. 10% do valor do imóvel)</small>
+        </div>
+        <div class="sim-group">
+          <label>Prazo (Anos)</label>
+          <select id="calcYears">
+            <option value="40">40 anos</option>
+            <option value="35" selected>35 anos</option>
+            <option value="30">30 anos</option>
+            <option value="25">25 anos</option>
+            <option value="20">20 anos</option>
+            <option value="15">15 anos</option>
+          </select>
+        </div>
+        <div class="sim-group">
+          <label>Taxa de Juro / TAN (%)</label>
+          <input type="number" id="calcRate" step="0.1" placeholder="Ex: 3.5" value="3.5" required>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <button type="submit" class="sim-btn">Calcular Prestação Mensal</button>
+        </div>
+      </form>
+
+      <div id="calcResult" class="sim-results" style="display: none;">
+        <h3 style="font-size: 18px; color: #0c1b24; text-align: center;">Resumo do Crédito</h3>
+        <div class="sim-res-grid">
+          <div class="sim-res-card">
+            <span>Valor Financiado</span>
+            <strong id="resLoan">0,00 €</strong>
+          </div>
+          <div class="sim-res-card highlight">
+            <span>Prestação Mensal</span>
+            <strong id="resMonthly">0,00 € /mês</strong>
+          </div>
+          <div class="sim-res-card">
+            <span>Total de Juros</span>
+            <strong id="resTotalInterest">0,00 €</strong>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+          <a id="btnWhatsappCredito" href="#" target="_blank" class="sim-btn-wa">
+            Enviar Simulação para o Jo Torres no WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SIMULADOR DE IMT -->
+<section class="sim-section" id="simulador-imt" style="background-color: #ffffff;">
+  <div class="sim-container">
+    <div class="sim-title">
+      <p class="sim-eyebrow">IMPOSTOS NA COMPRA</p>
+      <h2 style="color: #0c1b24; font-size: 28px; margin-top: 5px;">Simulador de IMT e Imposto de Selo</h2>
+      <p style="color: #666; font-size: 15px; margin-top: 8px;">Calcule os impostos devidos ao Estado na aquisição.</p>
+    </div>
+
+    <div class="sim-card" style="background: #f8f9fa;">
+      <form id="imtForm" onsubmit="calcularIMT(event)" class="sim-grid">
+        <div class="sim-group">
+          <label>Valor de Aquisição (€) *</label>
+          <input type="number" id="imtPrice" placeholder="Ex: 250000" required value="250000">
+        </div>
+        <div class="sim-group">
+          <label>Finalidade do Imóvel</label>
+          <select id="imtPurpose">
+            <option value="HPP">Habitação Própria e Permanente (HPP)</option>
+            <option value="HS">Habitação Secundária / Arrendamento</option>
+            <option value="RUSTICO">Prédio Rústico (Terreno)</option>
+            <option value="OUTROS">Outros Prédios / Comercial</option>
+          </select>
+        </div>
+        <div class="sim-group" style="grid-column: 1 / -1;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="imtYoung" style="width: 18px; height: 18px;"> 
+            <span>Compradores com idade até 35 anos (Isenção Jovem até 316.772€)</span>
+          </label>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <button type="submit" class="sim-btn">Calcular Impostos</button>
+        </div>
+      </form>
+
+      <div id="imtResult" class="sim-results" style="display: none;">
+        <h3 style="font-size: 18px; color: #0c1b24; text-align: center;">Resumo dos Impostos</h3>
+        <div class="sim-res-grid">
+          <div class="sim-res-card">
+            <span>IMT</span>
+            <strong id="resIMT">0,00 €</strong>
+          </div>
+          <div class="sim-res-card">
+            <span>Imposto de Selo (0,8%)</span>
+            <strong id="resSelo">0,00 €</strong>
+          </div>
+          <div class="sim-res-card highlight">
+            <span>Total de Impostos</span>
+            <strong id="resTotalIMT">0,00 €</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT DE CÁLCULO DOS SIMULADORES -->
+<script>
+  function atualizarEntradaMinima() {
+    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+    const downEl = document.getElementById('calcDown');
+    if (price > 0 && !downEl.getAttribute('data-edited')) {
+      downEl.value = Math.round(price * 0.10);
+    }
+  }
+
+  if(document.getElementById('calcDown')) {
+    document.getElementById('calcDown').addEventListener('input', function() {
+      this.setAttribute('data-edited', 'true');
+    });
+  }
+
+  function calcularCredito(e) {
+    if (e) e.preventDefault();
+    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+    const downPayment = parseFloat(document.getElementById('calcDown').value) || 0;
+    const years = parseInt(document.getElementById('calcYears').value) || 35;
+    const annualRate = parseFloat(document.getElementById('calcRate').value) || 0;
+    const loanAmount = price - downPayment;
+
+    if (loanAmount <= 0) {
+      alert("O valor de entrada não pode ser igual ou superior ao valor do imóvel.");
+      return;
+    }
+
+    const totalMonths = years * 12;
+    const monthlyRate = (annualRate / 100) / 12;
+    let monthlyPayment = 0;
+
+    if (monthlyRate > 0) {
+      monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+    } else {
+      monthlyPayment = loanAmount / totalMonths;
+    }
+
+    const totalPaid = monthlyPayment * totalMonths;
+    const totalInterest = totalPaid - loanAmount;
+    const fmt = (val) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
+
+    document.getElementById('resLoan').innerText = fmt(loanAmount);
+    document.getElementById('resMonthly').innerText = fmt(monthlyPayment) + " /mês";
+    document.getElementById('resTotalInterest').innerText = fmt(totalInterest);
+
+    const msg = encodeURIComponent(`Olá Jo Torres! Fiz uma simulação no site:\n- Imóvel: ${fmt(price)}\n- Entrada: ${fmt(downPayment)}\n- Empréstimo: ${fmt(loanAmount)}\n- Prazo: ${years} anos\n- Prestação Estimada: ${fmt(monthlyPayment)}/mês.\n\nGostaria de mais informações!`);
+    document.getElementById('btnWhatsappCredito').href = `https://wa.me/41792601145?text=${msg}`;
+    document.getElementById('calcResult').style.display = 'block';
+  }
+
+  function calcularIMT(e) {
+    if (e) e.preventDefault();
+    const price = parseFloat(document.getElementById('imtPrice').value) || 0;
+    const purpose = document.getElementById('imtPurpose').value;
+    const isYoung = document.getElementById('imtYoung').checked;
+
+    if (price <= 0) return;
+    let imt = 0;
+    let selo = price * 0.008;
+
+    if (isYoung && purpose === 'HPP') {
+      if (price <= 316772) {
+        imt = 0; selo = 0;
+      } else if (price <= 633453) {
+        imt = (price - 316772) * 0.08;
+      } else {
+        imt = calcularEscaloesHPP(price);
+      }
+    } else {
+      if (purpose === 'HPP') imt = calcularEscaloesHPP(price);
+      else if (purpose === 'HS') imt = calcularEscaloesSecundaria(price);
+      else if (purpose === 'RUSTICO') imt = price * 0.05;
+      else if (purpose === 'OUTROS') imt = price * 0.065;
+    }
+
+    const fmt = (val) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
+    document.getElementById('resIMT').innerText = fmt(imt);
+    document.getElementById('resSelo').innerText = fmt(selo);
+    document.getElementById('resTotalIMT').innerText = fmt(imt + selo);
+    document.getElementById('imtResult').style.display = 'block';
+  }
+
+  function calcularEscaloesHPP(p) {
+    if (p <= 101917) return 0;
+    if (p <= 139412) return (p * 0.02) - 2038.34;
+    if (p <= 190086) return (p * 0.05) - 6220.70;
+    if (p <= 316772) return (p * 0.07) - 10022.42;
+    if (p <= 633453) return (p * 0.08) - 13190.14;
+    if (p <= 1102920) return p * 0.06;
+    return p * 0.075;
+  }
+
+  function calcularEscaloesSecundaria(p) {
+    if (p <= 101917) return p * 0.01;
+    if (p <= 139412) return (p * 0.02) - 1019.17;
+    if (p <= 190086) return (p * 0.05) - 5201.53;
+    if (p <= 316772) return (p * 0.07) - 9003.25;
+    if (p <= 633453) return (p * 0.08) - 12170.97;
+    if (p <= 1102920) return p * 0.06;
+    return p * 0.075;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    calcularCredito();
+    calcularIMT();
+  });
+</script>
+<!-- ======================================================= -->
+<!-- FIM DA SECÇÃO DE SIMULADORES                           -->
+<!-- ======================================================= -->
 </body>
 </html>
