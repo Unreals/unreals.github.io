@@ -6,11 +6,9 @@
 <title>Jo Torres | Consultor Imobiliário</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<!-- Font Awesome para Ícones -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 <style>
-/* Estilos para a galeria, zoom, badge de luxo e localidade em destaque */
 .property-img-wrap {
   position: relative !important;
   width: 100% !important;
@@ -29,7 +27,6 @@
   transform: scale(1.03) !important;
 }
 
-/* Badge do Diamante (Luxo) */
 .luxury-badge {
   position: absolute !important;
   top: 10px !important;
@@ -39,14 +36,32 @@
   border: 1px solid #c99b32 !important;
   padding: 6px 12px !important;
   border-radius: 20px !important;
-  font-size: 15px !important;
+  font-size: 13px !important;
   font-weight: bold !important;
   display: flex !important;
   align-items: center !important;
   gap: 5px !important;
   z-index: 10 !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
 }
+
+.energy-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+.energy-a-plus, .energy-a { background-color: #1e824c !important; }
+.energy-b, .energy-b-minus { background-color: #26a65b !important; }
+.energy-c { background-color: #f39c12 !important; }
+.energy-d { background-color: #e67e22 !important; }
+.energy-e, .energy-f { background-color: #d9534f !important; }
+.energy-isento { background-color: #7f8c8d !important; }
 
 .gallery-btn {
   position: absolute !important;
@@ -62,12 +77,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 12px !important;
   z-index: 5 !important;
-  transition: background 0.2s !important;
-}
-.gallery-btn:hover {
-  background: rgba(201,155,50,0.9) !important;
 }
 .gallery-btn.prev { left: 8px !important; }
 .gallery-btn.next { right: 8px !important; }
@@ -84,80 +94,24 @@
   z-index: 5 !important;
 }
 
-/* LOCALIZAÇÃO EM DESTAQUE E FONTE BEM MAIOR */
-.property-body .prop-location,
 .prop-location {
   color: #0c1b24 !important;
-  font-size: 19px !important;
+  font-size: 18px !important;
   font-weight: 700 !important;
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
-  margin: 10px 0 14px 0 !important;
-  letter-spacing: 0.2px !important;
+  margin: 10px 0 12px 0 !important;
 }
-.property-body .prop-location i,
-.prop-location i {
-  color: #c99b32 !important;
-  font-size: 20px !important;
-}
+.prop-location i { color: #c99b32 !important; }
 
-.property-details {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 12px !important;
-  font-size: 13px !important;
-  color: #555 !important;
-  margin: 10px 0 12px !important;
-}
-.property-details span {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 5px !important;
-}
-.property-details i {
-  color: #c99b32 !important;
-  font-size: 14px !important;
-}
-
-.prop-desc {
-  font-size: 13px !important;
-  color: #666 !important;
-  margin: 8px 0 12px !important;
-  line-height: 1.4 !important;
-}
-
-/* Lightbox Modal */
 .lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.92);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); z-index: 9999;
+  justify-content: center; align-items: center; padding: 20px;
 }
-.lightbox.show {
-  display: flex;
-}
-.lightbox-img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 6px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.8);
-}
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: #fff;
-  font-size: 40px;
-  cursor: pointer;
-  z-index: 10000;
-  font-weight: bold;
-}
+.lightbox.show { display: flex; }
+.lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+.lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -174,35 +128,31 @@
 <div class="hero-card"><img src="images/jo-torres.jpg" alt="Jo Torres, Consultor Imobiliário"><div class="hero-card-text"><strong>Jo Torres</strong><span>Consultor Imobiliário</span></div></div>
 </div></section>
 
-<section class="search-wrap"><div class="container search-box"><div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto, Gaia..."></div><div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div><div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div><button class="btn gold" id="searchBtn">Pesquisar</button></div></section>
+<section class="search-wrap"><div class="container search-box">
+  <div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto..."></div>
+  <div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div>
+  <div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div>
+  <button class="btn gold" id="searchBtn">Pesquisar</button>
+</div></section>
 
-<section class="trust"><div class="container trust-grid"><div><b>01</b><strong>Confiança</strong><span>Transparência em cada negócio</span></div><div><b>02</b><strong>Acompanhamento</strong><span>Do primeiro contacto à escritura</span></div><div><b>03</b><strong>Portugal & Suíça</strong><span>Conhecimento de vários mercados</span></div><div><b>04</b><strong>À sua medida</strong><span>Soluções para compradores e vendedores</span></div></div></section>
+<section class="section" id="imoveis"><div class="container">
+  <div class="section-head"><div><p class="eyebrow dark">SELEÇÃO JO TORRES</p><h2>Imóveis em destaque</h2><p>Algumas oportunidades para começar a sua pesquisa.</p></div><a class="text-link" href="#contacto">Tenho um imóvel para vender →</a></div>
+  <div class="cards" id="propertyGrid"></div>
+  <div id="noResults" style="display:none; text-align:center; padding:40px 20px; font-size:16px;">Não encontrámos imóveis com esses critérios.</div>
+</div></section>
 
-<section class="section" id="imoveis"><div class="container"><div class="section-head"><div><p class="eyebrow dark">SELEÇÃO JO TORRES</p><h2>Imóveis em destaque</h2><p>Algumas oportunidades para começar a sua pesquisa.</p></div><a class="text-link" href="#contacto">Tenho um imóvel para vender →</a></div>
+<section class="about section" id="sobre"><div class="container about-grid"><div class="about-photo"><img src="images/jo-torres.jpg" alt="Jo Torres"></div><div><p class="eyebrow dark">SOBRE MIM</p><h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2><p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça.</p><div class="signature">Jo Torres</div></div></div></section>
 
-<div class="cards" id="propertyGrid"></div>
-
-<div id="noResults" class="no-results" style="display:none; text-align:center; padding:40px 20px; font-size:16px;">Não encontrámos imóveis com esses critérios. <a href="#contacto" style="color:#c99b32; font-weight:bold;">Fale comigo</a>.</div></div></section>
-
-<section class="about section" id="sobre"><div class="container about-grid"><div class="about-photo"><img src="images/jo-torres.jpg" alt="Jo Torres"></div><div><p class="eyebrow dark">SOBRE MIM</p><h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2><p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça. O meu trabalho é acompanhar cada cliente com proximidade, clareza e profissionalismo.</p><p>Se procura comprar, vender ou perceber o valor de uma oportunidade, conte comigo para tornar o processo mais simples.</p><div class="signature">Jo Torres</div><a class="btn dark" href="https://www.fabioneves.pt" target="_blank" rel="noopener">Visitar website profissional</a></div></div></section>
-
-<section class="services section" id="servicos"><div class="container"><p class="eyebrow dark">COMO POSSO AJUDAR</p><h2>Serviço imobiliário com acompanhamento próximo.</h2><div class="service-grid"><div><span>01</span><h3>Comprar</h3><p>Encontre oportunidades adequadas ao seu perfil, orçamento e objetivo.</p></div><div><span>02</span><h3>Vender</h3><p>Apresente o seu imóvel da melhor forma e chegue aos compradores certos.</p></div><div><span>03</span><h3>Investir</h3><p>Avalie oportunidades com uma abordagem prática e orientada para resultados.</p></div></div></div></section>
-
-<section class="contact section" id="contacto"><div class="container contact-box"><div><p class="eyebrow">VAMOS CONVERSAR</p><h2>Tem uma pergunta?<br>Estou disponível.</h2><p>Fale comigo diretamente por WhatsApp ou telefone.</p></div><div class="contact-actions"><a href="tel:+41792601145"><small>Telefone / WhatsApp</small><strong>+41 79 260 11 45</strong></a><a href="tel:+351258948070"><small>Escritório Portugal</small><strong>+351 258 948 070</strong></a><a class="btn gold" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20gostaria%20de%20falar%20consigo.">Abrir WhatsApp →</a></div></div></section>
+<section class="contact section" id="contacto"><div class="container contact-box"><div><p class="eyebrow">VAMOS CONVERSAR</p><h2>Tem uma pergunta?<br>Estou disponível.</h2></div><div class="contact-actions"><a href="tel:+41792601145"><small>Telefone / WhatsApp</small><strong>+41 79 260 11 45</strong></a><a class="btn gold" href="https://wa.me/41792601145">Abrir WhatsApp →</a></div></div></section>
 </main>
 
-<footer><div class="container footer-grid"><div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong><small>CONSULTOR IMOBILIÁRIO</small></span></div><div><p>Portugal · Suíça</p><a href="https://www.fabioneves.pt">www.fabioneves.pt</a></div><div><p>© 2026 Jo Torres</p><p>Todos os direitos reservados.</p></div></div></footer>
+<footer><div class="container footer-grid"><div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong></span></div><div><p>© 2026 Jo Torres</p></div></div></footer>
 
-<!-- Modal Lightbox (Zoom) -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close">&times;</span>
-  <img id="lightbox-img" class="lightbox-img" src="" alt="Zoom foto">
-</div>
+<div id="lightbox" class="lightbox" onclick="closeLightbox()"><span class="lightbox-close">&times;</span><img id="lightbox-img" class="lightbox-img" src="" alt="Zoom"></div>
 
 <script>
 document.querySelector('.menu').onclick = () => document.querySelector('nav').classList.toggle('open');
 
-// Normaliza texto para ignorar acentos e maiúsculas
 function normalizeText(str) {
   return String(str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
@@ -210,11 +160,10 @@ function normalizeText(str) {
 function applySearch() {
   const cards = [...document.querySelectorAll('.property')];
   const noResults = document.getElementById('noResults');
-  
   const z = normalizeText(document.getElementById('qZone').value.trim());
   const t = document.getElementById('qType').value;
   const p = Number(document.getElementById('qPrice').value || Infinity);
-  let visibleCount = 0;
+  let count = 0;
 
   cards.forEach(c => {
     let searchContent = normalizeText(c.dataset.search || "");
@@ -227,119 +176,96 @@ function applySearch() {
 
     let ok = matchZone && matchType && matchPrice;
     c.style.display = ok ? 'block' : 'none';
-    if (ok) visibleCount++;
+    if (ok) count++;
   });
 
-  if (noResults) noResults.style.display = (visibleCount === 0) ? 'block' : 'none';
+  if (noResults) noResults.style.display = (count === 0) ? 'block' : 'none';
 }
 
 document.getElementById('qZone').addEventListener('input', applySearch);
 document.getElementById('qType').addEventListener('change', applySearch);
 document.getElementById('qPrice').addEventListener('change', applySearch);
+document.getElementById('searchBtn').onclick = applySearch;
 
-document.getElementById('searchBtn').onclick = () => {
-  applySearch();
-  document.getElementById('imoveis').scrollIntoView({ behavior: 'smooth' });
-};
-
-function esc(s) {
-  return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
-}
-
-function openLightbox(src) {
-  const lb = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
-  img.src = src;
-  lb.classList.add('show');
-}
-
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('show');
-}
+function esc(s) { return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])); }
+function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('show'); }
+function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
 
 window.propertiesImageData = {};
 
 function changeCardImage(event, propId, direction) {
   event.stopPropagation();
   const data = window.propertiesImageData[propId];
-  if (!data || !data.images || data.images.length === 0) return;
-
+  if (!data || !data.images) return;
   data.currentIndex = (data.currentIndex + direction + data.images.length) % data.images.length;
-  
-  const imgEl = document.getElementById(`img-${propId}`);
-  const counterEl = document.getElementById(`counter-${propId}`);
-  
-  if (imgEl) imgEl.src = data.images[data.currentIndex];
-  if (counterEl) counterEl.innerText = `${data.currentIndex + 1}/${data.images.length}`;
+  document.getElementById(`img-${propId}`).src = data.images[data.currentIndex];
+  document.getElementById(`counter-${propId}`).innerText = `${data.currentIndex + 1}/${data.images.length}`;
 }
 
-function triggerZoom(propId) {
-  const data = window.propertiesImageData[propId];
-  if (data && data.images && data.images.length > 0) {
-    openLightbox(data.images[data.currentIndex]);
-  }
+function getEnergyBadge(rating) {
+  if (!rating) return '';
+  const r = String(rating).trim().toUpperCase();
+  let css = 'energy-isento';
+  if (r === 'A+') css = 'energy-a-plus';
+  else if (r === 'A') css = 'energy-a';
+  else if (r === 'B') css = 'energy-b';
+  else if (r === 'B-') css = 'energy-b-minus';
+  else if (r === 'C') css = 'energy-c';
+  else if (r === 'D') css = 'energy-d';
+  else if (r === 'E') css = 'energy-e';
+  else if (r === 'F') css = 'energy-f';
+
+  return `<span class="energy-badge ${css}" title="Certificação Energética: ${r}">CE ${r}</span>`;
 }
 
 function renderPropertyList(items) {
   const grid = document.getElementById('propertyGrid');
-  if (!Array.isArray(items) || items.length === 0) return;
+  if (!Array.isArray(items) || items.length === 0) {
+    grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #666;">Nenhum imóvel disponível no momento.</p>';
+    return;
+  }
 
   grid.innerHTML = items.map((x, idx) => {
-    let imgList = [];
-    if (Array.isArray(x.images) && x.images.length > 0) {
-      imgList = x.images;
-    } else if (x.image) {
-      imgList = [x.image];
-    } else {
-      imgList = ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85'];
-    }
-
-    window.propertiesImageData[idx] = {
-      images: imgList,
-      currentIndex: 0
-    };
+    let imgList = Array.isArray(x.images) && x.images.length ? x.images : (x.image ? [x.image] : ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85']);
+    window.propertiesImageData[idx] = { images: imgList, currentIndex: 0 };
 
     const priceVal = x.price || 0;
     const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(priceVal);
     const title = esc(x.title || 'Imóvel');
     const location = esc(x.location || 'Portugal');
     const type = esc(x.type || 'Moradia');
-
-    const rooms = (x.rooms && Number(x.rooms) > 0) ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms} quartos</span>` : '';
-    const baths = (x.baths && Number(x.baths) > 0) ? `<span><i class="fa-solid fa-bath"></i> ${x.baths} WC</span>` : '';
-    const area = (x.area && Number(x.area) > 0) ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
-    const garage = (x.garage === "Sim" || Number(x.garage) > 0) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
-    const desc = x.description ? `<p class="prop-desc">${esc(x.description)}</p>` : '';
-
-    const isLuxury = x.luxury === "Sim" || x.luxury === true || x.luxury === "true";
-    const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>` : '';
-
-    const hasMultipleImages = imgList.length > 1;
     const searchableText = `${title} ${location} ${x.description || ''}`;
 
+    const rooms = x.rooms ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms}</span>` : '';
+    const baths = x.baths ? `<span><i class="fa-solid fa-bath"></i> ${x.baths}</span>` : '';
+    const area = x.area ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
+
+    const isLuxury = x.luxury === "Sim" || x.luxury === true;
+    const luxuryBadge = isLuxury ? `<div class="luxury-badge">💎 Luxo</div>` : '';
+    const energyBadge = getEnergyBadge(x.energy);
+
     return `
-      <article class="property" data-search="${searchableText}" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
-        <div class="property-img-wrap" onclick="triggerZoom(${idx})">
+      <article class="property" data-search="${searchableText}" data-type="${type}" data-price="${priceVal}">
+        <div class="property-img-wrap" onclick="openLightbox('${imgList[0]}')">
           ${luxuryBadge}
           <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
-          ${hasMultipleImages ? `
+          ${imgList.length > 1 ? `
             <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
             <button class="gallery-btn next" onclick="changeCardImage(event, ${idx}, 1)">❯</button>
             <span class="img-counter" id="counter-${idx}">1/${imgList.length}</span>
           ` : ''}
         </div>
         <div class="property-body">
-          <span class="tag">${type}</span>
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span class="tag">${type}</span>
+            ${energyBadge}
+          </div>
           <h3>${title}</h3>
           <p class="prop-location"><i class="fa-solid fa-location-dot"></i> ${location}</p>
-          <div class="property-details">
-            ${rooms}
-            ${baths}
-            ${area}
-            ${garage}
+          <div class="property-details" style="display:flex; gap:10px; font-size:13px; color:#555; margin-bottom:10px;">
+            ${rooms} ${baths} ${area}
           </div>
-          ${desc}
-          <strong>${priceFormatted}</strong>
+          <strong style="font-size:18px; color:#0c1b24;">${priceFormatted}</strong>
         </div>
       </article>
     `;
@@ -351,32 +277,26 @@ function renderPropertyList(items) {
 async function loadAllProperties() {
   let loadedData = null;
 
-  // 1. Tenta carregar do properties.json
-  try {
-    const res = await fetch('properties.json?v=' + Date.now());
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        loadedData = data;
+  // Prioridade 1: Dados do Admin em tempo real
+  const local = localStorage.getItem("jt_properties");
+  if (local) {
+    try {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        loadedData = parsed;
       }
-    }
-  } catch(e) {
-    console.log("Servidor sem properties.json, tentando localStorage...");
+    } catch(e){}
   }
 
-  // 2. Se não houver properties.json (ou em testes locais), carrega do localStorage do painel
+  // Prioridade 2: properties.json
   if (!loadedData) {
-    const local = localStorage.getItem("jt_properties");
-    if (local) {
-      try {
-        loadedData = JSON.parse(local);
-      } catch(e){}
-    }
+    try {
+      const res = await fetch('properties.json?v=' + Date.now());
+      if (res.ok) loadedData = await res.json();
+    } catch(e){}
   }
 
-  if (loadedData) {
-    renderPropertyList(loadedData);
-  }
+  if (loadedData) renderPropertyList(loadedData);
 }
 
 loadAllProperties();
