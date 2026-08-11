@@ -174,34 +174,15 @@
 <div class="hero-card"><img src="images/jo-torres.jpg" alt="Jo Torres, Consultor Imobiliário"><div class="hero-card-text"><strong>Jo Torres</strong><span>Consultor Imobiliário</span></div></div>
 </div></section>
 
-<section class="search-wrap"><div class="container search-box"><div><label>Zona</label><input id="qZone" placeholder="Lisboa, Porto, Algarve..."></div><div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option></select></div><div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div><button class="btn gold" id="searchBtn">Pesquisar</button></div></section>
+<section class="search-wrap"><div class="container search-box"><div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto..."></div><div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div><div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div><button class="btn gold" id="searchBtn">Pesquisar</button></div></section>
 
 <section class="trust"><div class="container trust-grid"><div><b>01</b><strong>Confiança</strong><span>Transparência em cada negócio</span></div><div><b>02</b><strong>Acompanhamento</strong><span>Do primeiro contacto à escritura</span></div><div><b>03</b><strong>Portugal & Suíça</strong><span>Conhecimento de vários mercados</span></div><div><b>04</b><strong>À sua medida</strong><span>Soluções para compradores e vendedores</span></div></div></section>
 
 <section class="section" id="imoveis"><div class="container"><div class="section-head"><div><p class="eyebrow dark">SELEÇÃO JO TORRES</p><h2>Imóveis em destaque</h2><p>Algumas oportunidades para começar a sua pesquisa.</p></div><a class="text-link" href="#contacto">Tenho um imóvel para vender →</a></div>
 
-<div class="cards" id="propertyGrid">
-  <article class="property" data-zone="Cascais" data-type="Moradia" data-price="650000">
-    <div class="property-img-wrap" onclick="openLightbox('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85')">
-      <div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Moradia moderna">
-    </div>
-    <div class="property-body">
-      <span class="tag">Moradia</span>
-      <h3>Moradia contemporânea com piscina</h3>
-      <p class="prop-location"><i class="fa-solid fa-location-dot"></i> Cascais</p>
-      <div class="property-details">
-        <span><i class="fa-solid fa-bed"></i> 4 quartos</span>
-        <span><i class="fa-solid fa-bath"></i> 3 WC</span>
-        <span><i class="fa-solid fa-ruler-combined"></i> 280 m²</span>
-        <span><i class="fa-solid fa-car"></i> Garagem</span>
-      </div>
-      <strong>650.000 €</strong>
-    </div>
-  </article>
-</div>
+<div class="cards" id="propertyGrid"></div>
 
-<div id="noResults" class="no-results" style="display:none;">Não encontrámos imóveis com esses critérios. <a href="#contacto">Fale comigo</a>.</div></div></section>
+<div id="noResults" class="no-results" style="display:none; text-align:center; padding:40px 20px; font-size:16px;">Não encontrámos imóveis com esses critérios. <a href="#contacto" style="color:#c99b32; font-weight:bold;">Fale comigo</a>.</div></div></section>
 
 <section class="about section" id="sobre"><div class="container about-grid"><div class="about-photo"><img src="images/jo-torres.jpg" alt="Jo Torres"></div><div><p class="eyebrow dark">SOBRE MIM</p><h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2><p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça. O meu trabalho é acompanhar cada cliente com proximidade, clareza e profissionalismo.</p><p>Se procura comprar, vender ou perceber o valor de uma oportunidade, conte comigo para tornar o processo mais simples.</p><div class="signature">Jo Torres</div><a class="btn dark" href="https://www.fabioneves.pt" target="_blank" rel="noopener">Visitar website profissional</a></div></div></section>
 
@@ -221,26 +202,41 @@
 <script>
 document.querySelector('.menu').onclick = () => document.querySelector('nav').classList.toggle('open');
 
+// Função para remover acentos na pesquisa (ex: Famalicão -> famalicao)
+function normalizeText(str) {
+  return String(str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 function applySearch() {
   const cards = [...document.querySelectorAll('.property')];
   const noResults = document.getElementById('noResults');
-  const z = document.getElementById('qZone').value.trim().toLowerCase();
+  
+  const z = normalizeText(document.getElementById('qZone').value);
   const t = document.getElementById('qType').value;
   const p = Number(document.getElementById('qPrice').value || Infinity);
   let n = 0;
 
   cards.forEach(c => {
-    let zone = (c.dataset.zone || "").toLowerCase();
+    let searchContent = normalizeText(c.dataset.search || "");
     let type = c.dataset.type || "";
     let price = Number(c.dataset.price || 0);
 
-    let ok = (!z || zone.includes(z)) && (!t || type === t) && (price <= p);
+    let matchZone = !z || searchContent.includes(z);
+    let matchType = !t || type === t;
+    let matchPrice = price <= p;
+
+    let ok = matchZone && matchType && matchPrice;
     c.style.display = ok ? 'block' : 'none';
     if (ok) n++;
   });
 
-  if (noResults) noResults.style.display = n ? 'none' : 'block';
+  if (noResults) noResults.style.display = (n === 0) ? 'block' : 'none';
 }
+
+// Eventos de Pesquisa Instantânea ao digitar ou alterar campo
+document.getElementById('qZone').addEventListener('input', applySearch);
+document.getElementById('qType').addEventListener('change', applySearch);
+document.getElementById('qPrice').addEventListener('change', applySearch);
 
 document.getElementById('searchBtn').onclick = () => {
   applySearch();
@@ -321,14 +317,17 @@ async function loadPropertiesFromJSON() {
       const garage = (x.garage === "Sim" || Number(x.garage) > 0) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
       const desc = x.description ? `<p class="prop-desc">${esc(x.description)}</p>` : '';
 
-      // Verifica se é imóvel de luxo (suporta "Sim", true ou "true")
+      // Verifica se é imóvel de luxo
       const isLuxury = x.luxury === "Sim" || x.luxury === true || x.luxury === "true";
       const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>` : '';
 
       const hasMultipleImages = imgList.length > 1;
+      
+      // Criar um campo combinando título, localização e descrição para permitir pesquisa ampla
+      const searchableText = `${title} ${location} ${x.description || ''}`;
 
       return `
-        <article class="property" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
+        <article class="property" data-search="${searchableText}" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
           <div class="property-img-wrap" onclick="triggerZoom(${idx})">
             ${luxuryBadge}
             <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
@@ -354,6 +353,9 @@ async function loadPropertiesFromJSON() {
         </article>
       `;
     }).join('');
+
+    // Aplica a pesquisa caso o utilizador já tenha escrito algo antes dos imóveis carregarem
+    applySearch();
 
   } catch (err) {
     console.log('Erro ao carregar properties.json', err);
