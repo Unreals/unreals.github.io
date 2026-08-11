@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 <style>
-/* Estilos para a galeria e zoom nas imagens */
+/* Estilos para a galeria, zoom, badge de luxo e localidade em destaque */
 .property-img-wrap {
   position: relative;
   width: 100%;
@@ -27,6 +27,24 @@
 }
 .property-img-wrap:hover img {
   transform: scale(1.03);
+}
+
+/* Badge do Diamante (Luxo) */
+.luxury-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(12, 27, 36, 0.88);
+  color: #c99b32;
+  border: 1px solid #c99b32;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .gallery-btn {
@@ -65,6 +83,21 @@
   z-index: 2;
 }
 
+/* Localidade com Fonte Maior e Mais Destaque */
+.prop-location {
+  color: #17252d;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+.prop-location i {
+  color: var(--g, #c99b32);
+  font-size: 16px;
+}
+
 .property-details {
   display: flex;
   flex-wrap: wrap;
@@ -81,18 +114,6 @@
 .property-details i {
   color: var(--g, #c99b32);
   font-size: 14px;
-}
-
-.prop-location {
-  color: #71808a;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 4px;
-}
-.prop-location i {
-  color: var(--g, #c99b32);
 }
 
 .prop-desc {
@@ -157,6 +178,7 @@
 <div class="cards" id="propertyGrid">
   <article class="property" data-zone="Cascais" data-type="Moradia" data-price="650000">
     <div class="property-img-wrap" onclick="openLightbox('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85')">
+      <div class="luxury-badge" title="Imóvel de Luxo"><i class="fa-solid fa-gem"></i></div>
       <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Moradia moderna">
     </div>
     <div class="property-body">
@@ -224,7 +246,6 @@ function esc(s) {
   return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
 }
 
-// Funções para Zoom (Lightbox)
 function openLightbox(src) {
   const lb = document.getElementById('lightbox');
   const img = document.getElementById('lightbox-img');
@@ -239,7 +260,7 @@ function closeLightbox() {
 window.propertiesImageData = {};
 
 function changeCardImage(event, propId, direction) {
-  event.stopPropagation(); // Evita abrir o Zoom ao clicar nas setas
+  event.stopPropagation();
   const data = window.propertiesImageData[propId];
   if (!data || !data.images || data.images.length === 0) return;
 
@@ -289,18 +310,21 @@ async function loadPropertiesFromJSON() {
       const location = esc(x.location || 'Portugal');
       const type = esc(x.type || 'Apartamento');
 
-      // Verificação condicional para mostrar apenas campos devidamente preenchidos
       const rooms = (x.rooms && Number(x.rooms) > 0) ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms} quartos</span>` : '';
       const baths = (x.baths && Number(x.baths) > 0) ? `<span><i class="fa-solid fa-bath"></i> ${x.baths} WC</span>` : '';
       const area = (x.area && Number(x.area) > 0) ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
       const garage = (x.garage === "Sim" || Number(x.garage) > 0) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
       const desc = x.description ? `<p class="prop-desc">${esc(x.description)}</p>` : '';
 
+      const isLuxury = x.luxury === "Sim";
+      const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo"><i class="fa-solid fa-gem"></i></div>` : '';
+
       const hasMultipleImages = imgList.length > 1;
 
       return `
         <article class="property" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
           <div class="property-img-wrap" onclick="triggerZoom(${idx})">
+            ${luxuryBadge}
             <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
             ${hasMultipleImages ? `
               <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
