@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Joaquim Torres — Agente Imobiliário. Imóveis para venda em várias zonas.">
+  <title>Joaquim Torres | Agente Imobiliário</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav container">
+      <a class="logo" href="#">Joaquim Torres<span>.</span></a>
+      <div class="nav-links">
+        <a href="#imoveis">Imóveis</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+
+    <div class="hero-content container">
+      <p class="eyebrow">AGENTE IMOBILIÁRIO</p>
+      <h1>Encontre o imóvel certo para si.</h1>
+      <p class="hero-text">Imóveis selecionados para venda em várias zonas, com acompanhamento profissional em cada etapa.</p>
+      <a class="button" href="#imoveis">Ver imóveis</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="imoveis" class="section container">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">OPORTUNIDADES</p>
+          <h2>Imóveis em destaque</h2>
+        </div>
+        <select id="zonaFiltro" aria-label="Filtrar por zona">
+          <option value="todas">Todas as zonas</option>
+          <option value="Porto">Porto</option>
+          <option value="Vila Nova de Gaia">Vila Nova de Gaia</option>
+          <option value="Braga">Braga</option>
+        </select>
+      </div>
+
+      <div class="properties" id="properties">
+        <article class="property-card" data-zona="Porto">
+          <div class="property-image image-1">
+            <span>DESTAQUE</span>
+          </div>
+          <div class="property-body">
+            <p class="location">Porto</p>
+            <h3>Moradia moderna T4</h3>
+            <p class="price">395.000 €</p>
+            <div class="details"><span>4 quartos</span><span>3 WC</span><span>220 m²</span></div>
+            <a class="card-link" href="#contacto">Pedir informações →</a>
+          </div>
+        </article>
+
+        <article class="property-card" data-zona="Vila Nova de Gaia">
+          <div class="property-image image-2"></div>
+          <div class="property-body">
+            <p class="location">Vila Nova de Gaia</p>
+            <h3>Apartamento T3 com varanda</h3>
+            <p class="price">285.000 €</p>
+            <div class="details"><span>3 quartos</span><span>2 WC</span><span>128 m²</span></div>
+            <a class="card-link" href="#contacto">Pedir informações →</a>
+          </div>
+        </article>
+
+        <article class="property-card" data-zona="Braga">
+          <div class="property-image image-3"></div>
+          <div class="property-body">
+            <p class="location">Braga</p>
+            <h3>Moradia T3 com jardim</h3>
+            <p class="price">320.000 €</p>
+            <div class="details"><span>3 quartos</span><span>2 WC</span><span>180 m²</span></div>
+            <a class="card-link" href="#contacto">Pedir informações →</a>
+          </div>
+        </article>
+      </div>
+      <p class="note">Os imóveis apresentados são exemplos. Substitua fotografias, preços e características pelos imóveis reais.</p>
+    </section>
+
+    <section id="sobre" class="section about">
+      <div class="container about-grid">
+        <div>
+          <p class="eyebrow">CONFIANÇA E ACOMPANHAMENTO</p>
+          <h2>Joaquim Torres</h2>
+          <p>Agente imobiliário dedicado a ajudar clientes a encontrar oportunidades de compra em diferentes zonas.</p>
+          <p>Desde a primeira visita até à concretização do negócio, o objetivo é proporcionar um acompanhamento simples, claro e profissional.</p>
+        </div>
+        <div class="about-box">
+          <strong>Procura um imóvel?</strong>
+          <p>Fale comigo e diga-me o que procura. Posso ajudar a encontrar opções adequadas às suas necessidades.</p>
+          <a class="button dark" href="#contacto">Entrar em contacto</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="section contact">
+      <div class="container contact-box">
+        <div>
+          <p class="eyebrow">CONTACTO</p>
+          <h2>Vamos encontrar o seu próximo imóvel.</h2>
+          <p>Entre em contacto para saber mais sobre os imóveis disponíveis.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="contact-button" href="tel:+41792601145">Telefone<br><strong>+41 792 601 145</strong></a>
+          <a class="contact-button whatsapp" href="https://wa.me/41792601145" target="_blank" rel="noopener">WhatsApp<br><strong>Enviar mensagem</strong></a>
+          <a class="contact-button" href="https://www.fabioneves.pt" target="_blank" rel="noopener">Website profissional<br><strong>fabioneves.pt</strong></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© 2026 Joaquim Torres — Agente Imobiliário</span>
+      <a href="https://www.fabioneves.pt" target="_blank" rel="noopener">Website profissional</a>
+    </div>
+  </footer>
+
+  <script>
+    const filtro = document.getElementById("zonaFiltro");
+    const imoveis = document.querySelectorAll(".property-card");
+
+    filtro.addEventListener("change", () => {
+      const zona = filtro.value;
+      imoveis.forEach(imovel => {
+        imovel.hidden = zona !== "todas" && imovel.dataset.zona !== zona;
+      });
+    });
+  </script>
+</body>
+</html>
