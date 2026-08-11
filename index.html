@@ -10,126 +10,130 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 <style>
-/* Estilos para a galeria, zoom, badge de luxo e localidade em destaque */
+/* Estilos para a galeria, zoom, badge de luxo e localidade em destaque com !important */
 .property-img-wrap {
-  position: relative;
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
-  background-color: #000;
-  cursor: pointer;
+  position: relative !important;
+  width: 100% !important;
+  height: 220px !important;
+  overflow: hidden !important;
+  background-color: #000 !important;
+  cursor: pointer !important;
 }
 .property-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease !important;
 }
 .property-img-wrap:hover img {
-  transform: scale(1.03);
+  transform: scale(1.03) !important;
 }
 
 /* Badge do Diamante (Luxo) */
 .luxury-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(12, 27, 36, 0.88);
-  color: #c99b32;
-  border: 1px solid #c99b32;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  background: rgba(12, 27, 36, 0.92) !important;
+  color: #c99b32 !important;
+  border: 1px solid #c99b32 !important;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  font-size: 15px !important;
+  font-weight: bold !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  z-index: 10 !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5) !important;
 }
 
 .gallery-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  z-index: 2;
-  transition: background 0.2s;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(0,0,0,0.6) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 12px !important;
+  z-index: 5 !important;
+  transition: background 0.2s !important;
 }
 .gallery-btn:hover {
-  background: rgba(201,155,50,0.9);
+  background: rgba(201,155,50,0.9) !important;
 }
-.gallery-btn.prev { left: 8px; }
-.gallery-btn.next { right: 8px; }
+.gallery-btn.prev { left: 8px !important; }
+.gallery-btn.next { right: 8px !important; }
 
 .img-counter {
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  font-size: 11px;
-  padding: 3px 8px;
-  border-radius: 12px;
-  z-index: 2;
+  position: absolute !important;
+  bottom: 8px !important;
+  right: 8px !important;
+  background: rgba(0,0,0,0.6) !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  border-radius: 12px !important;
+  z-index: 5 !important;
 }
 
-/* Localidade com Fonte Maior e Mais Destaque */
+/* LOCALIZAÇÃO EM DESTAQUE E FONTE BEM MAIOR */
+.property-body .prop-location,
 .prop-location {
-  color: #17252d;
-  font-size: 16px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 6px 0 10px;
+  color: #0c1b24 !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 10px 0 14px 0 !important;
+  letter-spacing: 0.2px !important;
 }
+.property-body .prop-location i,
 .prop-location i {
-  color: var(--g, #c99b32);
-  font-size: 16px;
+  color: #c99b32 !important;
+  font-size: 20px !important;
 }
 
 .property-details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  font-size: 13px;
-  color: #555;
-  margin: 10px 0 12px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  font-size: 13px !important;
+  color: #555 !important;
+  margin: 10px 0 12px !important;
 }
 .property-details span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
 }
 .property-details i {
-  color: var(--g, #c99b32);
-  font-size: 14px;
+  color: #c99b32 !important;
+  font-size: 14px !important;
 }
 
 .prop-desc {
-  font-size: 13px;
-  color: #666;
-  margin: 8px 0 12px;
-  line-height: 1.4;
+  font-size: 13px !important;
+  color: #666 !important;
+  margin: 8px 0 12px !important;
+  line-height: 1.4 !important;
 }
 
-/* Modal Lightbox para Zoom na Foto */
+/* Lightbox Modal */
 .lightbox {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 1000;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 9999;
   justify-content: center;
   align-items: center;
   padding: 20px;
@@ -142,16 +146,16 @@
   max-height: 90vh;
   object-fit: contain;
   border-radius: 6px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 25px rgba(0,0,0,0.8);
 }
 .lightbox-close {
   position: absolute;
   top: 20px;
   right: 30px;
   color: #fff;
-  font-size: 35px;
+  font-size: 40px;
   cursor: pointer;
-  z-index: 1001;
+  z-index: 10000;
   font-weight: bold;
 }
 </style>
@@ -162,6 +166,7 @@
 <button class="menu" aria-label="Menu">☰</button>
 <nav><a href="imoveis.html">Imóveis</a><a href="#sobre">Sobre mim</a><a href="#servicos">Serviços</a><a href="#contacto">Contacto</a><a class="nav-wa" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20vi%20o%20seu%20site.">WhatsApp</a></nav>
 </div></header>
+
 <main id="top">
 <section class="hero"><div class="hero-bg"></div><div class="container hero-content">
 <div class="hero-copy"><p class="eyebrow">CONSULTORIA IMOBILIÁRIA · PORTUGAL & SUÍÇA</p><h1>Encontre o lugar<br><em>certo para si.</em></h1><p class="lead">Imóveis selecionados, acompanhamento próximo e uma negociação pensada para si.</p>
@@ -178,7 +183,7 @@
 <div class="cards" id="propertyGrid">
   <article class="property" data-zone="Cascais" data-type="Moradia" data-price="650000">
     <div class="property-img-wrap" onclick="openLightbox('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85')">
-      <div class="luxury-badge" title="Imóvel de Luxo"><i class="fa-solid fa-gem"></i></div>
+      <div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>
       <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Moradia moderna">
     </div>
     <div class="property-body">
@@ -316,8 +321,9 @@ async function loadPropertiesFromJSON() {
       const garage = (x.garage === "Sim" || Number(x.garage) > 0) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
       const desc = x.description ? `<p class="prop-desc">${esc(x.description)}</p>` : '';
 
-      const isLuxury = x.luxury === "Sim";
-      const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo"><i class="fa-solid fa-gem"></i></div>` : '';
+      // Verifica se é imóvel de luxo (suporta "Sim", true ou "true")
+      const isLuxury = x.luxury === "Sim" || x.luxury === true || x.luxury === "true";
+      const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>` : '';
 
       const hasMultipleImages = imgList.length > 1;
 
