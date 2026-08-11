@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jo Torres — Imóveis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{--n:#0c1b24;--g:#c99b32;--bg:#f5f6f7;--line:#e3e7e9;--mut:#71808a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:"DM Sans",sans-serif;color:#17252d}
+header{background:var(--n);color:#fff;padding:20px 30px;display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;gap:12px;align-items:center}
+.mark{width:42px;height:42px;border:1px solid #d9b45a;display:grid;place-items:center;color:#d9b45a;font-weight:700}
+.logo b,.logo small{display:block}
+.logo small{font-size:9px;color:#b8c1c5}
+.hero{background:var(--n);color:#fff;padding:60px 20px;text-align:center}
+.hero h1{font:700 48px "Playfair Display",serif;margin:0 0 10px;color:#fff}
+.hero p{color:#b8c1c5;max-width:600px;margin:0 auto 30px}
+.wrap{max-width:1200px;margin:auto;padding:40px 20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:25px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s}
+.card:hover{transform:translateY(-4px)}
+.card-img{width:100%;height:220px;object-fit:cover;background:#e9ecef}
+.card-body{padding:20px;flex:1;display:flex;flex-direction:column}
+.card-tag{align-self:flex-start;background:#fbe7e7;color:#9c3333;font-size:11px;font-weight:700;padding:4px 8px;border-radius:4px;margin-bottom:10px;text-transform:uppercase}
+.card-tag.disponivel{background:#e7f6ed;color:#247143}
+.card-title{font:700 20px "Playfair Display",serif;margin:0 0 8px;color:var(--n)}
+.card-loc{color:var(--mut);font-size:14px;margin-bottom:15px}
+.card-details{display:flex;gap:15px;font-size:13px;color:var(--mut);border-top:1px solid var(--line);padding-top:15px;margin-top:auto}
+.card-price{font-size:22px;font-weight:700;color:var(--g);margin-top:15px}
+.empty{text-align:center;padding:60px;color:var(--mut);font-size:18px;grid-column:1/-1}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="mark">JT</div>
+    <div><b>JO TORRES</b><small>IMOBILIÁRIA</small></div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Encontre o seu Imóvel Ideal</h1>
+  <p>Explore a nossa seleção de propriedades exclusivas.</p>
+</section>
+
+<main class="wrap">
+  <div id="grid" class="grid">
+    <div class="empty">A carregar imóveis...</div>
+  </div>
+</main>
+
+<script>
+async function loadProperties() {
+  const container = document.getElementById("grid");
+  try {
+    // Procura o ficheiro properties.json no servidor
+    const res = await fetch("properties.json?v=" + Date.now());
+    if (!res.ok) throw new Error("Ficheiro não encontrado");
+    
+    const items = await res.json();
+    
+    if (!items || items.length === 0) {
+      container.innerHTML = '<div class="empty">Nenhum imóvel disponível de momento.</div>';
+      return;
+    }
+
+    container.innerHTML = items.map(x => {
+      const img = x.image ? x.image : 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="%23ccc"><rect width="100%" height="100%"/></svg>';
+      const stClass = x.status === "Disponível" ? "disponivel" : "";
+      const priceFormatted = new Intl.NumberFormat("pt-PT", {style:"currency", currency:"EUR", maximumFractionDigits:0}).format(x.price || 0);
+
+      return `
+        <article class="card">
+          <img class="card-img" src="${img}" alt="${esc(x.title)}">
+          <div class="card-body">
+            <span class="card-tag ${stClass}">${esc(x.status)}</span>
+            <h2 class="card-title">${esc(x.title)}</h2>
+            <div class="card-loc">📍 ${esc(x.location)}</div>
+            <p style="font-size:14px;color:#555;margin:0 0 15px;">${esc(x.description || '')}</p>
+            <div class="card-details">
+              <span>🛏️ ${x.rooms || 0} quarto(s)</span>
+              <span>🚿 ${x.baths || 0} wc(s)</span>
+              <span>📐 ${x.area || 0} m²</span>
+            </div>
+            <div class="card-price">${priceFormatted}</div>
+          </div>
+        </article>
+      `;
+    }).join("");
+
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = '<div class="empty">Erro ao carregar os imóveis. Verifique se o ficheiro properties.json existe no repositório.</div>';
+  }
+}
+
+function esc(s){
+  return String(s || "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+
+loadProperties();
+</script>
+</body>
+</html>
