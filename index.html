@@ -6,7 +6,29 @@
 <title>Jo Torres | Consultor Imobiliário</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<!-- Ícones SVG / Font Awesome para Quarto, WC, m² e Acabamentos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Estilos extra para os detalhes com os ícones */
+.property-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+  color: #555;
+  margin: 10px 0 15px;
+}
+.property-details span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.property-details i {
+  color: var(--g, #c99b32);
+  font-size: 14px;
+}
+</style>
 </head>
 <body>
 <header class="header"><div class="container nav">
@@ -28,10 +50,54 @@
 <section class="section" id="imoveis"><div class="container"><div class="section-head"><div><p class="eyebrow dark">SELEÇÃO JO TORRES</p><h2>Imóveis em destaque</h2><p>Algumas oportunidades para começar a sua pesquisa.</p></div><a class="text-link" href="#contacto">Tenho um imóvel para vender →</a></div>
 
 <div class="cards" id="propertyGrid">
-  <!-- Imóveis Padrão / Fallback -->
-  <article class="property" data-zone="Cascais" data-type="Moradia" data-price="650000"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Moradia moderna"><div class="property-body"><span class="tag">Moradia</span><h3>Moradia contemporânea com piscina</h3><p>📍 Cascais · 4 quartos · 3 WC · 280 m²</p><strong>650.000 €</strong></div></article>
-  <article class="property" data-zone="Porto" data-type="Apartamento" data-price="420000"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85" alt="Apartamento moderno"><div class="property-body"><span class="tag">Apartamento</span><h3>Apartamento T3 com vista</h3><p>📍 Porto · 3 quartos · 2 WC · 160 m²</p><strong>420.000 €</strong></div></article>
-  <article class="property" data-zone="Lisboa" data-type="Moradia" data-price="890000"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85" alt="Moradia de luxo"><div class="property-body"><span class="tag">Moradia</span><h3>Moradia moderna em zona premium</h3><p>📍 Lisboa · 5 quartos · 4 WC · 320 m²</p><strong>890.000 €</strong></div></article>
+  <!-- Imóveis Padrão com Ícones -->
+  <article class="property" data-zone="Cascais" data-type="Moradia" data-price="650000">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85" alt="Moradia moderna">
+    <div class="property-body">
+      <span class="tag">Moradia</span>
+      <h3>Moradia contemporânea com piscina</h3>
+      <p style="color:#71808a;font-size:13px;">📍 Cascais</p>
+      <div class="property-details">
+        <span><i class="fa-solid fa-bed"></i> 4 quartos</span>
+        <span><i class="fa-solid fa-bath"></i> 3 WC</span>
+        <span><i class="fa-solid fa-ruler-combined"></i> 280 m²</span>
+        <span><i class="fa-solid fa-gem"></i> Acabamentos de Luxo</span>
+      </div>
+      <strong>650.000 €</strong>
+    </div>
+  </article>
+
+  <article class="property" data-zone="Porto" data-type="Apartamento" data-price="420000">
+    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=85" alt="Apartamento moderno">
+    <div class="property-body">
+      <span class="tag">Apartamento</span>
+      <h3>Apartamento T3 com vista</h3>
+      <p style="color:#71808a;font-size:13px;">📍 Porto</p>
+      <div class="property-details">
+        <span><i class="fa-solid fa-bed"></i> 3 quartos</span>
+        <span><i class="fa-solid fa-bath"></i> 2 WC</span>
+        <span><i class="fa-solid fa-ruler-combined"></i> 160 m²</span>
+        <span><i class="fa-solid fa-gem"></i> Premium</span>
+      </div>
+      <strong>420.000 €</strong>
+    </div>
+  </article>
+
+  <article class="property" data-zone="Lisboa" data-type="Moradia" data-price="890000">
+    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=85" alt="Moradia de luxo">
+    <div class="property-body">
+      <span class="tag">Moradia</span>
+      <h3>Moradia moderna em zona premium</h3>
+      <p style="color:#71808a;font-size:13px;">📍 Lisboa</p>
+      <div class="property-details">
+        <span><i class="fa-solid fa-bed"></i> 5 quartos</span>
+        <span><i class="fa-solid fa-bath"></i> 4 WC</span>
+        <span><i class="fa-solid fa-ruler-combined"></i> 320 m²</span>
+        <span><i class="fa-solid fa-gem"></i> Luxo</span>
+      </div>
+      <strong>890.000 €</strong>
+    </div>
+  </article>
 </div>
 
 <div id="noResults" class="no-results" style="display:none;">Não encontrámos imóveis com esses critérios. <a href="#contacto">Fale comigo</a>.</div></div></section>
@@ -81,17 +147,16 @@ function esc(s) {
   return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
 }
 
-// Carregamento Dinâmico dos Imóveis do properties.json
+// Carregamento Dinâmico dos Imóveis do properties.json com os Novos Ícones
 async function loadPropertiesFromJSON() {
   const grid = document.getElementById('propertyGrid');
   try {
     const res = await fetch('properties.json?v=' + Date.now());
-    if (!res.ok) return; // Se não encontrar o ficheiro, mantém os imóveis estáticos
+    if (!res.ok) return;
 
     const items = await res.json();
     if (!Array.isArray(items) || items.length === 0) return;
 
-    // Renderiza os novos imóveis guardados no JSON
     grid.innerHTML = items.map(x => {
       const img = x.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85';
       const priceVal = x.price || 0;
@@ -99,11 +164,11 @@ async function loadPropertiesFromJSON() {
       const title = esc(x.title || 'Imóvel');
       const location = esc(x.location || 'Portugal');
       const type = esc(x.type || 'Apartamento');
-      const rooms = x.rooms ? `${x.rooms} quartos` : '';
-      const baths = x.baths ? `${x.baths} WC` : '';
-      const area = x.area ? `${x.area} m²` : '';
 
-      const details = [location, rooms, baths, area].filter(Boolean).join(' · ');
+      const rooms = x.rooms ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms} quartos</span>` : '';
+      const baths = x.baths ? `<span><i class="fa-solid fa-bath"></i> ${x.baths} WC</span>` : '';
+      const area = x.area ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
+      const finishes = x.description ? `<span><i class="fa-solid fa-gem"></i> Acabamentos de Luxo</span>` : '';
 
       return `
         <article class="property" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
@@ -111,7 +176,13 @@ async function loadPropertiesFromJSON() {
           <div class="property-body">
             <span class="tag">${type}</span>
             <h3>${title}</h3>
-            <p>📍 ${details}</p>
+            <p style="color:#71808a;font-size:13px;">📍 ${location}</p>
+            <div class="property-details">
+              ${rooms}
+              ${baths}
+              ${area}
+              ${finishes}
+            </div>
             <strong>${priceFormatted}</strong>
           </div>
         </article>
@@ -123,7 +194,6 @@ async function loadPropertiesFromJSON() {
   }
 }
 
-// Inicializar carregamento ao abrir a página
 loadPropertiesFromJSON();
 </script>
 </body>
