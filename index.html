@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 <style>
-/* Estilos para a galeria, zoom, badge de luxo e localidade em destaque com !important */
+/* Estilos para a galeria, zoom, badge de luxo e localidade em destaque */
 .property-img-wrap {
   position: relative !important;
   width: 100% !important;
@@ -174,7 +174,7 @@
 <div class="hero-card"><img src="images/jo-torres.jpg" alt="Jo Torres, Consultor Imobiliário"><div class="hero-card-text"><strong>Jo Torres</strong><span>Consultor Imobiliário</span></div></div>
 </div></section>
 
-<section class="search-wrap"><div class="container search-box"><div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto..."></div><div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div><div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div><button class="btn gold" id="searchBtn">Pesquisar</button></div></section>
+<section class="search-wrap"><div class="container search-box"><div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto, Gaia..."></div><div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div><div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div><button class="btn gold" id="searchBtn">Pesquisar</button></div></section>
 
 <section class="trust"><div class="container trust-grid"><div><b>01</b><strong>Confiança</strong><span>Transparência em cada negócio</span></div><div><b>02</b><strong>Acompanhamento</strong><span>Do primeiro contacto à escritura</span></div><div><b>03</b><strong>Portugal & Suíça</strong><span>Conhecimento de vários mercados</span></div><div><b>04</b><strong>À sua medida</strong><span>Soluções para compradores e vendedores</span></div></div></section>
 
@@ -202,7 +202,7 @@
 <script>
 document.querySelector('.menu').onclick = () => document.querySelector('nav').classList.toggle('open');
 
-// Função para remover acentos na pesquisa (ex: Famalicão -> famalicao)
+// Normaliza texto para ignorar acentos e maiúsculas
 function normalizeText(str) {
   return String(str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
@@ -211,10 +211,10 @@ function applySearch() {
   const cards = [...document.querySelectorAll('.property')];
   const noResults = document.getElementById('noResults');
   
-  const z = normalizeText(document.getElementById('qZone').value);
+  const z = normalizeText(document.getElementById('qZone').value.trim());
   const t = document.getElementById('qType').value;
   const p = Number(document.getElementById('qPrice').value || Infinity);
-  let n = 0;
+  let visibleCount = 0;
 
   cards.forEach(c => {
     let searchContent = normalizeText(c.dataset.search || "");
@@ -227,13 +227,12 @@ function applySearch() {
 
     let ok = matchZone && matchType && matchPrice;
     c.style.display = ok ? 'block' : 'none';
-    if (ok) n++;
+    if (ok) visibleCount++;
   });
 
-  if (noResults) noResults.style.display = (n === 0) ? 'block' : 'none';
+  if (noResults) noResults.style.display = (visibleCount === 0) ? 'block' : 'none';
 }
 
-// Eventos de Pesquisa Instantânea ao digitar ou alterar campo
 document.getElementById('qZone').addEventListener('input', applySearch);
 document.getElementById('qType').addEventListener('change', applySearch);
 document.getElementById('qPrice').addEventListener('change', applySearch);
@@ -281,88 +280,106 @@ function triggerZoom(propId) {
   }
 }
 
-async function loadPropertiesFromJSON() {
+function renderPropertyList(items) {
   const grid = document.getElementById('propertyGrid');
+  if (!Array.isArray(items) || items.length === 0) return;
+
+  grid.innerHTML = items.map((x, idx) => {
+    let imgList = [];
+    if (Array.isArray(x.images) && x.images.length > 0) {
+      imgList = x.images;
+    } else if (x.image) {
+      imgList = [x.image];
+    } else {
+      imgList = ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85'];
+    }
+
+    window.propertiesImageData[idx] = {
+      images: imgList,
+      currentIndex: 0
+    };
+
+    const priceVal = x.price || 0;
+    const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(priceVal);
+    const title = esc(x.title || 'Imóvel');
+    const location = esc(x.location || 'Portugal');
+    const type = esc(x.type || 'Moradia');
+
+    const rooms = (x.rooms && Number(x.rooms) > 0) ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms} quartos</span>` : '';
+    const baths = (x.baths && Number(x.baths) > 0) ? `<span><i class="fa-solid fa-bath"></i> ${x.baths} WC</span>` : '';
+    const area = (x.area && Number(x.area) > 0) ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
+    const garage = (x.garage === "Sim" || Number(x.garage) > 0) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
+    const desc = x.description ? `<p class="prop-desc">${esc(x.description)}</p>` : '';
+
+    const isLuxury = x.luxury === "Sim" || x.luxury === true || x.luxury === "true";
+    const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>` : '';
+
+    const hasMultipleImages = imgList.length > 1;
+    const searchableText = `${title} ${location} ${x.description || ''}`;
+
+    return `
+      <article class="property" data-search="${searchableText}" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
+        <div class="property-img-wrap" onclick="triggerZoom(${idx})">
+          ${luxuryBadge}
+          <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
+          ${hasMultipleImages ? `
+            <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
+            <button class="gallery-btn next" onclick="changeCardImage(event, ${idx}, 1)">❯</button>
+            <span class="img-counter" id="counter-${idx}">1/${imgList.length}</span>
+          ` : ''}
+        </div>
+        <div class="property-body">
+          <span class="tag">${type}</span>
+          <h3>${title}</h3>
+          <p class="prop-location"><i class="fa-solid fa-location-dot"></i> ${location}</p>
+          <div class="property-details">
+            ${rooms}
+            ${baths}
+            ${area}
+            ${garage}
+          </div>
+          ${desc}
+          <strong>${priceFormatted}</strong>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  applySearch();
+}
+
+async function loadAllProperties() {
+  let loadedData = null;
+
+  // 1. Tenta carregar do properties.json
   try {
     const res = await fetch('properties.json?v=' + Date.now());
-    if (!res.ok) return;
-
-    const items = await res.json();
-    if (!Array.isArray(items) || items.length === 0) return;
-
-    grid.innerHTML = items.map((x, idx) => {
-      let imgList = [];
-      if (Array.isArray(x.images) && x.images.length > 0) {
-        imgList = x.images;
-      } else if (x.image) {
-        imgList = [x.image];
-      } else {
-        imgList = ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85'];
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        loadedData = data;
       }
+    }
+  } catch(e) {
+    console.log("Servidor sem properties.json, tentando localStorage...");
+  }
 
-      window.propertiesImageData[idx] = {
-        images: imgList,
-        currentIndex: 0
-      };
+  // 2. Se não houver properties.json (ou em testes locais), carrega do localStorage do painel
+  if (!loadedData) {
+    const local = localStorage.getItem("jt_properties");
+    if (local) {
+      try {
+        loadedData = JSON.parse(local);
+      } catch(e){}
+    }
+  }
 
-      const priceVal = x.price || 0;
-      const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(priceVal);
-      const title = esc(x.title || 'Imóvel');
-      const location = esc(x.location || 'Portugal');
-      const type = esc(x.type || 'Apartamento');
-
-      const rooms = (x.rooms && Number(x.rooms) > 0) ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms} quartos</span>` : '';
-      const baths = (x.baths && Number(x.baths) > 0) ? `<span><i class="fa-solid fa-bath"></i> ${x.baths} WC</span>` : '';
-      const area = (x.area && Number(x.area) > 0) ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
-      const garage = (x.garage === "Sim" || Number(x.garage) > 0) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
-      const desc = x.description ? `<p class="prop-desc">${esc(x.description)}</p>` : '';
-
-      // Verifica se é imóvel de luxo
-      const isLuxury = x.luxury === "Sim" || x.luxury === true || x.luxury === "true";
-      const luxuryBadge = isLuxury ? `<div class="luxury-badge" title="Imóvel de Luxo">💎 Luxo</div>` : '';
-
-      const hasMultipleImages = imgList.length > 1;
-      
-      // Criar um campo combinando título, localização e descrição para permitir pesquisa ampla
-      const searchableText = `${title} ${location} ${x.description || ''}`;
-
-      return `
-        <article class="property" data-search="${searchableText}" data-zone="${location}" data-type="${type}" data-price="${priceVal}">
-          <div class="property-img-wrap" onclick="triggerZoom(${idx})">
-            ${luxuryBadge}
-            <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
-            ${hasMultipleImages ? `
-              <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
-              <button class="gallery-btn next" onclick="changeCardImage(event, ${idx}, 1)">❯</button>
-              <span class="img-counter" id="counter-${idx}">1/${imgList.length}</span>
-            ` : ''}
-          </div>
-          <div class="property-body">
-            <span class="tag">${type}</span>
-            <h3>${title}</h3>
-            <p class="prop-location"><i class="fa-solid fa-location-dot"></i> ${location}</p>
-            <div class="property-details">
-              ${rooms}
-              ${baths}
-              ${area}
-              ${garage}
-            </div>
-            ${desc}
-            <strong>${priceFormatted}</strong>
-          </div>
-        </article>
-      `;
-    }).join('');
-
-    // Aplica a pesquisa caso o utilizador já tenha escrito algo antes dos imóveis carregarem
-    applySearch();
-
-  } catch (err) {
-    console.log('Erro ao carregar properties.json', err);
+  if (loadedData) {
+    renderPropertyList(loadedData);
   }
 }
 
-loadPropertiesFromJSON();
+loadAllProperties();
 </script>
 </body>
 </html>
