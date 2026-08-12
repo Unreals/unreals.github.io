@@ -14,12 +14,41 @@
 <link rel="stylesheet" href="style.css">
 
 <style>
+/* MARCA D'ÁGUA FNAI EM TODAS AS IMAGENS */
+.property-img-wrap,
+.hero-card,
+.about-photo,
+.watermark-container {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.property-img-wrap::after,
+.hero-card::after,
+.about-photo::after,
+.watermark-container::after {
+  content: 'FNAI' !important;
+  position: absolute !important;
+  bottom: 10px !important;
+  right: 10px !important;
+  background: rgba(12, 27, 36, 0.88) !important;
+  color: #c99b32 !important;
+  border: 1px solid #c99b32 !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.5px !important;
+  pointer-events: none !important;
+  z-index: 12 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
 /* Estilos dos Cards de Imóveis */
 .property-img-wrap {
-  position: relative !important;
   width: 100% !important;
   height: 230px !important;
-  overflow: hidden !important;
   background-color: #0c1b24 !important;
   cursor: pointer !important;
 }
@@ -99,7 +128,7 @@
 .img-counter {
   position: absolute !important;
   bottom: 10px !important;
-  right: 10px !important;
+  left: 10px !important;
   background: rgba(0,0,0,0.7) !important;
   color: #fff !important;
   font-size: 11px !important;
@@ -118,52 +147,6 @@
   margin: 8px 0 12px 0 !important;
 }
 .prop-location i { color: #c99b32 !important; }
-
-/* SOBRE MIM & MARCA DE ÁGUA FNAI */
-.about-photo {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-.about-photo img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-.fnai-watermark {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(12, 27, 36, 0.90);
-  border: 1px solid #c99b32;
-  color: #c99b32;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 10;
-  backdrop-filter: blur(4px);
-}
-.fnai-stamp-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-25deg);
-  font-size: 85px;
-  font-weight: 900;
-  color: rgba(201, 155, 50, 0.08);
-  letter-spacing: 12px;
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  text-transform: uppercase;
-}
 
 /* Lightbox Modal */
 .lightbox {
@@ -217,9 +200,9 @@
 </header>
 
 <main id="top">
-  <!-- HERO SECTION CONSOLIDADA -->
+  <!-- HERO SECTION -->
   <section class="hero">
-    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85');"></div>
+    <div class="hero-bg watermark-container" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85');"></div>
     <div class="container hero-content">
       <div class="hero-copy">
         <p class="eyebrow">CONSULTORIA IMOBILIÁRIA · PORTUGAL & SUÍÇA</p>
@@ -230,7 +213,7 @@
           <a class="btn light" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20gostaria%20de%20falar%20sobre%20um%20imóvel.">Falar no WhatsApp</a>
         </div>
       </div>
-      <div class="hero-card">
+      <div class="hero-card watermark-container">
         <img src="images/jo-torres.jpg" alt="Jo Torres, Consultor Imobiliário">
         <div class="hero-card-text">
           <strong>Jo Torres</strong>
@@ -240,7 +223,7 @@
     </div>
   </section>
 
-  <!-- BARRA DE PESQUISA DE IMÓVEIS -->
+  <!-- BARRA DE PESQUISA -->
   <section class="search-wrap">
     <div class="container search-box">
       <div>
@@ -271,7 +254,7 @@
     </div>
   </section>
 
-  <!-- SECÇÃO DE IMÓVEIS (CARREGADOS DINAMICAMENTE DA PÁGINA DE SERVIÇOS/GESTAO) -->
+  <!-- SECÇÃO DE IMÓVEIS (LÊ OS MESMOS DADOS DA PÁGINA SERVIÇOS) -->
   <section class="section" id="imoveis">
     <div class="container">
       <div class="section-head">
@@ -289,15 +272,11 @@
     </div>
   </section>
 
-  <!-- SECÇÃO SOBRE MIM COM MARCA DE ÁGUA FNAI -->
+  <!-- SECÇÃO SOBRE MIM -->
   <section class="about section" id="sobre">
     <div class="container about-grid">
-      <div class="about-photo">
+      <div class="about-photo watermark-container">
         <img src="images/jo-torres.jpg" alt="Jo Torres - Consultor Imobiliário">
-        <div class="fnai-watermark">
-          <i class="fa-solid fa-award"></i> MEMBRO FNAI
-        </div>
-        <div class="fnai-stamp-overlay">FNAI</div>
       </div>
       <div>
         <p class="eyebrow dark">SOBRE MIM</p>
@@ -309,7 +288,7 @@
     </div>
   </section>
 
-  <!-- SIMULADOR DE CRÉDITO À HABITAÇÃO -->
+  <!-- SIMULADOR DE CRÉDITO -->
   <section class="sim-section" id="simulador-credito">
     <div class="sim-container">
       <div class="sim-title">
@@ -453,7 +432,7 @@
   </div>
 </footer>
 
-<!-- LIGHTBOX PARA VER FOTOS DOS IMÓVEIS EM TAMANHO GRANDE -->
+<!-- LIGHTBOX -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close">&times;</span>
   <img id="lightbox-img" class="lightbox-img" src="" alt="Zoom Imóvel">
@@ -467,7 +446,6 @@ function normalizeText(str) {
   return String(str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-// Filtro de Pesquisa
 function applySearch() {
   const cards = [...document.querySelectorAll('.property')];
   const noResults = document.getElementById('noResults');
@@ -513,7 +491,6 @@ function changeCardImage(event, propId, direction) {
   document.getElementById(`counter-${propId}`).innerText = `${data.currentIndex + 1}/${data.images.length}`;
 }
 
-// CERTIFICADO ENERGÉTICO: DEVOLVE APENAS A LETRA (A, B, C, D, etc.)
 function getEnergyBadge(rating) {
   if (!rating) return '';
   const r = String(rating).trim().toUpperCase();
@@ -530,7 +507,6 @@ function getEnergyBadge(rating) {
   return `<span class="energy-badge ${css}" title="Certificação Energética: ${r}">${r}</span>`;
 }
 
-// RENDERIZAÇÃO DOS IMÓVEIS
 function renderPropertyList(items) {
   const grid = document.getElementById('propertyGrid');
   if (!Array.isArray(items) || items.length === 0) {
@@ -587,11 +563,10 @@ function renderPropertyList(items) {
   applySearch();
 }
 
-// LER APENAS OS IMÓVEIS REAIS DA PÁGINA DE SERVIÇOS / PAINEL
 async function loadAllProperties() {
   let loadedData = null;
 
-  // 1. Procurar no LocalStorage partilhado da página de Gestão / Serviços
+  // LER DOS DADOS GUARDADOS PELA PÁGINA SERVIÇOS
   const keys = ["jt_properties", "properties", "imoveis"];
   for (let key of keys) {
     const local = localStorage.getItem(key);
@@ -606,7 +581,7 @@ async function loadAllProperties() {
     }
   }
 
-  // 2. Se não houver no LocalStorage, carregar do properties.json
+  // SE NÃO HOUVER NO LOCALSTORAGE, TENTA CARREGAR DO JSON
   if (!loadedData) {
     try {
       const res = await fetch('properties.json?v=' + Date.now());
@@ -614,7 +589,6 @@ async function loadAllProperties() {
     } catch(e) {}
   }
 
-  // Renderizar o resultado obtido
   if (loadedData && Array.isArray(loadedData) && loadedData.length > 0) {
     renderPropertyList(loadedData);
   } else {
@@ -624,7 +598,7 @@ async function loadAllProperties() {
 
 loadAllProperties();
 
-// SIMULADORES JAVASCRIPT
+// SIMULADORES
 function atualizarEntradaMinima() {
   const price = parseFloat(document.getElementById('calcPrice').value) || 0;
   const downEl = document.getElementById('calcDown');
