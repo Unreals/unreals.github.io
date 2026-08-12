@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Gestão e Serviços Imobiliários — Jo Torres">
+<title>Serviços & Gestão de Imóveis | Jo Torres</title>
+
+<!-- Fontes & Ícones -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+.admin-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'DM Sans', sans-serif;
+}
+.admin-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 40px;
+}
+.admin-title {
+  font-size: 24px;
+  color: #0c1b24;
+  margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group.full {
+  grid-column: 1 / -1;
+}
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0c1b24;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: #c99b32;
+}
+.btn-submit {
+  background: #c99b32;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-submit:hover {
+  background: #b08528;
+}
+.btn-cancel {
+  background: #7f8c8d;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  display: none;
+}
+
+/* Tabela de Imóveis */
+.table-responsive {
+  overflow-x: auto;
+}
+.prop-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  text-align: left;
+}
+.prop-table th, .prop-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+.prop-table th {
+  background: #0c1b24;
+  color: #fff;
+  font-weight: 600;
+}
+.prop-table img {
+  width: 60px;
+  height: 45px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.btn-action {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.btn-edit { background: #3498db; color: #fff; }
+.btn-delete { background: #e74c3c; color: #fff; }
+
+/* Badge de Certificado Energético - APENAS A LETRA */
+.energy-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+.energy-a-plus, .energy-a { background-color: #1e824c; }
+.energy-b, .energy-b-minus { background-color: #26a65b; }
+.energy-c { background-color: #f39c12; }
+.energy-d { background-color: #e67e22; }
+.energy-e, .energy-f { background-color: #d9534f; }
+.energy-isento { background-color: #7f8c8d; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">JT</span>
+      <span><strong>JO TORRES</strong><small>CONSULTOR IMOBILIÁRIO</small></span>
+    </a>
+    <button class="menu" aria-label="Menu">☰</button>
+    <nav>
+      <a href="index.html#imoveis">Imóveis na Homepage</a>
+      <a href="servicos.html" class="active">Gestão de Imóveis</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="nav-wa" href="https://wa.me/41792601145">WhatsApp</a>
+    </nav>
+  </div>
+</header>
+
+<main class="admin-container">
+  
+  <!-- FORMULÁRIO DE ADICIONAR / EDITAR IMÓVEL -->
+  <div class="admin-card">
+    <h2 class="admin-title" id="formTitle">Adicionar Novo Imóvel</h2>
+    <form id="propertyForm" onsubmit="salvarImovel(event)">
+      <input type="hidden" id="editIndex" value="-1">
+      
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="pTitle">Título do Imóvel *</label>
+          <input type="text" id="pTitle" placeholder="Ex: Moradia T4 com Piscina Privativa" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pLocation">Localização *</label>
+          <input type="text" id="pLocation" placeholder="Ex: Vila Nova de Famalicão" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pType">Tipo de Imóvel *</label>
+          <select id="pType" required>
+            <option value="Moradia">Moradia</option>
+            <option value="Apartamento">Apartamento</option>
+            <option value="Terreno">Terreno</option>
+            <option value="Comercial">Comercial</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pPrice">Preço (€) *</label>
+          <input type="number" id="pPrice" placeholder="Ex: 450000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pRooms">Quartos (T)</label>
+          <input type="number" id="pRooms" placeholder="Ex: 4">
+        </div>
+
+        <div class="form-group">
+          <label for="pBaths">Casas de Banho</label>
+          <input type="number" id="pBaths" placeholder="Ex: 3">
+        </div>
+
+        <div class="form-group">
+          <label for="pArea">Área Útil (m²)</label>
+          <input type="number" id="pArea" placeholder="Ex: 280">
+        </div>
+
+        <div class="form-group">
+          <label for="pEnergy">Certificado Energético</label>
+          <select id="pEnergy">
+            <option value="A+">A+</option>
+            <option value="A" selected>A</option>
+            <option value="B">B</option>
+            <option value="B-">B-</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="Isento">Isento</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pLuxury">Imóvel de Luxo?</label>
+          <select id="pLuxury">
+            <option value="Não">Não</option>
+            <option value="Sim">Sim 💎</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="pImages">URLs das Imagens (Separadas por vírgula) *</label>
+          <textarea id="pImages" rows="3" placeholder="https://exemplo.com/foto1.jpg, https://exemplo.com/foto2.jpg" required></textarea>
+        </div>
+
+        <div class="form-group full">
+          <label for="pDesc">Descrição do Imóvel</label>
+          <textarea id="pDesc" rows="3" placeholder="Detalhes adicionais sobre o imóvel..."></textarea>
+        </div>
+
+        <div class="form-group full" style="display: flex; gap: 10px; margin-top: 10px;">
+          <button type="submit" class="btn-submit" id="btnSave">Guardar Imóvel</button>
+          <button type="button" class="btn-cancel" id="btnCancel" onclick="cancelarEdicao()">Cancelar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- TABELA COM OS IMÓVEIS CADASTRADOS -->
+  <div class="admin-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h2 class="admin-title" style="margin: 0;">Lista de Imóveis Ativos</h2>
+      <button onclick="exportarJSON()" style="background: #0c1b24; color: #c99b32; border: 1px solid #c99b32; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px;">
+        <i class="fa-solid fa-download"></i> Descarregar properties.json
+      </button>
+    </div>
+    
+    <div class="table-responsive">
+      <table class="prop-table">
+        <thead>
+          <tr>
+            <th>Foto</th>
+            <th>Título</th>
+            <th>Localização</th>
+            <th>Tipo</th>
+            <th>Preço</th>
+            <th>Energia</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody">
+          <!-- Gerado via JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong></span></div>
+    <div><p>© 2026 Jo Torres — Painel de Gestão de Imóveis</p></div>
+  </div>
+</footer>
+
+<script>
+// Menu Mobile
+document.querySelector('.menu').onclick = () => document.querySelector('nav').classList.toggle('open');
+
+const STORAGE_KEY = "jt_properties";
+let propertiesList = [];
+
+// Carregar imóveis ao iniciar
+async function carregarImoveis() {
+  const localData = localStorage.getItem(STORAGE_KEY);
+  if (localData) {
+    try {
+      propertiesList = JSON.parse(localData);
+    } catch(e) { propertiesList = []; }
+  }
+
+  if (propertiesList.length === 0) {
+    try {
+      const res = await fetch('properties.json?v=' + Date.now());
+      if (res.ok) {
+        propertiesList = await res.json();
+        guardarLocal();
+      }
+    } catch(e) {}
+  }
+
+  renderTabela();
+}
+
+function guardarLocal() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(propertiesList));
+}
+
+function getEnergyBadge(rating) {
+  if (!rating) return '';
+  const r = String(rating).trim().toUpperCase();
+  let css = 'energy-isento';
+  if (r === 'A+') css = 'energy-a-plus';
+  else if (r === 'A') css = 'energy-a';
+  else if (r === 'B') css = 'energy-b';
+  else if (r === 'B-') css = 'energy-b-minus';
+  else if (r === 'C') css = 'energy-c';
+  else if (r === 'D') css = 'energy-d';
+  else if (r === 'E') css = 'energy-e';
+  else if (r === 'F') css = 'energy-f';
+
+  return `<span class="energy-badge ${css}">${r}</span>`;
+}
+
+function renderTabela() {
+  const tbody = document.getElementById('adminTableBody');
+  if (propertiesList.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 30px; color:#777;">Nenhum imóvel registado. Adicione o primeiro no formulário acima!</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = propertiesList.map((p, idx) => {
+    const mainImg = (Array.isArray(p.images) && p.images.length > 0) ? p.images[0] : (p.image || 'https://via.placeholder.com/60');
+    const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(p.price || 0);
+
+    return `
+      <tr>
+        <td><img src="${mainImg}" alt="Foto"></td>
+        <td><strong>${p.title || ''}</strong></td>
+        <td>${p.location || ''}</td>
+        <td>${p.type || ''}</td>
+        <td>${priceFormatted}</td>
+        <td>${getEnergyBadge(p.energy)}</td>
+        <td>
+          <button class="btn-action btn-edit" onclick="editarImovel(${idx})"><i class="fa-solid fa-pen"></i></button>
+          <button class="btn-action btn-delete" onclick="eliminarImovel(${idx})"><i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function salvarImovel(e) {
+  e.preventDefault();
+  
+  const index = parseInt(document.getElementById('editIndex').value);
+  const imagesArray = document.getElementById('pImages').value.split(',').map(s => s.trim()).filter(s => s.length > 0);
+
+  const newProperty = {
+    title: document.getElementById('pTitle').value,
+    location: document.getElementById('pLocation').value,
+    type: document.getElementById('pType').value,
+    price: parseFloat(document.getElementById('pPrice').value) || 0,
+    rooms: parseInt(document.getElementById('pRooms').value) || null,
+    baths: parseInt(document.getElementById('pBaths').value) || null,
+    area: parseFloat(document.getElementById('pArea').value) || null,
+    energy: document.getElementById('pEnergy').value,
+    luxury: document.getElementById('pLuxury').value,
+    images: imagesArray,
+    description: document.getElementById('pDesc').value
+  };
+
+  if (index >= 0) {
+    propertiesList[index] = newProperty;
+  } else {
+    propertiesList.push(newProperty);
+  }
+
+  guardarLocal();
+  renderTabela();
+  cancelarEdicao();
+  alert(index >= 0 ? "Imóvel atualizado com sucesso!" : "Novo imóvel adicionado com sucesso!");
+}
+
+function editarImovel(idx) {
+  const p = propertiesList[idx];
+  document.getElementById('editIndex').value = idx;
+  document.getElementById('pTitle').value = p.title || '';
+  document.getElementById('pLocation').value = p.location || '';
+  document.getElementById('pType').value = p.type || 'Moradia';
+  document.getElementById('pPrice').value = p.price || '';
+  document.getElementById('pRooms').value = p.rooms || '';
+  document.getElementById('pBaths').value = p.baths || '';
+  document.getElementById('pArea').value = p.area || '';
+  document.getElementById('pEnergy').value = p.energy || 'A';
+  document.getElementById('pLuxury').value = p.luxury || 'Não';
+  document.getElementById('pImages').value = Array.isArray(p.images) ? p.images.join(', ') : (p.image || '');
+  document.getElementById('pDesc').value = p.description || '';
+
+  document.getElementById('formTitle').innerText = "Editar Imóvel";
+  document.getElementById('btnSave').innerText = "Atualizar Imóvel";
+  document.getElementById('btnCancel').style.display = "inline-block";
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function cancelarEdicao() {
+  document.getElementById('propertyForm').reset();
+  document.getElementById('editIndex').value = "-1";
+  document.getElementById('formTitle').innerText = "Adicionar Novo Imóvel";
+  document.getElementById('btnSave').innerText = "Guardar Imóvel";
+  document.getElementById('btnCancel').style.display = "none";
+}
+
+function eliminarImovel(idx) {
+  if (confirm(`Tem a certeza que pretende eliminar o imóvel "${propertiesList[idx].title}"?`)) {
+    propertiesList.splice(idx, 1);
+    guardarLocal();
+    renderTabela();
+  }
+}
+
+function exportarJSON() {
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(propertiesList, null, 2));
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute("href", dataStr);
+  downloadAnchor.setAttribute("download", "properties.json");
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+}
+
+window.addEventListener('DOMContentLoaded', carregarImoveis);
+</script>
+
+</body>
+</html>
