@@ -4,10 +4,10 @@
     "location": "Braga",
     "type": "Moradia",
     "price": 35000,
-    "energy": "C",
+    "energy": "E",
     "rooms": "3",
-    "baths": "",
-    "area": "1",
+    "baths": "-3",
+    "area": "300",
     "garage": "Sim",
     "luxury": "Não",
     "images": [
