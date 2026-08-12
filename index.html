@@ -48,10 +48,12 @@
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 3px 8px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 6px !important;
   border-radius: 4px !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
   color: #fff !important;
   letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
@@ -105,6 +107,45 @@
 }
 .prop-location i { color: #c99b32 !important; }
 
+/* MARCA DE ÁGUA E BADGE FNAI */
+.about-photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.fnai-watermark {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(12, 27, 36, 0.85);
+  border: 1px solid #c99b32;
+  color: #c99b32;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
+.fnai-stamp-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-25deg);
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(201, 155, 50, 0.08);
+  letter-spacing: 12px;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
 .lightbox {
   display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); z-index: 9999;
   justify-content: center; align-items: center; padding: 20px;
@@ -113,123 +154,27 @@
 .lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
 .lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
 
-/* CSS DOS SIMULADORES */
-.sim-section {
-  padding: 60px 0;
-  background-color: #f8f9fa;
-}
-.sim-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
-  font-family: 'DM Sans', sans-serif;
-}
-.sim-title {
-  text-align: center;
-  margin-bottom: 30px;
-}
-.sim-eyebrow {
-  color: #c99b32;
-  font-weight: 700;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-.sim-card {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-  margin-bottom: 40px;
-}
-.sim-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-.sim-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.sim-group label {
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-}
-.sim-group input, .sim-group select {
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 15px;
-  outline: none;
-}
-.sim-btn {
-  width: 100%;
-  padding: 14px;
-  background-color: #c99b32;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.sim-btn:hover {
-  background-color: #b08528;
-}
-.sim-btn-wa {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #25d366;
-  color: #fff;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 14px;
-}
-.sim-results {
-  margin-top: 25px;
-  padding-top: 20px;
-  border-top: 2px dashed #eee;
-}
-.sim-res-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-  text-align: center;
-  margin-top: 15px;
-}
-.sim-res-card {
-  background: #fdfbf7;
-  border: 1px solid #f3e5c8;
-  padding: 15px;
-  border-radius: 8px;
-}
-.sim-res-card.highlight {
-  background: #0c1b24;
-  color: #fff;
-}
-.sim-res-card span {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #666;
-}
-.sim-res-card.highlight span {
-  color: #c99b32;
-}
-.sim-res-card strong {
-  display: block;
-  font-size: 20px;
-  color: #0c1b24;
-  margin-top: 5px;
-}
-.sim-res-card.highlight strong {
-  color: #fff;
-  font-size: 24px;
-}
+/* SIMULADORES ESTILOS */
+.sim-section { padding: 60px 0; background-color: #f8f9fa; }
+.sim-container { max-width: 900px; margin: 0 auto; padding: 0 20px; font-family: 'DM Sans', sans-serif; }
+.sim-title { text-align: center; margin-bottom: 30px; }
+.sim-eyebrow { color: #c99b32; font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; }
+.sim-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 25px rgba(0,0,0,0.08); margin-bottom: 40px; }
+.sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.sim-group { display: flex; flex-direction: column; gap: 6px; }
+.sim-group label { font-weight: 600; font-size: 14px; color: #333; }
+.sim-group input, .sim-group select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; outline: none; }
+.sim-btn { width: 100%; padding: 14px; background-color: #c99b32; color: #fff; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+.sim-btn:hover { background-color: #b08528; }
+.sim-btn-wa { display: inline-block; padding: 12px 24px; background-color: #25d366; color: #fff; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; }
+.sim-results { margin-top: 25px; padding-top: 20px; border-top: 2px dashed #eee; }
+.sim-res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; text-align: center; margin-top: 15px; }
+.sim-res-card { background: #fdfbf7; border: 1px solid #f3e5c8; padding: 15px; border-radius: 8px; }
+.sim-res-card.highlight { background: #0c1b24; color: #fff; }
+.sim-res-card span { font-size: 12px; font-weight: 600; text-transform: uppercase; color: #666; }
+.sim-res-card.highlight span { color: #c99b32; }
+.sim-res-card strong { display: block; font-size: 20px; color: #0c1b24; margin-top: 5px; }
+.sim-res-card.highlight strong { color: #fff; font-size: 24px; }
 </style>
 </head>
 <body>
@@ -240,8 +185,6 @@
     <button class="menu" aria-label="Menu">☰</button>
     <nav>
       <a href="imoveis.html">Imóveis</a>
-      <a href="#simulador-credito">Simulador Crédito</a>
-      <a href="#simulador-imt">Simulador IMT</a>
       <a href="#sobre">Sobre mim</a>
       <a href="#servicos">Serviços</a>
       <a href="#contacto">Contacto</a>
@@ -252,7 +195,7 @@
 
 <main id="top">
   <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=85');"></div>
     <div class="container hero-content">
       <div class="hero-copy">
         <p class="eyebrow">CONSULTORIA IMOBILIÁRIA · PORTUGAL & SUÍÇA</p>
@@ -291,6 +234,26 @@
       </div>
       <div class="cards" id="propertyGrid"></div>
       <div id="noResults" style="display:none; text-align:center; padding:40px 20px; font-size:16px;">Não encontrámos imóveis com esses critérios.</div>
+    </div>
+  </section>
+
+  <!-- SECÇÃO SOBRE MIM COM MARCA DE ÁGUA FNAI -->
+  <section class="about section" id="sobre" style="position: relative;">
+    <div class="container about-grid">
+      <div class="about-photo">
+        <img src="images/jo-torres.jpg" alt="Jo Torres">
+        <div class="fnai-watermark">
+          <i class="fa-solid fa-award"></i> MEMBRO FNAI
+        </div>
+        <div class="fnai-stamp-overlay">FNAI</div>
+      </div>
+      <div>
+        <p class="eyebrow dark">SOBRE MIM</p>
+        <h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2>
+        <p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça.</p>
+        <p style="margin-top: 15px; color: #555;">Profissionalismo, rigor e um conhecimento profundo do mercado imobiliário para garantir a melhor experiência na compra ou venda do seu imóvel.</p>
+        <div class="signature">Jo Torres</div>
+      </div>
     </div>
   </section>
 
@@ -416,18 +379,6 @@
     </div>
   </section>
 
-  <section class="about section" id="sobre">
-    <div class="container about-grid">
-      <div class="about-photo"><img src="images/jo-torres.jpg" alt="Jo Torres"></div>
-      <div>
-        <p class="eyebrow dark">SOBRE MIM</p>
-        <h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2>
-        <p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça.</p>
-        <div class="signature">Jo Torres</div>
-      </div>
-    </div>
-  </section>
-
   <section class="contact section" id="contacto">
     <div class="container contact-box">
       <div>
@@ -445,7 +396,7 @@
 <footer>
   <div class="container footer-grid">
     <div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong></span></div>
-    <div><p>© 2026 Jo Torres</p></div>
+    <div><p>© 2026 Jo Torres — Membro FNAI</p></div>
   </div>
 </footer>
 
@@ -506,6 +457,7 @@ function changeCardImage(event, propId, direction) {
   document.getElementById(`counter-${propId}`).innerText = `${data.currentIndex + 1}/${data.images.length}`;
 }
 
+// CORREÇÃO: MOSTRAR APENAS A LETRA DO CERTIFICADO ENERGÉTICO
 function getEnergyBadge(rating) {
   if (!rating) return '';
   const r = String(rating).trim().toUpperCase();
@@ -519,7 +471,7 @@ function getEnergyBadge(rating) {
   else if (r === 'E') css = 'energy-e';
   else if (r === 'F') css = 'energy-f';
 
-  return `<span class="energy-badge ${css}" title="Certificação Energética: ${r}">CE ${r}</span>`;
+  return `<span class="energy-badge ${css}" title="Certificação Energética: ${r}">${r}</span>`;
 }
 
 function renderPropertyList(items) {
@@ -581,7 +533,6 @@ function renderPropertyList(items) {
 async function loadAllProperties() {
   let loadedData = null;
 
-  // Prioridade 1: Dados do Admin em tempo real
   const local = localStorage.getItem("jt_properties");
   if (local) {
     try {
@@ -592,7 +543,6 @@ async function loadAllProperties() {
     } catch(e) {}
   }
 
-  // Prioridade 2: properties.json
   if (!loadedData) {
     try {
       const res = await fetch('properties.json?v=' + Date.now());
@@ -605,7 +555,6 @@ async function loadAllProperties() {
 
 loadAllProperties();
 
-// SCRIPT DOS SIMULADORES
 function atualizarEntradaMinima() {
   const price = parseFloat(document.getElementById('calcPrice').value) || 0;
   const downEl = document.getElementById('calcDown');
