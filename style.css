@@ -157,7 +157,7 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================================================
-   MARCA D'ÁGUA FNAI (INTEGRADA EM TODAS AS IMAGENS)
+   MARCA D'ÁGUA FNAI (REQUISITO INTEGRADO EM TODAS AS IMAGENS)
    ========================================================================== */
 .property-img-wrap,
 .hero-card,
@@ -189,8 +189,7 @@ nav a:hover, nav a.active {
   font-size: 11px !important;
   font-weight: 800 !important;
   letter-spacing: 1.5px !important;
-  pointer-events: auto !important;
-  cursor: pointer !important;
+  pointer-events: none !important;
   z-index: 12 !important;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
   backdrop-filter: blur(4px) !important;
@@ -287,6 +286,7 @@ nav a:hover, nav a.active {
   border: 1px solid rgba(197, 155, 39, 0.3);
 }
 
+/* CORREÇÃO DO ENQUADRAMENTO DA FOTO DE PERFIL NO HERO */
 .hero-card img {
   width: 100%;
   height: 520px;
@@ -363,7 +363,7 @@ nav a:hover, nav a.active {
 }
 
 /* ==========================================================================
-   CARTÕES DE IMÓVEIS (PROPERTY GRID) + ÍCONE DE LINK NO FUNDO
+   CARTÕES DE IMÓVEIS (PROPERTY GRID)
    ========================================================================== */
 .section-head {
   display: flex;
@@ -385,15 +385,12 @@ nav a:hover, nav a.active {
 }
 
 .property {
-  position: relative;
   background: var(--color-card-bg);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--color-border);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
 }
 
 .property:hover {
@@ -401,41 +398,9 @@ nav a:hover, nav a.active {
   box-shadow: var(--shadow-lg);
 }
 
-.property-body {
-  padding: 24px;
-  padding-bottom: 50px; /* Espaço para o ícone no fundo */
-  flex-grow: 1;
-}
-
 .property-body h3 {
   color: var(--color-primary);
   font-weight: 700;
-  margin-bottom: 8px;
-}
-
-/* ÍCONE DE LINK DIRETO NO CANTO INFERIOR DE CADA IMÓVEL */
-.property-link-icon {
-  position: absolute;
-  bottom: 14px;
-  right: 14px;
-  width: 36px;
-  height: 36px;
-  background: var(--color-primary);
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  transition: all 0.25s ease;
-  z-index: 10;
-}
-
-.property-link-icon:hover {
-  background: var(--color-accent);
-  color: var(--color-primary);
-  transform: scale(1.1);
 }
 
 /* ==========================================================================
@@ -458,6 +423,7 @@ nav a:hover, nav a.active {
   border: 1px solid var(--color-accent);
 }
 
+/* CORREÇÃO DO ENQUADRAMENTO DA FOTO NA SECÇÃO SOBRE MIM */
 .about-photo img {
   width: 100%;
   height: 520px;
