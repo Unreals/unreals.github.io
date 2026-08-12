@@ -131,6 +131,14 @@ nav a:hover {
   font-weight: 600;
 }
 
+.menu {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+}
+
 /* Hero */
 .hero {
   position: relative;
@@ -194,6 +202,7 @@ nav a:hover {
 .btn.gold {
   background-color: var(--color-accent);
   color: var(--color-primary);
+  border: none;
 }
 
 .btn.gold:hover {
@@ -218,6 +227,25 @@ nav a:hover {
   height: 420px;
   object-fit: cover;
   display: block;
+}
+
+.hero-card-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(10,20,29,0.95), transparent);
+}
+
+.hero-card-text strong {
+  display: block;
+  color: #fff;
+}
+
+.hero-card-text span {
+  color: var(--color-accent);
+  font-size: 12px;
 }
 
 /* Imóveis / Grid */
@@ -264,7 +292,7 @@ nav a:hover {
 
 .property-body {
   padding: 20px;
-  padding-bottom: 50px; /* Garante espaço para o ícone no fundo */
+  padding-bottom: 54px; /* Espaço para não sobrepor o ícone do fundo */
   flex-grow: 1;
 }
 
@@ -273,15 +301,28 @@ nav a:hover {
   font-size: 18px;
   color: var(--color-primary);
   margin-bottom: 6px;
+  font-weight: 700;
 }
 
-/* ÍCONE DE LINK NO CANTO INFERIOR DO IMÓVEL */
+.property-price {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.property-location {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* ÍCONE DE LINK DIRETO NO CANTO INFERIOR DE CADA IMÓVEL */
 .property-link-icon {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 34px;
-  height: 34px;
+  bottom: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
   background: var(--color-primary);
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
@@ -293,16 +334,17 @@ nav a:hover {
   transition: all 0.25s ease;
   z-index: 10;
   cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .property-link-icon:hover {
   background: var(--color-accent);
   color: var(--color-primary);
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
 
 /* ==========================================================================
-   MARCA D'ÁGUA FNAI (CLICKÁVEL PARA A PÁGINA PRINCIPAL)
+   MARCA D'ÁGUA FNAI (REDIRECIONA PARA O LINK CONFIGURADO)
    ========================================================================== */
 .property-img-wrap::after,
 .hero-card::after {
@@ -310,7 +352,7 @@ nav a:hover {
   position: absolute;
   bottom: 10px;
   left: 10px;
-  background: rgba(10, 20, 29, 0.85);
+  background: rgba(10, 20, 29, 0.88);
   color: var(--color-accent);
   border: 1px solid var(--color-accent);
   padding: 2px 8px;
@@ -319,7 +361,42 @@ nav a:hover {
   font-weight: 800;
   letter-spacing: 1px;
   z-index: 5;
-  pointer-events: auto;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+}
+
+/* Sobre */
+.about {
+  background-color: var(--color-secondary);
+  color: #fff;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-photo img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--color-accent);
+}
+
+.about h2 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.signature {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  color: var(--color-accent);
+  margin-top: 20px;
 }
 
 /* Rodapé */
