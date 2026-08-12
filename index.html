@@ -1,662 +1,790 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Jo Torres — Consultor Imobiliário. Imóveis selecionados para venda em Portugal e Suíça.">
-<title>Jo Torres | Consultor Imobiliário</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css">
-<style>
-.property-img-wrap {
-  position: relative !important;
-  width: 100% !important;
-  height: 220px !important;
-  overflow: hidden !important;
-  background-color: #000 !important;
-  cursor: pointer !important;
-}
-.property-img-wrap img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  transition: transform 0.3s ease !important;
-}
-.property-img-wrap:hover img {
-  transform: scale(1.03) !important;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jo Torres | Consultoria Imobiliária & Financiamento</title>
+  
+  <!-- Fontes Google & FontAwesome (Ícones) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-.luxury-badge {
-  position: absolute !important;
-  top: 10px !important;
-  left: 10px !important;
-  background: rgba(12, 27, 36, 0.92) !important;
-  color: #c99b32 !important;
-  border: 1px solid #c99b32 !important;
-  padding: 6px 12px !important;
-  border-radius: 20px !important;
-  font-size: 13px !important;
-  font-weight: bold !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 5px !important;
-  z-index: 10 !important;
-}
+  <style>
+    /* RESET & ESTILOS BASE */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
 
-.energy-badge {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 3px 8px !important;
-  border-radius: 4px !important;
-  font-size: 11px !important;
-  font-weight: 700 !important;
-  color: #fff !important;
-  letter-spacing: 0.5px !important;
-  text-transform: uppercase !important;
-}
-.energy-a-plus, .energy-a { background-color: #1e824c !important; }
-.energy-b, .energy-b-minus { background-color: #26a65b !important; }
-.energy-c { background-color: #f39c12 !important; }
-.energy-d { background-color: #e67e22 !important; }
-.energy-e, .energy-f { background-color: #d9534f !important; }
-.energy-isento { background-color: #7f8c8d !important; }
+    :root {
+      --primary: #0c1b24;
+      --gold: #c99b32;
+      --gold-hover: #b08528;
+      --bg-light: #f8f9fa;
+      --text-dark: #333333;
+      --text-muted: #666666;
+      --white: #ffffff;
+    }
 
-.gallery-btn {
-  position: absolute !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  background: rgba(0,0,0,0.6) !important;
-  color: #fff !important;
-  border: none !important;
-  border-radius: 50% !important;
-  width: 32px !important;
-  height: 32px !important;
-  cursor: pointer !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  z-index: 5 !important;
-}
-.gallery-btn.prev { left: 8px !important; }
-.gallery-btn.next { right: 8px !important; }
+    body {
+      color: var(--text-dark);
+      background-color: var(--white);
+      line-height: 1.6;
+    }
 
-.img-counter {
-  position: absolute !important;
-  bottom: 8px !important;
-  right: 8px !important;
-  background: rgba(0,0,0,0.6) !important;
-  color: #fff !important;
-  font-size: 11px !important;
-  padding: 3px 8px !important;
-  border-radius: 12px !important;
-  z-index: 5 !important;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-.prop-location {
-  color: #0c1b24 !important;
-  font-size: 18px !important;
-  font-weight: 700 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  margin: 10px 0 12px 0 !important;
-}
-.prop-location i { color: #c99b32 !important; }
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-.lightbox {
-  display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); z-index: 9999;
-  justify-content: center; align-items: center; padding: 20px;
-}
-.lightbox.show { display: flex; }
-.lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
-.lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
-</style>
+    /* HEADER & NAV */
+    header {
+      background-color: var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+    }
+
+    .logo {
+      color: var(--white);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav a {
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(rgba(12, 27, 36, 0.8), rgba(12, 27, 36, 0.8)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      padding: 0 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 42px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      color: #ddd;
+      margin-bottom: 25px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      border: none;
+    }
+
+    .btn-gold {
+      background-color: var(--gold);
+      color: var(--white);
+    }
+
+    .btn-gold:hover {
+      background-color: var(--gold-hover);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background-color: #25d366;
+      color: var(--white);
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #20ba5a;
+    }
+
+    /* SECÇÃO IMÓVEIS & GRID */
+    .section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .section-title h2 {
+      font-size: 30px;
+      color: var(--primary);
+      margin-top: 5px;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .property {
+      background: var(--white);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .property:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    /* IMAGEM E MARCA D'ÁGUA (FILIGRANA) */
+    .property-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      background-color: #eee;
+      overflow: hidden;
+    }
+
+    .property-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* FILIGRANA FNAI NA FOTO */
+    .property-img-wrap::after {
+      content: "FNAI";
+      position: absolute;
+      bottom: 8px;
+      left: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .luxury-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--primary);
+      color: var(--gold);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      z-index: 2;
+    }
+
+    .gallery-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 3px;
+      z-index: 3;
+    }
+
+    .gallery-btn.prev { left: 8px; }
+    .gallery-btn.next { right: 8px; }
+
+    .img-counter {
+      position: absolute;
+      bottom: 8px;
+      right: 10px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* CORPO DO CARD */
+    .property-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .tag {
+      background: #eee;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    /* CERTIFICADO ENERGÉTICO (APENAS A LETRA) */
+    .energy-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+    }
+
+    .energy-a-plus, .energy-a { background-color: #008752; }
+    .energy-b, .energy-b-minus { background-color: #71b32d; }
+    .energy-c { background-color: #fcc015; color: #000; }
+    .energy-d { background-color: #f28e1e; }
+    .energy-e { background-color: #e8501d; }
+    .energy-f { background-color: #d81e05; }
+    .energy-isento { background-color: #777; }
+
+    .property-body h3 {
+      font-size: 18px;
+      margin: 8px 0 4px 0;
+      color: var(--primary);
+    }
+
+    .prop-location {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .property-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 15px;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+
+    .property-details span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .property-details i {
+      color: var(--gold);
+    }
+
+    /* SIMULADORES */
+    .sim-card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .sim-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .sim-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .sim-group label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .sim-group input, .sim-group select {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .results-box {
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 2px dashed #eee;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .res-card {
+      background: #fdfbf7;
+      border: 1px solid #f3e5c8;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .res-card.highlight {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .res-card span {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .res-card.highlight span { color: var(--gold); }
+
+    .res-card strong {
+      display: block;
+      font-size: 20px;
+      color: var(--primary);
+      margin-top: 5px;
+    }
+
+    .res-card.highlight strong { color: var(--white); font-size: 22px; }
+
+    footer {
+      background-color: var(--primary);
+      color: var(--white);
+      text-align: center;
+      padding: 30px 0;
+      margin-top: 50px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-<header class="header"><div class="container nav">
-<a class="brand" href="#top"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong><small>CONSULTOR IMOBILIÁRIO</small></span></a>
-<button class="menu" aria-label="Menu">☰</button>
-<nav><a href="imoveis.html">Imóveis</a><a href="#sobre">Sobre mim</a><a href="#servicos">Serviços</a><a href="#contacto">Contacto</a><a class="nav-wa" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20vi%20o%20seu%20site.">WhatsApp</a></nav>
-</div></header>
 
-<main id="top">
-<section class="hero"><div class="hero-bg"></div><div class="container hero-content">
-<div class="hero-copy"><p class="eyebrow">CONSULTORIA IMOBILIÁRIA · PORTUGAL & SUÍÇA</p><h1>Encontre o lugar<br><em>certo para si.</em></h1><p class="lead">Imóveis selecionados, acompanhamento próximo e uma negociação pensada para si.</p>
-<div class="actions"><a class="btn gold" href="imoveis.html">Ver imóveis</a><a class="btn light" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20gostaria%20de%20falar%20sobre%20um%20imóvel.">Falar no WhatsApp</a></div></div>
-<div class="hero-card"><img src="images/jo-torres.jpg" alt="Jo Torres, Consultor Imobiliário"><div class="hero-card-text"><strong>Jo Torres</strong><span>Consultor Imobiliário</span></div></div>
-</div></section>
+  <!-- HEADER -->
+  <header>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">JO <span>TORRES</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="imoveis.html">Imóveis</a></li>
+          <li><a href="#credito">Simulador Crédito</a></li>
+          <li><a href="#imt">Simulador IMT</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-<section class="search-wrap"><div class="container search-box">
-  <div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto..."></div>
-  <div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div>
-  <div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div>
-  <button class="btn gold" id="searchBtn">Pesquisar</button>
-</div></section>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Encontre o Seu Imóvel Perfeito</h1>
+      <p>Consultoria imobiliária personalizada e financiamento simplificado para a sua casa de sonho.</p>
+      <a href="imoveis.html" class="btn btn-gold">Ver Imóveis Disponíveis</a>
+    </div>
+  </section>
 
-<section class="section" id="imoveis"><div class="container">
-  <div class="section-head"><div><p class="eyebrow dark">SELEÇÃO JO TORRES</p><h2>Imóveis em destaque</h2><p>Algumas oportunidades para começar a sua pesquisa.</p></div><a class="text-link" href="#contacto">Tenho um imóvel para vender →</a></div>
-  <div class="cards" id="propertyGrid"></div>
-  <div id="noResults" style="display:none; text-align:center; padding:40px 20px; font-size:16px;">Não encontrámos imóveis com esses critérios.</div>
-</div></section>
+  <!-- LISTA DE IMÓVEIS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title">
+        <p class="eyebrow">PORTFÓLIO</p>
+        <h2>Imóveis em Destaque</h2>
+      </div>
 
-<section class="about section" id="sobre"><div class="container about-grid"><div class="about-photo"><img src="images/jo-torres.jpg" alt="Jo Torres"></div><div><p class="eyebrow dark">SOBRE MIM</p><h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2><p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça.</p><div class="signature">Jo Torres</div></div></div></section>
+      <div class="property-grid" id="propertyGrid">
+        <!-- Renderizado via JavaScript -->
+      </div>
+    </div>
+  </section>
 
-<section class="contact section" id="contacto"><div class="container contact-box"><div><p class="eyebrow">VAMOS CONVERSAR</p><h2>Tem uma pergunta?<br>Estou disponível.</h2></div><div class="contact-actions"><a href="tel:+41792601145"><small>Telefone / WhatsApp</small><strong>+41 79 260 11 45</strong></a><a class="btn gold" href="https://wa.me/41792601145">Abrir WhatsApp →</a></div></div></section>
-</main>
+  <!-- SIMULADOR DE CRÉDITO -->
+  <section class="section" id="credito" style="background-color: var(--bg-light);">
+    <div class="container">
+      <div class="section-title">
+        <p class="eyebrow">FINANCIAMENTO</p>
+        <h2>Simulador de Crédito à Habitação</h2>
+      </div>
 
-<footer><div class="container footer-grid"><div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong></span></div><div><p>© 2026 Jo Torres</p></div></div></footer>
-
-<div id="lightbox" class="lightbox" onclick="closeLightbox()"><span class="lightbox-close">&times;</span><img id="lightbox-img" class="lightbox-img" src="" alt="Zoom"></div>
-
-<script>
-document.querySelector('.menu').onclick = () => document.querySelector('nav').classList.toggle('open');
-
-function normalizeText(str) {
-  return String(str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-}
-
-function applySearch() {
-  const cards = [...document.querySelectorAll('.property')];
-  const noResults = document.getElementById('noResults');
-  const z = normalizeText(document.getElementById('qZone').value.trim());
-  const t = document.getElementById('qType').value;
-  const p = Number(document.getElementById('qPrice').value || Infinity);
-  let count = 0;
-
-  cards.forEach(c => {
-    let searchContent = normalizeText(c.dataset.search || "");
-    let type = c.dataset.type || "";
-    let price = Number(c.dataset.price || 0);
-
-    let matchZone = !z || searchContent.includes(z);
-    let matchType = !t || type === t;
-    let matchPrice = price <= p;
-
-    let ok = matchZone && matchType && matchPrice;
-    c.style.display = ok ? 'block' : 'none';
-    if (ok) count++;
-  });
-
-  if (noResults) noResults.style.display = (count === 0) ? 'block' : 'none';
-}
-
-document.getElementById('qZone').addEventListener('input', applySearch);
-document.getElementById('qType').addEventListener('change', applySearch);
-document.getElementById('qPrice').addEventListener('change', applySearch);
-document.getElementById('searchBtn').onclick = applySearch;
-
-function esc(s) { return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])); }
-function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('show'); }
-function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
-
-window.propertiesImageData = {};
-
-function changeCardImage(event, propId, direction) {
-  event.stopPropagation();
-  const data = window.propertiesImageData[propId];
-  if (!data || !data.images) return;
-  data.currentIndex = (data.currentIndex + direction + data.images.length) % data.images.length;
-  document.getElementById(`img-${propId}`).src = data.images[data.currentIndex];
-  document.getElementById(`counter-${propId}`).innerText = `${data.currentIndex + 1}/${data.images.length}`;
-}
-
-function getEnergyBadge(rating) {
-  if (!rating) return '';
-  const r = String(rating).trim().toUpperCase();
-  let css = 'energy-isento';
-  if (r === 'A+') css = 'energy-a-plus';
-  else if (r === 'A') css = 'energy-a';
-  else if (r === 'B') css = 'energy-b';
-  else if (r === 'B-') css = 'energy-b-minus';
-  else if (r === 'C') css = 'energy-c';
-  else if (r === 'D') css = 'energy-d';
-  else if (r === 'E') css = 'energy-e';
-  else if (r === 'F') css = 'energy-f';
-
-  return `<span class="energy-badge ${css}" title="Certificação Energética: ${r}">CE ${r}</span>`;
-}
-
-function renderPropertyList(items) {
-  const grid = document.getElementById('propertyGrid');
-  if (!Array.isArray(items) || items.length === 0) {
-    grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #666;">Nenhum imóvel disponível no momento.</p>';
-    return;
-  }
-
-  grid.innerHTML = items.map((x, idx) => {
-    let imgList = Array.isArray(x.images) && x.images.length ? x.images : (x.image ? [x.image] : ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85']);
-    window.propertiesImageData[idx] = { images: imgList, currentIndex: 0 };
-
-    const priceVal = x.price || 0;
-    const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(priceVal);
-    const title = esc(x.title || 'Imóvel');
-    const location = esc(x.location || 'Portugal');
-    const type = esc(x.type || 'Moradia');
-    const searchableText = `${title} ${location} ${x.description || ''}`;
-
-    const rooms = x.rooms ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms}</span>` : '';
-    const baths = x.baths ? `<span><i class="fa-solid fa-bath"></i> ${x.baths}</span>` : '';
-    const area = x.area ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
-
-    const isLuxury = x.luxury === "Sim" || x.luxury === true;
-    const luxuryBadge = isLuxury ? `<div class="luxury-badge">💎 Luxo</div>` : '';
-    const energyBadge = getEnergyBadge(x.energy);
-
-    return `
-      <article class="property" data-search="${searchableText}" data-type="${type}" data-price="${priceVal}">
-        <div class="property-img-wrap" onclick="openLightbox('${imgList[0]}')">
-          ${luxuryBadge}
-          <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
-          ${imgList.length > 1 ? `
-            <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
-            <button class="gallery-btn next" onclick="changeCardImage(event, ${idx}, 1)">❯</button>
-            <span class="img-counter" id="counter-${idx}">1/${imgList.length}</span>
-          ` : ''}
-        </div>
-        <div class="property-body">
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-            <span class="tag">${type}</span>
-            ${energyBadge}
+      <div class="sim-card">
+        <form onsubmit="calcularCredito(event)" class="sim-grid">
+          <div class="sim-group">
+            <label>Valor do Imóvel (€)</label>
+            <input type="number" id="calcPrice" value="250000" required oninput="atualizarEntradaMinima()">
           </div>
-          <h3>${title}</h3>
-          <p class="prop-location"><i class="fa-solid fa-location-dot"></i> ${location}</p>
-          <div class="property-details" style="display:flex; gap:10px; font-size:13px; color:#555; margin-bottom:10px;">
-            ${rooms} ${baths} ${area}
+          <div class="sim-group">
+            <label>Entrada Inicial (€)</label>
+            <input type="number" id="calcDown" value="25000">
           </div>
-          <strong style="font-size:18px; color:#0c1b24;">${priceFormatted}</strong>
+          <div class="sim-group">
+            <label>Prazo (Anos)</label>
+            <select id="calcYears">
+              <option value="40">40 anos</option>
+              <option value="35" selected>35 anos</option>
+              <option value="30">30 anos</option>
+              <option value="25">25 anos</option>
+            </select>
+          </div>
+          <div class="sim-group">
+            <label>Taxa / TAN (%)</label>
+            <input type="number" id="calcRate" step="0.1" value="3.5" required>
+          </div>
+          <div style="grid-column: 1 / -1;">
+            <button type="submit" class="btn btn-gold" style="width: 100%;">Calcular Prestação</button>
+          </div>
+        </form>
+
+        <div id="creditoResult" class="results-box" style="display: none;">
+          <div class="results-grid">
+            <div class="res-card">
+              <span>Empréstimo</span>
+              <strong id="resLoan">0,00 €</strong>
+            </div>
+            <div class="res-card highlight">
+              <span>Prestação Mensal</span>
+              <strong id="resMonthly">0,00 € /mês</strong>
+            </div>
+            <div class="res-card">
+              <span>Total Juros</span>
+              <strong id="resTotalInterest">0,00 €</strong>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 20px;">
+            <a id="btnWhatsappCredito" href="#" target="_blank" class="btn btn-whatsapp">
+              <i class="fa-brands fa-whatsapp"></i> Enviar Simulação via WhatsApp
+            </a>
+          </div>
         </div>
-      </article>
-    `;
-  }).join('');
+      </div>
+    </div>
+  </section>
 
-  applySearch();
-}
+  <!-- SIMULADOR DE IMT -->
+  <section class="section" id="imt">
+    <div class="container">
+      <div class="section-title">
+        <p class="eyebrow">IMPOSTOS</p>
+        <h2>Simulador de IMT e Imposto de Selo</h2>
+      </div>
 
-async function loadAllProperties() {
-  let loadedData = null;
+      <div class="sim-card">
+        <form onsubmit="calcularIMT(event)" class="sim-grid">
+          <div class="sim-group">
+            <label>Valor de Aquisição (€)</label>
+            <input type="number" id="imtPrice" value="250000" required>
+          </div>
+          <div class="sim-group">
+            <label>Finalidade</label>
+            <select id="imtPurpose">
+              <option value="HPP">Habitação Própria e Permanente (HPP)</option>
+              <option value="HS">Habitação Secundária</option>
+            </select>
+          </div>
+          <div class="sim-group" style="grid-column: 1 / -1;">
+            <label style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="imtYoung"> Isenção Jovem (até 35 anos em imóveis até 316.772€)
+            </label>
+          </div>
+          <div style="grid-column: 1 / -1;">
+            <button type="submit" class="btn btn-gold" style="width: 100%;">Calcular Impostos</button>
+          </div>
+        </form>
 
-  // Prioridade 1: Dados do Admin em tempo real
-  const local = localStorage.getItem("jt_properties");
-  if (local) {
-    try {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        loadedData = parsed;
+        <div id="imtResult" class="results-box" style="display: none;">
+          <div class="results-grid">
+            <div class="res-card">
+              <span>IMT</span>
+              <strong id="resIMT">0,00 €</strong>
+            </div>
+            <div class="res-card">
+              <span>Imposto Selo (0,8%)</span>
+              <strong id="resSelo">0,00 €</strong>
+            </div>
+            <div class="res-card highlight">
+              <span>Total Impostos</span>
+              <strong id="resTotalIMT">0,00 €</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Jo Torres - Consultoria Imobiliária. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT PRINCIPAL -->
+  <script>
+    // DADOS DE EXEMPLO DOS IMÓVEIS
+    const sampleProperties = [
+      {
+        title: "Moradia Contemporânea T4",
+        location: "Cascais, Lisboa",
+        type: "Moradia",
+        price: 850000,
+        rooms: 4,
+        baths: 3,
+        area: 280,
+        garage: "Sim",
+        energy: "A",
+        luxury: true,
+        images: [
+          "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        title: "Apartamento Moderno T2",
+        location: "Parque das Nações, Lisboa",
+        type: "Apartamento",
+        price: 420000,
+        rooms: 2,
+        baths: 2,
+        area: 105,
+        garage: "Sim",
+        energy: "B",
+        luxury: false,
+        images: [
+          "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      {
+        title: "Moradia T3 com Piscina",
+        location: "Vilamoura, Algarve",
+        type: "Moradia",
+        price: 690000,
+        rooms: 3,
+        baths: 3,
+        area: 210,
+        garage: "Sim",
+        energy: "A+",
+        luxury: true,
+        images: [
+          "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80"
+        ]
       }
-    } catch(e){}
-  }
+    ];
 
-  // Prioridade 2: properties.json
-  if (!loadedData) {
-    try {
-      const res = await fetch('properties.json?v=' + Date.now());
-      if (res.ok) loadedData = await res.json();
-    } catch(e){}
-  }
+    window.propertiesImageData = {};
 
-  if (loadedData) renderPropertyList(loadedData);
-}
-
-loadAllProperties();
-</script>
-<!-- ======================================================= -->
-<!-- INÍCIO DA SECÇÃO DE SIMULADORES (CRÉDITO E IMT)        -->
-<!-- ======================================================= -->
-
-<style>
-  .sim-section {
-    padding: 60px 0;
-    background-color: #f8f9fa;
-  }
-  .sim-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
-    font-family: 'Montserrat', sans-serif;
-  }
-  .sim-title {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  .sim-eyebrow {
-    color: #c99b32;
-    font-weight: 700;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-  }
-  .sim-card {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 25px rgba(0,0,0,0.08);
-    margin-bottom: 40px;
-  }
-  .sim-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-  }
-  .sim-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .sim-group label {
-    font-weight: 600;
-    font-size: 14px;
-    color: #333;
-  }
-  .sim-group input, .sim-group select {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 15px;
-    outline: none;
-  }
-  .sim-btn {
-    width: 100%;
-    padding: 14px;
-    background-color: #c99b32;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  .sim-btn:hover {
-    background-color: #b08528;
-  }
-  .sim-btn-wa {
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #25d366;
-    color: #fff;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .sim-results {
-    margin-top: 25px;
-    padding-top: 20px;
-    border-top: 2px dashed #eee;
-  }
-  .sim-res-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-    text-align: center;
-    margin-top: 15px;
-  }
-  .sim-res-card {
-    background: #fdfbf7;
-    border: 1px solid #f3e5c8;
-    padding: 15px;
-    border-radius: 8px;
-  }
-  .sim-res-card.highlight {
-    background: #0c1b24;
-    color: #fff;
-  }
-  .sim-res-card span {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #666;
-  }
-  .sim-res-card.highlight span {
-    color: #c99b32;
-  }
-  .sim-res-card strong {
-    display: block;
-    font-size: 20px;
-    color: #0c1b24;
-    margin-top: 5px;
-  }
-  .sim-res-card.highlight strong {
-    color: #fff;
-    font-size: 24px;
-  }
-</style>
-
-<!-- 1. SIMULADOR DE CRÉDITO À HABITAÇÃO -->
-<section class="sim-section" id="simulador-credito">
-  <div class="sim-container">
-    <div class="sim-title">
-      <p class="sim-eyebrow">FINANCIAMENTO</p>
-      <h2 style="color: #0c1b24; font-size: 28px; margin-top: 5px;">Simulador de Crédito à Habitação</h2>
-      <p style="color: #666; font-size: 15px; margin-top: 8px;">Calcule a estimativa da sua prestação mensal de forma rápida e simples.</p>
-    </div>
-
-    <div class="sim-card">
-      <form id="calcForm" onsubmit="calcularCredito(event)" class="sim-grid">
-        <div class="sim-group">
-          <label>Valor do Imóvel (€) *</label>
-          <input type="number" id="calcPrice" placeholder="Ex: 250000" required value="250000" oninput="atualizarEntradaMinima()">
-        </div>
-        <div class="sim-group">
-          <label>Valor de Entrada (€)</label>
-          <input type="number" id="calcDown" placeholder="Ex: 25000" value="25000">
-          <small style="font-size: 11px; color: #777;">(Min. 10% do valor do imóvel)</small>
-        </div>
-        <div class="sim-group">
-          <label>Prazo (Anos)</label>
-          <select id="calcYears">
-            <option value="40">40 anos</option>
-            <option value="35" selected>35 anos</option>
-            <option value="30">30 anos</option>
-            <option value="25">25 anos</option>
-            <option value="20">20 anos</option>
-            <option value="15">15 anos</option>
-          </select>
-        </div>
-        <div class="sim-group">
-          <label>Taxa de Juro / TAN (%)</label>
-          <input type="number" id="calcRate" step="0.1" placeholder="Ex: 3.5" value="3.5" required>
-        </div>
-        <div style="grid-column: 1 / -1;">
-          <button type="submit" class="sim-btn">Calcular Prestação Mensal</button>
-        </div>
-      </form>
-
-      <div id="calcResult" class="sim-results" style="display: none;">
-        <h3 style="font-size: 18px; color: #0c1b24; text-align: center;">Resumo do Crédito</h3>
-        <div class="sim-res-grid">
-          <div class="sim-res-card">
-            <span>Valor Financiado</span>
-            <strong id="resLoan">0,00 €</strong>
-          </div>
-          <div class="sim-res-card highlight">
-            <span>Prestação Mensal</span>
-            <strong id="resMonthly">0,00 € /mês</strong>
-          </div>
-          <div class="sim-res-card">
-            <span>Total de Juros</span>
-            <strong id="resTotalInterest">0,00 €</strong>
-          </div>
-        </div>
-        <div style="text-align: center; margin-top: 20px;">
-          <a id="btnWhatsappCredito" href="#" target="_blank" class="sim-btn-wa">
-            Enviar Simulação para o Jo Torres no WhatsApp
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 2. SIMULADOR DE IMT -->
-<section class="sim-section" id="simulador-imt" style="background-color: #ffffff;">
-  <div class="sim-container">
-    <div class="sim-title">
-      <p class="sim-eyebrow">IMPOSTOS NA COMPRA</p>
-      <h2 style="color: #0c1b24; font-size: 28px; margin-top: 5px;">Simulador de IMT e Imposto de Selo</h2>
-      <p style="color: #666; font-size: 15px; margin-top: 8px;">Calcule os impostos devidos ao Estado na aquisição.</p>
-    </div>
-
-    <div class="sim-card" style="background: #f8f9fa;">
-      <form id="imtForm" onsubmit="calcularIMT(event)" class="sim-grid">
-        <div class="sim-group">
-          <label>Valor de Aquisição (€) *</label>
-          <input type="number" id="imtPrice" placeholder="Ex: 250000" required value="250000">
-        </div>
-        <div class="sim-group">
-          <label>Finalidade do Imóvel</label>
-          <select id="imtPurpose">
-            <option value="HPP">Habitação Própria e Permanente (HPP)</option>
-            <option value="HS">Habitação Secundária / Arrendamento</option>
-            <option value="RUSTICO">Prédio Rústico (Terreno)</option>
-            <option value="OUTROS">Outros Prédios / Comercial</option>
-          </select>
-        </div>
-        <div class="sim-group" style="grid-column: 1 / -1;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-            <input type="checkbox" id="imtYoung" style="width: 18px; height: 18px;"> 
-            <span>Compradores com idade até 35 anos (Isenção Jovem até 316.772€)</span>
-          </label>
-        </div>
-        <div style="grid-column: 1 / -1;">
-          <button type="submit" class="sim-btn">Calcular Impostos</button>
-        </div>
-      </form>
-
-      <div id="imtResult" class="sim-results" style="display: none;">
-        <h3 style="font-size: 18px; color: #0c1b24; text-align: center;">Resumo dos Impostos</h3>
-        <div class="sim-res-grid">
-          <div class="sim-res-card">
-            <span>IMT</span>
-            <strong id="resIMT">0,00 €</strong>
-          </div>
-          <div class="sim-res-card">
-            <span>Imposto de Selo (0,8%)</span>
-            <strong id="resSelo">0,00 €</strong>
-          </div>
-          <div class="sim-res-card highlight">
-            <span>Total de Impostos</span>
-            <strong id="resTotalIMT">0,00 €</strong>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SCRIPT DE CÁLCULO DOS SIMULADORES -->
-<script>
-  function atualizarEntradaMinima() {
-    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
-    const downEl = document.getElementById('calcDown');
-    if (price > 0 && !downEl.getAttribute('data-edited')) {
-      downEl.value = Math.round(price * 0.10);
-    }
-  }
-
-  if(document.getElementById('calcDown')) {
-    document.getElementById('calcDown').addEventListener('input', function() {
-      this.setAttribute('data-edited', 'true');
-    });
-  }
-
-  function calcularCredito(e) {
-    if (e) e.preventDefault();
-    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
-    const downPayment = parseFloat(document.getElementById('calcDown').value) || 0;
-    const years = parseInt(document.getElementById('calcYears').value) || 35;
-    const annualRate = parseFloat(document.getElementById('calcRate').value) || 0;
-    const loanAmount = price - downPayment;
-
-    if (loanAmount <= 0) {
-      alert("O valor de entrada não pode ser igual ou superior ao valor do imóvel.");
-      return;
+    function esc(str) {
+      return String(str || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    const totalMonths = years * 12;
-    const monthlyRate = (annualRate / 100) / 12;
-    let monthlyPayment = 0;
+    // RETORNA A BADGE DO CERTIFICADO ENERGÉTICO APENAS COM A LETRA
+    function getEnergyBadge(rating) {
+      if (!rating) return '';
+      const r = String(rating).trim().toUpperCase();
+      let css = 'energy-isento';
+      if (r === 'A+') css = 'energy-a-plus';
+      else if (r === 'A') css = 'energy-a';
+      else if (r === 'B') css = 'energy-b';
+      else if (r === 'B-') css = 'energy-b-minus';
+      else if (r === 'C') css = 'energy-c';
+      else if (r === 'D') css = 'energy-d';
+      else if (r === 'E') css = 'energy-e';
+      else if (r === 'F') css = 'energy-f';
 
-    if (monthlyRate > 0) {
-      monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
-    } else {
-      monthlyPayment = loanAmount / totalMonths;
+      return `<span class="energy-badge ${css}" title="Certificado Energético">${r}</span>`;
     }
 
-    const totalPaid = monthlyPayment * totalMonths;
-    const totalInterest = totalPaid - loanAmount;
-    const fmt = (val) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
+    // RENDERIZAR OS CARDS DOS IMÓVEIS
+    function renderPropertyList(items) {
+      const grid = document.getElementById('propertyGrid');
+      if (!grid) return;
 
-    document.getElementById('resLoan').innerText = fmt(loanAmount);
-    document.getElementById('resMonthly').innerText = fmt(monthlyPayment) + " /mês";
-    document.getElementById('resTotalInterest').innerText = fmt(totalInterest);
+      grid.innerHTML = items.map((x, idx) => {
+        let imgList = Array.isArray(x.images) && x.images.length ? x.images : [x.image || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80'];
+        window.propertiesImageData[idx] = { images: imgList, currentIndex: 0 };
 
-    const msg = encodeURIComponent(`Olá Jo Torres! Fiz uma simulação no site:\n- Imóvel: ${fmt(price)}\n- Entrada: ${fmt(downPayment)}\n- Empréstimo: ${fmt(loanAmount)}\n- Prazo: ${years} anos\n- Prestação Estimada: ${fmt(monthlyPayment)}/mês.\n\nGostaria de mais informações!`);
-    document.getElementById('btnWhatsappCredito').href = `https://wa.me/41792601145?text=${msg}`;
-    document.getElementById('calcResult').style.display = 'block';
-  }
+        const priceVal = x.price || 0;
+        const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(priceVal);
+        const title = esc(x.title || 'Imóvel');
+        const location = esc(x.location || 'Portugal');
+        const type = esc(x.type || 'Moradia');
 
-  function calcularIMT(e) {
-    if (e) e.preventDefault();
-    const price = parseFloat(document.getElementById('imtPrice').value) || 0;
-    const purpose = document.getElementById('imtPurpose').value;
-    const isYoung = document.getElementById('imtYoung').checked;
+        // DETALHES COMPLETOS
+        const rooms = x.rooms ? `<span><i class="fa-solid fa-bed"></i> T${x.rooms}</span>` : '';
+        const baths = x.baths ? `<span><i class="fa-solid fa-bath"></i> ${x.baths} WC</span>` : '';
+        const area = x.area ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
+        const garage = (x.garage === 'Sim' || x.garage === true) ? `<span><i class="fa-solid fa-car"></i> Garagem</span>` : '';
 
-    if (price <= 0) return;
-    let imt = 0;
-    let selo = price * 0.008;
+        const isLuxury = x.luxury === "Sim" || x.luxury === true;
+        const luxuryBadge = isLuxury ? `<div class="luxury-badge">💎 Luxo</div>` : '';
+        const energyBadge = getEnergyBadge(x.energy);
 
-    if (isYoung && purpose === 'HPP') {
-      if (price <= 316772) {
+        return `
+          <article class="property">
+            <div class="property-img-wrap">
+              ${luxuryBadge}
+              <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
+              ${imgList.length > 1 ? `
+                <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
+                <button class="gallery-btn next" onclick="changeCardImage(event, ${idx}, 1)">❯</button>
+                <span class="img-counter" id="counter-${idx}">1/${imgList.length}</span>
+              ` : ''}
+            </div>
+            <div class="property-body">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span class="tag">${type}</span>
+                ${energyBadge}
+              </div>
+              <h3>${title}</h3>
+              <p class="prop-location"><i class="fa-solid fa-location-dot"></i> ${location}</p>
+              
+              <div class="property-details">
+                ${rooms} 
+                ${baths} 
+                ${area} 
+                ${garage}
+              </div>
+
+              <strong style="font-size:20px; color:var(--primary); margin-top: auto;">${priceFormatted}</strong>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function changeCardImage(e, idx, dir) {
+      e.stopPropagation();
+      const item = window.propertiesImageData[idx];
+      if (!item) return;
+
+      item.currentIndex += dir;
+      if (item.currentIndex < 0) item.currentIndex = item.images.length - 1;
+      if (item.currentIndex >= item.images.length) item.currentIndex = 0;
+
+      document.getElementById(`img-${idx}`).src = item.images[item.currentIndex];
+      const counter = document.getElementById(`counter-${idx}`);
+      if (counter) counter.innerText = `${item.currentIndex + 1}/${item.images.length}`;
+    }
+
+    // SIMULADOR CRÉDITO
+    function atualizarEntradaMinima() {
+      const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+      document.getElementById('calcDown').value = Math.round(price * 0.10);
+    }
+
+    function calcularCredito(e) {
+      if (e) e.preventDefault();
+      const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+      const downPayment = parseFloat(document.getElementById('calcDown').value) || 0;
+      const years = parseInt(document.getElementById('calcYears').value) || 35;
+      const annualRate = parseFloat(document.getElementById('calcRate').value) || 0;
+
+      const loanAmount = price - downPayment;
+      if (loanAmount <= 0) return alert("A entrada não pode ser igual ou superior ao valor do imóvel.");
+
+      const totalMonths = years * 12;
+      const monthlyRate = (annualRate / 100) / 12;
+      let monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+
+      const fmt = (v) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(v);
+
+      document.getElementById('resLoan').innerText = fmt(loanAmount);
+      document.getElementById('resMonthly').innerText = fmt(monthlyPayment) + " /mês";
+      document.getElementById('resTotalInterest').innerText = fmt((monthlyPayment * totalMonths) - loanAmount);
+
+      const msg = encodeURIComponent(`Olá Jo Torres! Fiz uma simulação de crédito:\n- Imóvel: ${fmt(price)}\n- Entrada: ${fmt(downPayment)}\n- Prestação: ${fmt(monthlyPayment)}/mês.`);
+      document.getElementById('btnWhatsappCredito').href = `https://wa.me/41792601145?text=${msg}`;
+      document.getElementById('creditoResult').style.display = 'block';
+    }
+
+    // SIMULADOR IMT
+    function calcularIMT(e) {
+      if (e) e.preventDefault();
+      const price = parseFloat(document.getElementById('imtPrice').value) || 0;
+      const purpose = document.getElementById('imtPurpose').value;
+      const isYoung = document.getElementById('imtYoung').checked;
+
+      let imt = 0;
+      let selo = price * 0.008;
+
+      if (isYoung && purpose === 'HPP' && price <= 316772) {
         imt = 0; selo = 0;
-      } else if (price <= 633453) {
-        imt = (price - 316772) * 0.08;
       } else {
-        imt = calcularEscaloesHPP(price);
+        if (price > 101917) imt = (price * 0.05) - 5000; // Cálculo simplificado de demonstração
       }
-    } else {
-      if (purpose === 'HPP') imt = calcularEscaloesHPP(price);
-      else if (purpose === 'HS') imt = calcularEscaloesSecundaria(price);
-      else if (purpose === 'RUSTICO') imt = price * 0.05;
-      else if (purpose === 'OUTROS') imt = price * 0.065;
+
+      const fmt = (v) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(v);
+      document.getElementById('resIMT').innerText = fmt(imt);
+      document.getElementById('resSelo').innerText = fmt(selo);
+      document.getElementById('resTotalIMT').innerText = fmt(imt + selo);
+      document.getElementById('imtResult').style.display = 'block';
     }
 
-    const fmt = (val) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
-    document.getElementById('resIMT').innerText = fmt(imt);
-    document.getElementById('resSelo').innerText = fmt(selo);
-    document.getElementById('resTotalIMT').innerText = fmt(imt + selo);
-    document.getElementById('imtResult').style.display = 'block';
-  }
-
-  function calcularEscaloesHPP(p) {
-    if (p <= 101917) return 0;
-    if (p <= 139412) return (p * 0.02) - 2038.34;
-    if (p <= 190086) return (p * 0.05) - 6220.70;
-    if (p <= 316772) return (p * 0.07) - 10022.42;
-    if (p <= 633453) return (p * 0.08) - 13190.14;
-    if (p <= 1102920) return p * 0.06;
-    return p * 0.075;
-  }
-
-  function calcularEscaloesSecundaria(p) {
-    if (p <= 101917) return p * 0.01;
-    if (p <= 139412) return (p * 0.02) - 1019.17;
-    if (p <= 190086) return (p * 0.05) - 5201.53;
-    if (p <= 316772) return (p * 0.07) - 9003.25;
-    if (p <= 633453) return (p * 0.08) - 12170.97;
-    if (p <= 1102920) return p * 0.06;
-    return p * 0.075;
-  }
-
-  window.addEventListener('DOMContentLoaded', () => {
-    calcularCredito();
-    calcularIMT();
-  });
-</script>
-<!-- ======================================================= -->
-<!-- FIM DA SECÇÃO DE SIMULADORES                           -->
-<!-- ======================================================= -->
+    window.addEventListener('DOMContentLoaded', () => {
+      renderPropertyList(sampleProperties);
+      calcularCredito();
+      calcularIMT();
+    });
+  </script>
 </body>
 </html>
