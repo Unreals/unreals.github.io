@@ -1,162 +1,662 @@
 <!doctype html>
 <html lang="pt-PT">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jo Torres | Consultor Imobiliário</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Jo Torres — Consultor Imobiliário. Imóveis selecionados para venda em Portugal e Suíça.">
+<title>Jo Torres | Consultor Imobiliário</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+.property-img-wrap {
+  position: relative !important;
+  width: 100% !important;
+  height: 220px !important;
+  overflow: hidden !important;
+  background-color: #000 !important;
+  cursor: pointer !important;
+}
+.property-img-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.3s ease !important;
+}
+.property-img-wrap:hover img {
+  transform: scale(1.03) !important;
+}
+
+.luxury-badge {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  background: rgba(12, 27, 36, 0.92) !important;
+  color: #c99b32 !important;
+  border: 1px solid #c99b32 !important;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  font-size: 13px !important;
+  font-weight: bold !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  z-index: 10 !important;
+}
+
+.energy-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+}
+.energy-a-plus, .energy-a { background-color: #1e824c !important; }
+.energy-b, .energy-b-minus { background-color: #26a65b !important; }
+.energy-c { background-color: #f39c12 !important; }
+.energy-d { background-color: #e67e22 !important; }
+.energy-e, .energy-f { background-color: #d9534f !important; }
+.energy-isento { background-color: #7f8c8d !important; }
+
+.gallery-btn {
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(0,0,0,0.6) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 5 !important;
+}
+.gallery-btn.prev { left: 8px !important; }
+.gallery-btn.next { right: 8px !important; }
+
+.img-counter {
+  position: absolute !important;
+  bottom: 8px !important;
+  right: 8px !important;
+  background: rgba(0,0,0,0.6) !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  padding: 3px 8px !important;
+  border-radius: 12px !important;
+  z-index: 5 !important;
+}
+
+.prop-location {
+  color: #0c1b24 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 10px 0 12px 0 !important;
+}
+.prop-location i { color: #c99b32 !important; }
+
+.lightbox {
+  display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.92); z-index: 9999;
+  justify-content: center; align-items: center; padding: 20px;
+}
+.lightbox.show { display: flex; }
+.lightbox-img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+.lightbox-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
+</style>
 </head>
 <body>
+<header class="header"><div class="container nav">
+<a class="brand" href="#top"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong><small>CONSULTOR IMOBILIÁRIO</small></span></a>
+<button class="menu" aria-label="Menu">☰</button>
+<nav><a href="imoveis.html">Imóveis</a><a href="#sobre">Sobre mim</a><a href="#servicos">Serviços</a><a href="#contacto">Contacto</a><a class="nav-wa" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20vi%20o%20seu%20site.">WhatsApp</a></nav>
+</div></header>
 
-<header class="header">
-  <div class="container nav">
-    <a class="brand" href="index.html">
-      <span class="brand-mark">JT</span>
-      <span><strong>JO TORRES</strong><small>CONSULTOR IMOBILIÁRIO</small></span>
-    </a>
-    <button class="menu" aria-label="Menu">☰</button>
-    <nav>
-      <a href="#imoveis">Imóveis</a>
-      <a href="#sobre">Sobre mim</a>
-      <a href="servicos.html">Serviços</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="#contacto">Contacto</a>
-      <a class="nav-wa" href="https://wa.me/41792601145" target="_blank">WhatsApp</a>
-    </nav>
-  </div>
-</header>
+<main id="top">
+<section class="hero"><div class="hero-bg"></div><div class="container hero-content">
+<div class="hero-copy"><p class="eyebrow">CONSULTORIA IMOBILIÁRIA · PORTUGAL & SUÍÇA</p><h1>Encontre o lugar<br><em>certo para si.</em></h1><p class="lead">Imóveis selecionados, acompanhamento próximo e uma negociação pensada para si.</p>
+<div class="actions"><a class="btn gold" href="imoveis.html">Ver imóveis</a><a class="btn light" href="https://wa.me/41792601145?text=Olá%20Jo%20Torres,%20gostaria%20de%20falar%20sobre%20um%20imóvel.">Falar no WhatsApp</a></div></div>
+<div class="hero-card"><img src="images/jo-torres.jpg" alt="Jo Torres, Consultor Imobiliário"><div class="hero-card-text"><strong>Jo Torres</strong><span>Consultor Imobiliário</span></div></div>
+</div></section>
 
-<main>
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80');"></div>
-    <div class="container hero-content">
-      <div class="hero-copy">
-        <p class="eyebrow">CONSULTORIA IMOBILIÁRIA · PORTUGAL & SUÍÇA</p>
-        <h1>Encontre o lugar <em>certo para si.</em></h1>
-        <p class="lead">Imóveis selecionados, acompanhamento próximo e uma negociação pensada para si.</p>
-        <div class="actions">
-          <a href="#imoveis" class="btn gold">Ver imóveis</a>
-          <a href="https://wa.me/41792601145" class="btn light" target="_blank">Falar no WhatsApp</a>
-        </div>
-      </div>
-      <div class="hero-card">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Jo Torres">
-        <div class="hero-card-text">
-          <strong>Jo Torres</strong>
-          <span>Consultor Imobiliário</span>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="search-wrap"><div class="container search-box">
+  <div><label>Zona / Localização</label><input id="qZone" placeholder="Famalicão, Lisboa, Porto..."></div>
+  <div><label>Tipo</label><select id="qType"><option value="">Todos</option><option>Moradia</option><option>Apartamento</option><option>Terreno</option><option>Comercial</option></select></div>
+  <div><label>Preço máximo</label><select id="qPrice"><option value="">Sem limite</option><option value="300000">300.000 €</option><option value="500000">500.000 €</option><option value="750000">750.000 €</option><option value="1000000">1.000.000 €</option></select></div>
+  <button class="btn gold" id="searchBtn">Pesquisar</button>
+</div></section>
 
-  <!-- LISTA DE IMÓVEIS -->
-  <section id="imoveis" class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">PORTFÓLIO DE EXCELÊNCIA</p>
-          <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--color-primary);">Imóveis em Destaque</h2>
-        </div>
-      </div>
+<section class="section" id="imoveis"><div class="container">
+  <div class="section-head"><div><p class="eyebrow dark">SELEÇÃO JO TORRES</p><h2>Imóveis em destaque</h2><p>Algumas oportunidades para começar a sua pesquisa.</p></div><a class="text-link" href="#contacto">Tenho um imóvel para vender →</a></div>
+  <div class="cards" id="propertyGrid"></div>
+  <div id="noResults" style="display:none; text-align:center; padding:40px 20px; font-size:16px;">Não encontrámos imóveis com esses critérios.</div>
+</div></section>
 
-      <div class="cards">
+<section class="about section" id="sobre"><div class="container about-grid"><div class="about-photo"><img src="images/jo-torres.jpg" alt="Jo Torres"></div><div><p class="eyebrow dark">SOBRE MIM</p><h2>Mais do que encontrar uma casa, é encontrar o lugar certo.</h2><p>Sou o Jo Torres, Consultor Imobiliário, com atuação em Portugal e na Suíça.</p><div class="signature">Jo Torres</div></div></div></section>
 
-        <!-- IMÓVEL 1 -->
-        <div class="property">
-          <div class="property-img-wrap">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Moradia de Luxo">
-          </div>
-          <div class="property-body">
-            <h3>Moradia Contemporânea T4</h3>
-            <p class="property-price">€ 850.000</p>
-            <p class="property-location"><i class="fa-solid fa-location-dot"></i> Cascais, Portugal</p>
-          </div>
-          <!-- ÍCONE DE LINK DIRETO NO CANTO INFERIOR DO IMÓVEL -->
-          <a href="https://wa.me/41792601145?text=Tenho%20interesse%20na%20Moradia%20T4" class="property-link-icon" title="Ver Detalhes do Imóvel" target="_blank">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
-        </div>
-
-        <!-- IMÓVEL 2 -->
-        <div class="property">
-          <div class="property-img-wrap">
-            <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80" alt="Apartamento Luxo">
-          </div>
-          <div class="property-body">
-            <h3>Apartamento Vista Rio T3</h3>
-            <p class="property-price">€ 620.000</p>
-            <p class="property-location"><i class="fa-solid fa-location-dot"></i> Porto, Portugal</p>
-          </div>
-          <!-- ÍCONE DE LINK DIRETO NO CANTO INFERIOR DO IMÓVEL -->
-          <a href="https://wa.me/41792601145?text=Tenho%20interesse%20no%20Apartamento%20T3" class="property-link-icon" title="Ver Detalhes do Imóvel" target="_blank">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
-        </div>
-
-        <!-- IMÓVEL 3 -->
-        <div class="property">
-          <div class="property-img-wrap">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Villa Suíça">
-          </div>
-          <div class="property-body">
-            <h3>Villa Exclusiva Alpes</h3>
-            <p class="property-price">CHF 1.850.000</p>
-            <p class="property-location"><i class="fa-solid fa-location-dot"></i> Valais, Suíça</p>
-          </div>
-          <!-- ÍCONE DE LINK DIRETO NO CANTO INFERIOR DO IMÓVEL -->
-          <a href="https://wa.me/41792601145?text=Tenho%20interesse%20na%20Villa%20Suíça" class="property-link-icon" title="Ver Detalhes do Imóvel" target="_blank">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SOBRE MIM -->
-  <section id="sobre" class="section about">
-    <div class="container about-grid">
-      <div class="about-photo">
-        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" alt="Jo Torres Consultor">
-      </div>
-      <div>
-        <p class="eyebrow">SOBRE JO TORRES</p>
-        <h2>Experiência e compromisso ao seu serviço.</h2>
-        <p style="color: #d1d5db; margin-bottom: 15px;">Especialista na gestão de investimentos e mediação imobiliária entre Portugal e a Suíça, ofereço um serviço rigoroso, focado na discrição e no cumprimento dos seus objetivos.</p>
-        <p class="signature">Jo Torres</p>
-      </div>
-    </div>
-  </section>
+<section class="contact section" id="contacto"><div class="container contact-box"><div><p class="eyebrow">VAMOS CONVERSAR</p><h2>Tem uma pergunta?<br>Estou disponível.</h2></div><div class="contact-actions"><a href="tel:+41792601145"><small>Telefone / WhatsApp</small><strong>+41 79 260 11 45</strong></a><a class="btn gold" href="https://wa.me/41792601145">Abrir WhatsApp →</a></div></div></section>
 </main>
 
-<footer>
-  <div class="container footer-grid">
-    <div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong></span></div>
-    <div><p>© 2026 Jo Torres — Membro FNAI</p></div>
-  </div>
-</footer>
+<footer><div class="container footer-grid"><div class="brand"><span class="brand-mark">JT</span><span><strong>JO TORRES</strong></span></div><div><p>© 2026 Jo Torres</p></div></div></footer>
 
-<!-- SCRIPT DA MARCA D'ÁGUA DA FNAI REDIRECIONAR PARA O LINK DEFINIDO NO DASHBOARD -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()"><span class="lightbox-close">&times;</span><img id="lightbox-img" class="lightbox-img" src="" alt="Zoom"></div>
+
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const getFnaiUrl = () => localStorage.getItem('fnai_main_url') || 'https://fnai.pt';
-  
-  // Torna a marca d'água clicável
-  document.querySelectorAll('.fnai-badge, .property-img-wrap, .hero-card').forEach(el => {
-    el.addEventListener('click', (e) => {
-      if (e.target.classList.contains('property-link-icon') || e.target.closest('.property-link-icon')) return;
-      // se clicar na marca d'água/imagem, redireciona para a url da FNAI
-      const url = getFnaiUrl();
-      if (url) window.open(url, '_blank');
-    });
-  });
-});
-</script>
+document.querySelector('.menu').onclick = () => document.querySelector('nav').classList.toggle('open');
 
+function normalizeText(str) {
+  return String(str || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+function applySearch() {
+  const cards = [...document.querySelectorAll('.property')];
+  const noResults = document.getElementById('noResults');
+  const z = normalizeText(document.getElementById('qZone').value.trim());
+  const t = document.getElementById('qType').value;
+  const p = Number(document.getElementById('qPrice').value || Infinity);
+  let count = 0;
+
+  cards.forEach(c => {
+    let searchContent = normalizeText(c.dataset.search || "");
+    let type = c.dataset.type || "";
+    let price = Number(c.dataset.price || 0);
+
+    let matchZone = !z || searchContent.includes(z);
+    let matchType = !t || type === t;
+    let matchPrice = price <= p;
+
+    let ok = matchZone && matchType && matchPrice;
+    c.style.display = ok ? 'block' : 'none';
+    if (ok) count++;
+  });
+
+  if (noResults) noResults.style.display = (count === 0) ? 'block' : 'none';
+}
+
+document.getElementById('qZone').addEventListener('input', applySearch);
+document.getElementById('qType').addEventListener('change', applySearch);
+document.getElementById('qPrice').addEventListener('change', applySearch);
+document.getElementById('searchBtn').onclick = applySearch;
+
+function esc(s) { return String(s || "").replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m])); }
+function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('show'); }
+function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
+
+window.propertiesImageData = {};
+
+function changeCardImage(event, propId, direction) {
+  event.stopPropagation();
+  const data = window.propertiesImageData[propId];
+  if (!data || !data.images) return;
+  data.currentIndex = (data.currentIndex + direction + data.images.length) % data.images.length;
+  document.getElementById(`img-${propId}`).src = data.images[data.currentIndex];
+  document.getElementById(`counter-${propId}`).innerText = `${data.currentIndex + 1}/${data.images.length}`;
+}
+
+function getEnergyBadge(rating) {
+  if (!rating) return '';
+  const r = String(rating).trim().toUpperCase();
+  let css = 'energy-isento';
+  if (r === 'A+') css = 'energy-a-plus';
+  else if (r === 'A') css = 'energy-a';
+  else if (r === 'B') css = 'energy-b';
+  else if (r === 'B-') css = 'energy-b-minus';
+  else if (r === 'C') css = 'energy-c';
+  else if (r === 'D') css = 'energy-d';
+  else if (r === 'E') css = 'energy-e';
+  else if (r === 'F') css = 'energy-f';
+
+  return `<span class="energy-badge ${css}" title="Certificação Energética: ${r}">CE ${r}</span>`;
+}
+
+function renderPropertyList(items) {
+  const grid = document.getElementById('propertyGrid');
+  if (!Array.isArray(items) || items.length === 0) {
+    grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #666;">Nenhum imóvel disponível no momento.</p>';
+    return;
+  }
+
+  grid.innerHTML = items.map((x, idx) => {
+    let imgList = Array.isArray(x.images) && x.images.length ? x.images : (x.image ? [x.image] : ['https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85']);
+    window.propertiesImageData[idx] = { images: imgList, currentIndex: 0 };
+
+    const priceVal = x.price || 0;
+    const priceFormatted = new Intl.NumberFormat("pt-PT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(priceVal);
+    const title = esc(x.title || 'Imóvel');
+    const location = esc(x.location || 'Portugal');
+    const type = esc(x.type || 'Moradia');
+    const searchableText = `${title} ${location} ${x.description || ''}`;
+
+    const rooms = x.rooms ? `<span><i class="fa-solid fa-bed"></i> ${x.rooms}</span>` : '';
+    const baths = x.baths ? `<span><i class="fa-solid fa-bath"></i> ${x.baths}</span>` : '';
+    const area = x.area ? `<span><i class="fa-solid fa-ruler-combined"></i> ${x.area} m²</span>` : '';
+
+    const isLuxury = x.luxury === "Sim" || x.luxury === true;
+    const luxuryBadge = isLuxury ? `<div class="luxury-badge">💎 Luxo</div>` : '';
+    const energyBadge = getEnergyBadge(x.energy);
+
+    return `
+      <article class="property" data-search="${searchableText}" data-type="${type}" data-price="${priceVal}">
+        <div class="property-img-wrap" onclick="openLightbox('${imgList[0]}')">
+          ${luxuryBadge}
+          <img id="img-${idx}" src="${imgList[0]}" alt="${title}">
+          ${imgList.length > 1 ? `
+            <button class="gallery-btn prev" onclick="changeCardImage(event, ${idx}, -1)">❮</button>
+            <button class="gallery-btn next" onclick="changeCardImage(event, ${idx}, 1)">❯</button>
+            <span class="img-counter" id="counter-${idx}">1/${imgList.length}</span>
+          ` : ''}
+        </div>
+        <div class="property-body">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <span class="tag">${type}</span>
+            ${energyBadge}
+          </div>
+          <h3>${title}</h3>
+          <p class="prop-location"><i class="fa-solid fa-location-dot"></i> ${location}</p>
+          <div class="property-details" style="display:flex; gap:10px; font-size:13px; color:#555; margin-bottom:10px;">
+            ${rooms} ${baths} ${area}
+          </div>
+          <strong style="font-size:18px; color:#0c1b24;">${priceFormatted}</strong>
+        </div>
+      </article>
+    `;
+  }).join('');
+
+  applySearch();
+}
+
+async function loadAllProperties() {
+  let loadedData = null;
+
+  // Prioridade 1: Dados do Admin em tempo real
+  const local = localStorage.getItem("jt_properties");
+  if (local) {
+    try {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        loadedData = parsed;
+      }
+    } catch(e){}
+  }
+
+  // Prioridade 2: properties.json
+  if (!loadedData) {
+    try {
+      const res = await fetch('properties.json?v=' + Date.now());
+      if (res.ok) loadedData = await res.json();
+    } catch(e){}
+  }
+
+  if (loadedData) renderPropertyList(loadedData);
+}
+
+loadAllProperties();
+</script>
+<!-- ======================================================= -->
+<!-- INÍCIO DA SECÇÃO DE SIMULADORES (CRÉDITO E IMT)        -->
+<!-- ======================================================= -->
+
+<style>
+  .sim-section {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+  }
+  .sim-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .sim-title {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .sim-eyebrow {
+    color: #c99b32;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  .sim-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+    margin-bottom: 40px;
+  }
+  .sim-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .sim-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sim-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+  .sim-group input, .sim-group select {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+  }
+  .sim-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #c99b32;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .sim-btn:hover {
+    background-color: #b08528;
+  }
+  .sim-btn-wa {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .sim-results {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px dashed #eee;
+  }
+  .sim-res-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .sim-res-card {
+    background: #fdfbf7;
+    border: 1px solid #f3e5c8;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  .sim-res-card.highlight {
+    background: #0c1b24;
+    color: #fff;
+  }
+  .sim-res-card span {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #666;
+  }
+  .sim-res-card.highlight span {
+    color: #c99b32;
+  }
+  .sim-res-card strong {
+    display: block;
+    font-size: 20px;
+    color: #0c1b24;
+    margin-top: 5px;
+  }
+  .sim-res-card.highlight strong {
+    color: #fff;
+    font-size: 24px;
+  }
+</style>
+
+<!-- 1. SIMULADOR DE CRÉDITO À HABITAÇÃO -->
+<section class="sim-section" id="simulador-credito">
+  <div class="sim-container">
+    <div class="sim-title">
+      <p class="sim-eyebrow">FINANCIAMENTO</p>
+      <h2 style="color: #0c1b24; font-size: 28px; margin-top: 5px;">Simulador de Crédito à Habitação</h2>
+      <p style="color: #666; font-size: 15px; margin-top: 8px;">Calcule a estimativa da sua prestação mensal de forma rápida e simples.</p>
+    </div>
+
+    <div class="sim-card">
+      <form id="calcForm" onsubmit="calcularCredito(event)" class="sim-grid">
+        <div class="sim-group">
+          <label>Valor do Imóvel (€) *</label>
+          <input type="number" id="calcPrice" placeholder="Ex: 250000" required value="250000" oninput="atualizarEntradaMinima()">
+        </div>
+        <div class="sim-group">
+          <label>Valor de Entrada (€)</label>
+          <input type="number" id="calcDown" placeholder="Ex: 25000" value="25000">
+          <small style="font-size: 11px; color: #777;">(Min. 10% do valor do imóvel)</small>
+        </div>
+        <div class="sim-group">
+          <label>Prazo (Anos)</label>
+          <select id="calcYears">
+            <option value="40">40 anos</option>
+            <option value="35" selected>35 anos</option>
+            <option value="30">30 anos</option>
+            <option value="25">25 anos</option>
+            <option value="20">20 anos</option>
+            <option value="15">15 anos</option>
+          </select>
+        </div>
+        <div class="sim-group">
+          <label>Taxa de Juro / TAN (%)</label>
+          <input type="number" id="calcRate" step="0.1" placeholder="Ex: 3.5" value="3.5" required>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <button type="submit" class="sim-btn">Calcular Prestação Mensal</button>
+        </div>
+      </form>
+
+      <div id="calcResult" class="sim-results" style="display: none;">
+        <h3 style="font-size: 18px; color: #0c1b24; text-align: center;">Resumo do Crédito</h3>
+        <div class="sim-res-grid">
+          <div class="sim-res-card">
+            <span>Valor Financiado</span>
+            <strong id="resLoan">0,00 €</strong>
+          </div>
+          <div class="sim-res-card highlight">
+            <span>Prestação Mensal</span>
+            <strong id="resMonthly">0,00 € /mês</strong>
+          </div>
+          <div class="sim-res-card">
+            <span>Total de Juros</span>
+            <strong id="resTotalInterest">0,00 €</strong>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+          <a id="btnWhatsappCredito" href="#" target="_blank" class="sim-btn-wa">
+            Enviar Simulação para o Jo Torres no WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. SIMULADOR DE IMT -->
+<section class="sim-section" id="simulador-imt" style="background-color: #ffffff;">
+  <div class="sim-container">
+    <div class="sim-title">
+      <p class="sim-eyebrow">IMPOSTOS NA COMPRA</p>
+      <h2 style="color: #0c1b24; font-size: 28px; margin-top: 5px;">Simulador de IMT e Imposto de Selo</h2>
+      <p style="color: #666; font-size: 15px; margin-top: 8px;">Calcule os impostos devidos ao Estado na aquisição.</p>
+    </div>
+
+    <div class="sim-card" style="background: #f8f9fa;">
+      <form id="imtForm" onsubmit="calcularIMT(event)" class="sim-grid">
+        <div class="sim-group">
+          <label>Valor de Aquisição (€) *</label>
+          <input type="number" id="imtPrice" placeholder="Ex: 250000" required value="250000">
+        </div>
+        <div class="sim-group">
+          <label>Finalidade do Imóvel</label>
+          <select id="imtPurpose">
+            <option value="HPP">Habitação Própria e Permanente (HPP)</option>
+            <option value="HS">Habitação Secundária / Arrendamento</option>
+            <option value="RUSTICO">Prédio Rústico (Terreno)</option>
+            <option value="OUTROS">Outros Prédios / Comercial</option>
+          </select>
+        </div>
+        <div class="sim-group" style="grid-column: 1 / -1;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="checkbox" id="imtYoung" style="width: 18px; height: 18px;"> 
+            <span>Compradores com idade até 35 anos (Isenção Jovem até 316.772€)</span>
+          </label>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <button type="submit" class="sim-btn">Calcular Impostos</button>
+        </div>
+      </form>
+
+      <div id="imtResult" class="sim-results" style="display: none;">
+        <h3 style="font-size: 18px; color: #0c1b24; text-align: center;">Resumo dos Impostos</h3>
+        <div class="sim-res-grid">
+          <div class="sim-res-card">
+            <span>IMT</span>
+            <strong id="resIMT">0,00 €</strong>
+          </div>
+          <div class="sim-res-card">
+            <span>Imposto de Selo (0,8%)</span>
+            <strong id="resSelo">0,00 €</strong>
+          </div>
+          <div class="sim-res-card highlight">
+            <span>Total de Impostos</span>
+            <strong id="resTotalIMT">0,00 €</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPT DE CÁLCULO DOS SIMULADORES -->
+<script>
+  function atualizarEntradaMinima() {
+    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+    const downEl = document.getElementById('calcDown');
+    if (price > 0 && !downEl.getAttribute('data-edited')) {
+      downEl.value = Math.round(price * 0.10);
+    }
+  }
+
+  if(document.getElementById('calcDown')) {
+    document.getElementById('calcDown').addEventListener('input', function() {
+      this.setAttribute('data-edited', 'true');
+    });
+  }
+
+  function calcularCredito(e) {
+    if (e) e.preventDefault();
+    const price = parseFloat(document.getElementById('calcPrice').value) || 0;
+    const downPayment = parseFloat(document.getElementById('calcDown').value) || 0;
+    const years = parseInt(document.getElementById('calcYears').value) || 35;
+    const annualRate = parseFloat(document.getElementById('calcRate').value) || 0;
+    const loanAmount = price - downPayment;
+
+    if (loanAmount <= 0) {
+      alert("O valor de entrada não pode ser igual ou superior ao valor do imóvel.");
+      return;
+    }
+
+    const totalMonths = years * 12;
+    const monthlyRate = (annualRate / 100) / 12;
+    let monthlyPayment = 0;
+
+    if (monthlyRate > 0) {
+      monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+    } else {
+      monthlyPayment = loanAmount / totalMonths;
+    }
+
+    const totalPaid = monthlyPayment * totalMonths;
+    const totalInterest = totalPaid - loanAmount;
+    const fmt = (val) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
+
+    document.getElementById('resLoan').innerText = fmt(loanAmount);
+    document.getElementById('resMonthly').innerText = fmt(monthlyPayment) + " /mês";
+    document.getElementById('resTotalInterest').innerText = fmt(totalInterest);
+
+    const msg = encodeURIComponent(`Olá Jo Torres! Fiz uma simulação no site:\n- Imóvel: ${fmt(price)}\n- Entrada: ${fmt(downPayment)}\n- Empréstimo: ${fmt(loanAmount)}\n- Prazo: ${years} anos\n- Prestação Estimada: ${fmt(monthlyPayment)}/mês.\n\nGostaria de mais informações!`);
+    document.getElementById('btnWhatsappCredito').href = `https://wa.me/41792601145?text=${msg}`;
+    document.getElementById('calcResult').style.display = 'block';
+  }
+
+  function calcularIMT(e) {
+    if (e) e.preventDefault();
+    const price = parseFloat(document.getElementById('imtPrice').value) || 0;
+    const purpose = document.getElementById('imtPurpose').value;
+    const isYoung = document.getElementById('imtYoung').checked;
+
+    if (price <= 0) return;
+    let imt = 0;
+    let selo = price * 0.008;
+
+    if (isYoung && purpose === 'HPP') {
+      if (price <= 316772) {
+        imt = 0; selo = 0;
+      } else if (price <= 633453) {
+        imt = (price - 316772) * 0.08;
+      } else {
+        imt = calcularEscaloesHPP(price);
+      }
+    } else {
+      if (purpose === 'HPP') imt = calcularEscaloesHPP(price);
+      else if (purpose === 'HS') imt = calcularEscaloesSecundaria(price);
+      else if (purpose === 'RUSTICO') imt = price * 0.05;
+      else if (purpose === 'OUTROS') imt = price * 0.065;
+    }
+
+    const fmt = (val) => new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' }).format(val);
+    document.getElementById('resIMT').innerText = fmt(imt);
+    document.getElementById('resSelo').innerText = fmt(selo);
+    document.getElementById('resTotalIMT').innerText = fmt(imt + selo);
+    document.getElementById('imtResult').style.display = 'block';
+  }
+
+  function calcularEscaloesHPP(p) {
+    if (p <= 101917) return 0;
+    if (p <= 139412) return (p * 0.02) - 2038.34;
+    if (p <= 190086) return (p * 0.05) - 6220.70;
+    if (p <= 316772) return (p * 0.07) - 10022.42;
+    if (p <= 633453) return (p * 0.08) - 13190.14;
+    if (p <= 1102920) return p * 0.06;
+    return p * 0.075;
+  }
+
+  function calcularEscaloesSecundaria(p) {
+    if (p <= 101917) return p * 0.01;
+    if (p <= 139412) return (p * 0.02) - 1019.17;
+    if (p <= 190086) return (p * 0.05) - 5201.53;
+    if (p <= 316772) return (p * 0.07) - 9003.25;
+    if (p <= 633453) return (p * 0.08) - 12170.97;
+    if (p <= 1102920) return p * 0.06;
+    return p * 0.075;
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    calcularCredito();
+    calcularIMT();
+  });
+</script>
+<!-- ======================================================= -->
+<!-- FIM DA SECÇÃO DE SIMULADORES                           -->
+<!-- ======================================================= -->
 </body>
 </html>
