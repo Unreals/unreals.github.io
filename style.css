@@ -164,7 +164,8 @@ nav a:hover, nav a.active {
 .about-photo,
 .watermark-container,
 .service-hero-bg,
-.service-img-wrap {
+.service-img-wrap,
+.hero-luxury {
   position: relative !important;
   overflow: hidden !important;
 }
@@ -174,7 +175,8 @@ nav a:hover, nav a.active {
 .about-photo::after,
 .watermark-container::after,
 .service-hero-bg::after,
-.service-img-wrap::after {
+.service-img-wrap::after,
+.hero-luxury::after {
   content: 'FNAI' !important;
   position: absolute !important;
   bottom: 12px !important;
@@ -284,10 +286,12 @@ nav a:hover, nav a.active {
   border: 1px solid rgba(197, 155, 39, 0.3);
 }
 
+/* CORREÇÃO DO ENQUADRAMENTO DA FOTO DE PERFIL NO HERO */
 .hero-card img {
   width: 100%;
-  height: 420px;
+  height: 520px;
   object-fit: cover;
+  object-position: top center;
   display: block;
 }
 
@@ -419,10 +423,12 @@ nav a:hover, nav a.active {
   border: 1px solid var(--color-accent);
 }
 
+/* CORREÇÃO DO ENQUADRAMENTO DA FOTO NA SECÇÃO SOBRE MIM */
 .about-photo img {
   width: 100%;
-  height: 480px;
+  height: 520px;
   object-fit: cover;
+  object-position: top center;
   display: block;
 }
 
