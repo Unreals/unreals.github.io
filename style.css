@@ -1,6 +1,6 @@
-/* =========================================================
+/* =====================================================
    RESET
-   ========================================================= */
+   ===================================================== */
 
 * {
   margin: 0;
@@ -8,11 +8,9 @@
   box-sizing: border-box;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
-
 
 body {
   font-family:
@@ -29,31 +27,25 @@ body {
   overflow-x: hidden;
 }
 
-
 img {
   max-width: 100%;
 }
 
-
 a {
   color: inherit;
-
   text-decoration: none;
 }
-
 
 button {
   font-family: inherit;
 }
 
 
-
-/* =========================================================
+/* =====================================================
    HEADER
-   ========================================================= */
+   ===================================================== */
 
 .header {
-
   position: sticky;
 
   top: 0;
@@ -64,9 +56,7 @@ button {
 
   min-height: 82px;
 
-  padding:
-    15px
-    5%;
+  padding: 15px 5%;
 
   display: flex;
 
@@ -74,19 +64,14 @@ button {
 
   justify-content: space-between;
 
-  background:
-    rgba(255, 255, 255, 0.96);
+  background: rgba(255,255,255,0.97);
 
-  backdrop-filter:
-    blur(12px);
+  backdrop-filter: blur(12px);
 
-  border-bottom:
-    1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 
-
 .logo {
-
   display: flex;
 
   align-items: center;
@@ -94,9 +79,7 @@ button {
   gap: 12px;
 }
 
-
 .logo-circle {
-
   width: 48px;
 
   height: 48px;
@@ -120,9 +103,7 @@ button {
   letter-spacing: 1px;
 }
 
-
 .logo-text {
-
   display: flex;
 
   flex-direction: column;
@@ -130,17 +111,13 @@ button {
   line-height: 1.15;
 }
 
-
 .logo-text strong {
-
   font-size: 17px;
 
   letter-spacing: 1.5px;
 }
 
-
 .logo-text span {
-
   margin-top: 4px;
 
   font-size: 9px;
@@ -150,9 +127,7 @@ button {
   color: #777777;
 }
 
-
 .navigation {
-
   display: flex;
 
   align-items: center;
@@ -160,29 +135,18 @@ button {
   gap: 30px;
 }
 
-
 .navigation > a {
-
   font-size: 14px;
 
   font-weight: 500;
-
-  transition:
-    opacity 0.2s ease;
 }
 
-
 .navigation > a:hover {
-
   opacity: 0.55;
 }
 
-
 .navigation .whatsapp {
-
-  padding:
-    10px
-    17px;
+  padding: 10px 17px;
 
   border-radius: 4px;
 
@@ -194,96 +158,11 @@ button {
 }
 
 
-.navigation .whatsapp:hover {
-
-  opacity: 1;
-
-  background: #333333;
-}
-
-
-
-/* =========================================================
-   HERO
-   ========================================================= */
-
-.hero {
-
-  position: relative;
-
-  min-height: 650px;
-
-  display: flex;
-
-  align-items: center;
-
-  padding:
-    90px
-    8%;
-
-  background:
-    linear-gradient(
-      100deg,
-      #181818 0%,
-      #282828 55%,
-      #404040 100%
-    );
-
-  color: #ffffff;
-
-  overflow: hidden;
-}
-
-
-.hero::after {
-
-  content: "";
-
-  position: absolute;
-
-  width: 500px;
-
-  height: 500px;
-
-  right: -150px;
-
-  top: -150px;
-
-  border-radius: 50%;
-
-  border:
-    1px solid
-    rgba(255,255,255,0.08);
-}
-
-
-.hero-overlay {
-
-  position: absolute;
-
-  inset: 0;
-
-  background:
-    radial-gradient(
-      circle at 70% 40%,
-      rgba(255,255,255,0.08),
-      transparent 35%
-    );
-}
-
-
-.hero-content {
-
-  position: relative;
-
-  z-index: 2;
-
-  max-width: 700px;
-}
-
+/* =====================================================
+   TIPOGRAFIA
+   ===================================================== */
 
 .eyebrow {
-
   margin-bottom: 18px;
 
   font-size: 11px;
@@ -296,14 +175,44 @@ button {
 }
 
 
-.hero .eyebrow {
+/* =====================================================
+   HERO
+   ===================================================== */
 
+.hero {
+  position: relative;
+
+  min-height: 650px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 90px 8%;
+
+  background:
+    linear-gradient(
+      100deg,
+      #181818,
+      #303030
+    );
+
+  color: #ffffff;
+}
+
+.hero-content {
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 700px;
+}
+
+.hero .eyebrow {
   color: #c5c5c5;
 }
 
-
 .hero h1 {
-
   font-family:
     Georgia,
     "Times New Roman",
@@ -319,15 +228,11 @@ button {
   letter-spacing: -3px;
 }
 
-
 .hero h1 span {
-
   color: #b9b9b9;
 }
 
-
 .hero p {
-
   max-width: 570px;
 
   margin-top: 30px;
@@ -339,9 +244,7 @@ button {
   color: #dddddd;
 }
 
-
 .hero-buttons {
-
   display: flex;
 
   gap: 14px;
@@ -349,9 +252,11 @@ button {
   margin-top: 38px;
 }
 
-
 .btn-primary,
 .btn-secondary {
+  min-height: 50px;
+
+  padding: 0 25px;
 
   display: inline-flex;
 
@@ -359,72 +264,36 @@ button {
 
   justify-content: center;
 
-  min-height: 50px;
-
-  padding:
-    0
-    25px;
-
   border-radius: 3px;
 
   font-size: 13px;
 
   font-weight: 700;
-
-  transition:
-    all 0.2s ease;
 }
 
-
 .btn-primary {
-
   background: #ffffff;
 
   color: #181818;
 }
 
-
-.btn-primary:hover {
-
-  transform:
-    translateY(-2px);
-}
-
-
 .btn-secondary {
-
-  border:
-    1px solid
-    rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.4);
 
   color: #ffffff;
 }
 
 
-.btn-secondary:hover {
-
-  background: #ffffff;
-
-  color: #181818;
-}
-
-
-
-/* =========================================================
-   INTRO
-   ========================================================= */
+/* =====================================================
+   SOBRE MIM
+   ===================================================== */
 
 .intro {
-
   max-width: 1200px;
 
-  margin:
-    0
-    auto;
+  margin: auto;
 
-  padding:
-    120px
-    5%;
+  padding: 120px 5%;
 
   display: grid;
 
@@ -437,33 +306,44 @@ button {
   align-items: center;
 }
 
-
 .intro-photo {
-
   width: 100%;
 
   aspect-ratio: 4 / 5;
 
   overflow: hidden;
 
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
   background: #eeeeee;
 }
 
 
+/*
+ * IMPORTANTE:
+ * contain mostra a fotografia inteira.
+ * Não corta a cabeça.
+ */
+
 .intro-photo img {
+  display: block;
 
   width: 100%;
 
   height: 100%;
 
-  display: block;
+  object-fit: contain;
 
-  object-fit: cover;
+  object-position: center;
+
+  background: #eeeeee;
 }
 
-
 .intro-text h2 {
-
   font-family:
     Georgia,
     "Times New Roman",
@@ -475,19 +355,13 @@ button {
   line-height: 1.05;
 
   font-weight: 400;
-
-  letter-spacing: -1.5px;
 }
 
-
 .intro-text h2 span {
-
   color: #777777;
 }
 
-
 .intro-text p {
-
   max-width: 570px;
 
   margin-top: 25px;
@@ -497,9 +371,7 @@ button {
   font-size: 16px;
 }
 
-
 .text-link {
-
   display: inline-block;
 
   margin-top: 30px;
@@ -508,135 +380,95 @@ button {
 
   font-weight: 700;
 
-  border-bottom:
-    1px solid #222222;
-
-  padding-bottom: 4px;
+  border-bottom: 1px solid #222222;
 }
 
 
+/* =====================================================
+   PÁGINA DE IMÓVEIS
+   ===================================================== */
 
-/* =========================================================
-   PROPERTIES
-   ========================================================= */
-
-.properties {
-
-  padding:
-    110px
-    5%;
-
-  background: #f7f7f5;
-}
-
-
-.section-heading {
-
+.properties-page {
   max-width: 1200px;
 
-  margin:
-    0
-    auto
-    45px;
+  margin: auto;
 
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: flex-end;
-
-  gap: 30px;
+  padding: 100px 5% 120px;
 }
 
+.properties-page-heading {
+  margin-bottom: 55px;
+}
 
-.section-heading h2 {
-
+.properties-page-heading h1 {
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
   font-size:
-    clamp(38px, 5vw, 58px);
+    clamp(52px, 7vw, 82px);
 
   line-height: 1;
 
   font-weight: 400;
 }
 
+.properties-page-heading p {
+  max-width: 600px;
 
-.view-all {
+  margin-top: 20px;
 
-  font-size: 14px;
+  color: #707070;
 
-  font-weight: 700;
-
-  white-space: nowrap;
+  font-size: 16px;
 }
 
 
-.property-grid {
+/* =====================================================
+   CARTÃO DETALHADO DO IMÓVEL
+   ===================================================== */
 
-  max-width: 1200px;
-
-  margin:
-    0
-    auto;
-
+.property-detail-card {
   display: grid;
 
   grid-template-columns:
-    repeat(3, 1fr);
-
-  gap: 25px;
-
-  align-items: start;
-}
-
-
-
-/* =========================================================
-   PROPERTY CARD
-   ========================================================= */
-
-.property-card {
-
-  min-width: 0;
+    minmax(0, 1.4fr)
+    minmax(320px, 0.6fr);
 
   background: #ffffff;
 
-  border:
-    1px solid #e8e8e8;
+  border: 1px solid #e7e7e7;
 
   overflow: hidden;
 
   box-shadow:
-    0 8px 30px
-    rgba(0,0,0,0.04);
+    0 15px 45px
+    rgba(0,0,0,0.06);
 }
 
 
-
-/* =========================================================
+/* =====================================================
    SLIDESHOW
-   ========================================================= */
+   ===================================================== */
 
 .property-slideshow {
-
   position: relative;
 
   width: 100%;
 
-  height: 330px;
+  height: 430px;
 
   overflow: hidden;
 
   background: #dddddd;
 }
 
+.property-slideshow-large {
+  height: 540px;
+}
 
 .property-slideshow .slide {
-
   position: absolute;
 
   inset: 0;
@@ -655,9 +487,7 @@ button {
     opacity 0.45s ease;
 }
 
-
 .property-slideshow .slide.active {
-
   opacity: 1;
 
   visibility: visible;
@@ -665,9 +495,7 @@ button {
   z-index: 2;
 }
 
-
 .property-slideshow .slide img {
-
   display: block;
 
   width: 100%;
@@ -680,23 +508,21 @@ button {
 }
 
 
-
-/* =========================================================
-   SLIDESHOW BUTTONS
-   ========================================================= */
+/* =====================================================
+   SETAS
+   ===================================================== */
 
 .slide-prev,
 .slide-next {
-
   position: absolute;
 
   top: 50%;
 
   z-index: 20;
 
-  width: 42px;
+  width: 46px;
 
-  height: 42px;
+  height: 46px;
 
   border: none;
 
@@ -708,81 +534,57 @@ button {
 
   justify-content: center;
 
-  transform:
-    translateY(-50%);
+  transform: translateY(-50%);
 
-  background:
-    rgba(0,0,0,0.58);
+  background: rgba(0,0,0,0.58);
 
   color: #ffffff;
 
-  font-size: 30px;
+  font-size: 31px;
 
   line-height: 1;
 
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
 }
-
 
 .slide-prev {
-
-  left: 14px;
+  left: 18px;
 }
-
 
 .slide-next {
-
-  right: 14px;
+  right: 18px;
 }
-
 
 .slide-prev:hover,
 .slide-next:hover {
-
-  background:
-    rgba(0,0,0,0.85);
-
-  transform:
-    translateY(-50%)
-    scale(1.05);
+  background: rgba(0,0,0,0.85);
 }
 
 
-
-/* =========================================================
-   SLIDESHOW DOTS
-   ========================================================= */
+/* =====================================================
+   PONTOS
+   ===================================================== */
 
 .slide-dots {
-
   position: absolute;
 
   left: 50%;
 
-  bottom: 14px;
+  bottom: 18px;
 
   z-index: 20;
 
   display: flex;
 
-  align-items: center;
+  gap: 8px;
 
-  gap: 7px;
-
-  transform:
-    translateX(-50%);
+  transform: translateX(-50%);
 }
 
-
 .slide-dot {
+  width: 9px;
 
-  width: 8px;
-
-  height: 8px;
+  height: 9px;
 
   padding: 0;
 
@@ -791,193 +593,164 @@ button {
   border-radius: 50%;
 
   background:
-    rgba(255,255,255,0.65);
+    rgba(255,255,255,0.6);
 
   cursor: pointer;
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease;
 }
-
 
 .slide-dot.active {
-
   background: #ffffff;
 
-  transform:
-    scale(1.35);
+  transform: scale(1.25);
 }
 
 
+/* =====================================================
+   INFORMAÇÃO DO IMÓVEL
+   ===================================================== */
 
-/* =========================================================
-   PROPERTY PLACEHOLDER
-   ========================================================= */
-
-.property-placeholder {
-
-  width: 100%;
-
-  height: 100%;
+.property-detail-info {
+  padding: 50px 40px;
 
   display: flex;
 
   flex-direction: column;
 
+  justify-content: center;
+}
+
+.property-status {
+  display: inline-block;
+
+  margin-bottom: 14px;
+
+  font-size: 10px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: #777777;
+}
+
+.property-detail-info h2 {
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(32px, 4vw, 48px);
+
+  line-height: 1.05;
+
+  font-weight: 400;
+}
+
+.property-location {
+  margin-top: 15px;
+
+  color: #777777;
+
+  font-size: 15px;
+}
+
+.property-detail-price {
+  margin-top: 25px;
+
+  font-size: 27px;
+
+  font-weight: 700;
+}
+
+.property-features {
+  margin-top: 30px;
+
+  padding:
+    22px 0;
+
+  display: flex;
+
+  gap: 30px;
+
+  border-top: 1px solid #eeeeee;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.property-features div {
+  display: flex;
+
+  flex-direction: column;
+}
+
+.property-features strong {
+  font-size: 21px;
+}
+
+.property-features span {
+  margin-top: 2px;
+
+  color: #888888;
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+.property-description {
+  margin-top: 25px;
+
+  color: #666666;
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+.property-contact-button {
+  margin-top: 30px;
+
+  padding:
+    14px
+    18px;
+
+  display: inline-flex;
+
   align-items: center;
 
   justify-content: center;
 
-  gap: 8px;
+  background: #181818;
 
-  background:
-    linear-gradient(
-      135deg,
-      #eeeeec,
-      #d9d9d7
-    );
-
-  color: #555555;
-
-  text-align: center;
-}
-
-
-.property-placeholder span {
-
-  font-size: 10px;
-
-  letter-spacing: 2px;
-
-  font-weight: 700;
-}
-
-
-.property-placeholder strong {
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 30px;
-
-  font-weight: 400;
-}
-
-
-
-/* =========================================================
-   PROPERTY INFO
-   ========================================================= */
-
-.property-info {
-
-  padding: 25px;
-}
-
-
-.property-status {
-
-  display: inline-block;
-
-  margin-bottom: 10px;
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-
-  color: #777777;
-}
-
-
-.property-info h3 {
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size: 27px;
-
-  line-height: 1.15;
-
-  font-weight: 400;
-}
-
-
-.property-info p {
-
-  margin-top: 10px;
-
-  color: #777777;
-
-  font-size: 14px;
-}
-
-
-.property-info .property-details {
-
-  margin-top: 4px;
-}
-
-
-.property-price {
-
-  display: block;
-
-  margin-top: 18px;
-
-  font-size: 22px;
-
-  font-weight: 700;
-}
-
-
-.property-link {
-
-  display: inline-block;
-
-  margin-top: 20px;
+  color: #ffffff;
 
   font-size: 13px;
 
   font-weight: 700;
 
-  border-bottom:
-    1px solid #222222;
-
-  padding-bottom: 3px;
+  text-align: center;
 }
 
 
-
-/* =========================================================
+/* =====================================================
    CONTACTO
-   ========================================================= */
+   ===================================================== */
 
 .contact {
-
-  padding:
-    110px
-    5%;
+  padding: 110px 5%;
 
   background: #181818;
 
   color: #ffffff;
 }
 
-
 .contact-inner {
-
   max-width: 1200px;
 
-  margin:
-    0
-    auto;
+  margin: auto;
 
   display: grid;
 
@@ -986,19 +759,9 @@ button {
     0.8fr;
 
   gap: 80px;
-
-  align-items: center;
 }
-
-
-.contact .eyebrow {
-
-  color: #999999;
-}
-
 
 .contact h2 {
-
   font-family:
     Georgia,
     "Times New Roman",
@@ -1012,27 +775,19 @@ button {
   font-weight: 400;
 }
 
-
 .contact h2 span {
-
   color: #999999;
 }
 
-
 .contact-text p {
-
   max-width: 600px;
 
   margin-top: 25px;
 
   color: #bbbbbb;
-
-  font-size: 16px;
 }
 
-
 .contact-details {
-
   display: flex;
 
   flex-direction: column;
@@ -1040,59 +795,41 @@ button {
   gap: 20px;
 }
 
-
 .contact-details a {
-
-  display: block;
-
   font-size: 18px;
-
-  font-weight: 500;
 }
 
-
 .contact-details small {
-
   display: block;
 
   margin-bottom: 5px;
 
+  color: #888888;
+
   font-size: 9px;
 
   letter-spacing: 2px;
-
-  color: #888888;
 }
 
-
-.contact-details .contact-whatsapp {
-
-  padding:
-    14px
-    18px;
+.contact-whatsapp {
+  padding: 14px 18px;
 
   background: #ffffff;
 
-  color: #181818;
+  color: #181818 !important;
 
-  font-size: 14px;
+  font-size: 14px !important;
 
   font-weight: 700;
-
-  text-align: center;
 }
 
 
-
-/* =========================================================
+/* =====================================================
    FOOTER
-   ========================================================= */
+   ===================================================== */
 
 footer {
-
-  padding:
-    35px
-    5%;
+  padding: 35px 5%;
 
   display: flex;
 
@@ -1100,32 +837,24 @@ footer {
 
   justify-content: space-between;
 
-  gap: 20px;
-
   background: #101010;
 
   color: #ffffff;
 }
 
-
 .footer-logo {
-
   display: flex;
 
   flex-direction: column;
 }
 
-
 .footer-logo strong {
-
   font-size: 15px;
 
   letter-spacing: 1.5px;
 }
 
-
 .footer-logo span {
-
   margin-top: 3px;
 
   font-size: 8px;
@@ -1135,299 +864,157 @@ footer {
   color: #777777;
 }
 
-
 footer p {
-
   color: #777777;
 
   font-size: 11px;
 }
 
 
-
-/* =========================================================
+/* =====================================================
    TABLET
-   ========================================================= */
+   ===================================================== */
 
-@media (max-width: 1000px) {
-
+@media (max-width: 950px) {
 
   .navigation {
-
     gap: 16px;
   }
 
-
-  .navigation > a {
-
-    font-size: 13px;
+  .property-detail-card {
+    grid-template-columns: 1fr;
   }
 
-
-  .property-grid {
-
-    grid-template-columns:
-      repeat(2, 1fr);
+  .property-slideshow-large {
+    height: 500px;
   }
 
-
-  .property-card:last-child {
-
-    grid-column:
-      1 / -1;
-
-    max-width:
-      calc(
-        50% - 12.5px
-      );
+  .property-detail-info {
+    padding: 40px;
   }
 
-
-  .intro {
-
-    gap: 50px;
+  .contact-inner {
+    grid-template-columns: 1fr;
   }
-
 
 }
 
 
-
-/* =========================================================
+/* =====================================================
    MOBILE
-   ========================================================= */
+   ===================================================== */
 
 @media (max-width: 700px) {
 
-
   .header {
-
-    min-height: auto;
-
-    padding:
-      14px
-      20px;
+    padding: 14px 20px;
 
     flex-direction: column;
 
     gap: 15px;
   }
 
-
   .navigation {
-
     width: 100%;
 
     justify-content: center;
 
     flex-wrap: wrap;
 
-    gap: 12px 18px;
+    gap: 10px 16px;
   }
 
-
   .navigation > a {
-
     font-size: 12px;
   }
 
-
   .navigation .whatsapp {
-
-    padding:
-      8px
-      13px;
+    padding: 8px 13px;
   }
-
 
 
   .hero {
-
     min-height: 580px;
 
-    padding:
-      70px
-      25px;
+    padding: 70px 25px;
   }
-
 
   .hero h1 {
-
     font-size:
       clamp(52px, 17vw, 80px);
-
-    letter-spacing:
-      -2px;
   }
-
-
-  .hero p {
-
-    font-size: 15px;
-  }
-
-
-  .hero-buttons {
-
-    flex-direction: column;
-
-    align-items: stretch;
-  }
-
-
-  .btn-primary,
-  .btn-secondary {
-
-    width: 100%;
-  }
-
 
 
   .intro {
+    padding: 75px 25px;
 
-    padding:
-      75px
-      25px;
-
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
 
     gap: 45px;
   }
 
+  /*
+   * Mantém a tua fotografia inteira
+   * também no telemóvel.
+   */
 
   .intro-photo {
-
-    aspect-ratio:
-      4 / 5;
+    aspect-ratio: 4 / 5;
   }
 
 
-
-  .properties {
-
+  .properties-page {
     padding:
-      75px
-      20px;
+      70px 20px 90px;
+  }
+
+  .properties-page-heading {
+    margin-bottom: 40px;
   }
 
 
-  .section-heading {
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    margin-bottom: 30px;
+  .property-slideshow-large {
+    height: 330px;
   }
 
-
-  .property-grid {
-
-    grid-template-columns:
-      1fr;
-
-    gap: 22px;
+  .property-detail-info {
+    padding: 35px 25px;
   }
-
-
-  .property-card:last-child {
-
-    grid-column:
-      auto;
-
-    max-width: none;
-  }
-
-
-  .property-slideshow {
-
-    height: 300px;
-  }
-
 
 
   .slide-prev,
   .slide-next {
+    width: 40px;
 
-    width: 38px;
-
-    height: 38px;
+    height: 40px;
 
     font-size: 27px;
   }
 
-
   .slide-prev {
-
     left: 10px;
   }
 
-
   .slide-next {
-
     right: 10px;
   }
 
 
-
   .contact {
-
     padding:
-      75px
-      25px;
+      75px 25px;
   }
-
-
-  .contact-inner {
-
-    grid-template-columns:
-      1fr;
-
-    gap: 45px;
-  }
-
 
 
   footer {
-
     padding:
-      30px
-      25px;
+      30px 25px;
 
     flex-direction: column;
 
     align-items: flex-start;
+
+    gap: 15px;
   }
-
-}
-
-
-
-/* =========================================================
-   REDUÇÃO DE MOVIMENTO
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-
-  html {
-
-    scroll-behavior: auto;
-  }
-
-
-  .property-slideshow .slide {
-
-    transition: none;
-  }
-
-
-  .slide-prev,
-  .slide-next {
-
-    transition: none;
-  }
-
 
 }
