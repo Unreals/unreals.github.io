@@ -3,312 +3,297 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard de Gestão de Imóveis</title>
-  <style>
-    :root {
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --accent: #2563eb;
-      --danger: #ef4444;
-      --text: #0f172a;
-      --border: #cbd5e1;
-    }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      margin: 0;
-      padding: 24px;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-    @media (max-width: 900px) {
-      .container { grid-template-columns: 1fr; }
-    }
-    .card {
-      background: var(--card);
-      padding: 24px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    }
-    h2 { margin-top: 0; color: var(--text); font-size: 1.25rem; }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .form-group { margin-bottom: 12px; }
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #475569;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      box-sizing: border-box;
-      font-size: 14px;
-    }
-    button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 8px;
-    }
-    button:hover { opacity: 0.95; }
-    .btn-secondary { background: #64748b; }
-    .btn-danger { background: var(--danger); width: auto; padding: 6px 12px; margin: 0; }
-    textarea.json-output {
-      height: 280px;
-      font-family: monospace;
-      font-size: 12px;
-      background: #0f172a;
-      color: #38bdf8;
-      border: none;
-      padding: 12px;
-    }
-    .property-list {
-      max-height: 250px;
-      overflow-y: auto;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      margin-bottom: 16px;
-    }
-    .property-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .property-item:last-child { border-bottom: none; }
-    .badge {
-      background: #e0e7ff;
-      color: #3730a3;
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 11px;
-      font-weight: 600;
-    }
-    .alert {
-      padding: 10px;
-      background: #dcfce7;
-      color: #166534;
-      border-radius: 6px;
-      margin-bottom: 12px;
-      display: none;
-      font-size: 14px;
-    }
-  </style>
+
+  <title>Jo Torres | Consultor Imobiliário</title>
+
+  <meta name="description"
+        content="Jo Torres - Consultor Imobiliário. Imóveis selecionados para venda em várias regiões.">
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="container">
-  <!-- FORMULÁRIO DE INSERÇÃO -->
-  <div class="card">
-    <h2>Adicionar Imóvel</h2>
-    <div id="alertSuccess" class="alert">Imóvel adicionado com sucesso!</div>
-    
-    <form id="propertyForm" onsubmit="addProperty(event)">
-      <div class="form-group">
-        <label>Título do Imóvel *</label>
-        <input type="text" id="title" required placeholder="Ex: Moradia T4 Luxuosa">
+  <!-- CABEÇALHO -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-circle">JT</div>
+
+      <div>
+        <strong>JO TORRES</strong>
+        <span>CONSULTOR IMOBILIÁRIO</span>
       </div>
-
-      <div class="grid-2">
-        <div class="form-group">
-          <label>Localização *</label>
-          <input type="text" id="location" required placeholder="Ex: Braga">
-        </div>
-        <div class="form-group">
-          <label>Tipo de Imóvel</label>
-          <select id="type">
-            <option value="Moradia">Moradia</option>
-            <option value="Apartamento">Apartamento</option>
-            <option value="Terreno">Terreno</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="form-group">
-          <label>Preço (€) *</label>
-          <input type="number" id="price" min="0" required placeholder="Ex: 250000">
-        </div>
-        <div class="form-group">
-          <label>Classe Energética</label>
-          <select id="energy">
-            <option value="A+">A+</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="form-group">
-          <label>Quartos</label>
-          <input type="number" id="rooms" min="0" value="3">
-        </div>
-        <div class="form-group">
-          <label>Casas de Banho</label>
-          <input type="number" id="baths" min="0" value="2">
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div class="form-group">
-          <label>Área (m²)</label>
-          <input type="number" id="area" min="0" placeholder="Ex: 120">
-        </div>
-        <div class="form-group">
-          <label>Garagem</label>
-          <select id="garage">
-            <option value="Sim">Sim</option>
-            <option value="Não">Não</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Luxo</label>
-        <select id="luxury">
-          <option value="Não">Não</option>
-          <option value="Sim">Sim</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>URL da Imagem (Opcional)</label>
-        <input type="text" id="imageUrl" placeholder="https://exemplo.com/imagem.jpg">
-      </div>
-
-      <div class="form-group">
-        <label>Descrição</label>
-        <textarea id="description" rows="2" placeholder="Pequena descrição do imóvel..."></textarea>
-      </div>
-
-      <button type="submit">➕ Adicionar à Lista</button>
-    </form>
-  </div>
-
-  <!-- LISTA E GERADOR DE JSON -->
-  <div class="card">
-    <h2>Lista de Imóveis (<span id="count">0</span>)</h2>
-    <div class="property-list" id="propertyList">
-      <div style="padding: 12px; color: #64748b; text-align: center;">Nenhum imóvel adicionado ainda.</div>
     </div>
 
-    <h2>JSON Válido Gerado</h2>
-    <textarea class="json-output" id="jsonOutput" readonly>[]</textarea>
+    <nav>
+      <a href="#imoveis">Imóveis</a>
+      <a href="#sobre">Sobre mim</a>
+      <a href="#contacto">Contacto</a>
 
-    <div style="display: flex; gap: 8px; margin-top: 8px;">
-      <button onclick="copyJSON()">📋 Copiar JSON</button>
-      <button class="btn-secondary" onclick="clearData()">🗑️ Limpar Tudo</button>
+      <a
+        class="whatsapp"
+        href="https://wa.me/41792601145"
+        target="_blank"
+        rel="noopener">
+        WhatsApp
+      </a>
+    </nav>
+  </header>
+
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        CONSULTORIA IMOBILIÁRIA
+      </div>
+
+      <h1>
+        Encontre uma<br>
+        <span>casa.</span>
+      </h1>
+
+      <p>
+        Imóveis selecionados para venda, acompanhamento próximo
+        e uma abordagem profissional em várias regiões.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="imoveis.html" class="btn-primary">
+          Ver imóveis
+        </a>
+
+        <a href="#contacto" class="btn-secondary">
+          Fale comigo
+        </a>
+      </div>
+
     </div>
-  </div>
-</div>
 
-<script>
-  let properties = [];
+  </section>
 
-  function addProperty(event) {
-    event.preventDefault();
 
-    const imageUrl = document.getElementById('imageUrl').value.trim();
-    
-    const item = {
-      title: document.getElementById('title').value,
-      location: document.getElementById('location').value,
-      type: document.getElementById('type').value,
-      price: Number(document.getElementById('price').value) || 0,
-      energy: document.getElementById('energy').value,
-      rooms: String(document.getElementById('rooms').value),
-      baths: String(document.getElementById('baths').value),
-      area: String(document.getElementById('area').value),
-      garage: document.getElementById('garage').value,
-      luxury: document.getElementById('luxury').value,
-      images: imageUrl ? [imageUrl] : [],
-      description: document.getElementById('description').value
-    };
+  <!-- APRESENTAÇÃO -->
+  <section class="intro" id="sobre">
 
-    properties.push(item);
-    updateUI();
+    <div class="intro-photo">
+      <!-- A FOTO ESTÁ NA RAIZ DO REPOSITÓRIO -->
+      <img
+        src="jo-torres.jpg"
+        alt="Jo Torres - Consultor Imobiliário">
+    </div>
 
-    // Resetar formulário
-    document.getElementById('propertyForm').reset();
-    
-    // Alerta visual
-    const alert = document.getElementById('alertSuccess');
-    alert.style.display = 'block';
-    setTimeout(() => { alert.style.display = 'none'; }, 2500);
-  }
+    <div class="intro-text">
 
-  function updateUI() {
-    const listEl = document.getElementById('propertyList');
-    
-    if (properties.length === 0) {
-      listEl.innerHTML = '<div style="padding: 12px; color: #64748b; text-align: center;">Nenhum imóvel adicionado ainda.</div>';
-    } else {
-      listEl.innerHTML = '';
-      properties.forEach((p, index) => {
-        listEl.innerHTML += `
-          <div class="property-item">
-            <div>
-              <strong>${p.title}</strong><br>
-              <small style="color: #64748b;">${p.location} • €${p.price.toLocaleString('pt-PT')}</small>
-            </div>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <span class="badge">${p.type}</span>
-              <button class="btn-danger" onclick="removeItem(${index})">✕</button>
-            </div>
+      <div class="eyebrow">
+        JO TORRES
+      </div>
+
+      <h2>
+        Um acompanhamento<br>
+        <span>à sua medida.</span>
+      </h2>
+
+      <p>
+        Procuro proporcionar um acompanhamento profissional,
+        transparente e próximo em cada etapa do processo imobiliário.
+      </p>
+
+      <p>
+        Seja para encontrar uma nova casa ou para vender um imóvel,
+        estou disponível para ajudar.
+      </p>
+
+      <a href="#contacto" class="text-link">
+        Fale comigo →
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- IMÓVEIS -->
+  <section class="properties" id="imoveis">
+
+    <div class="section-heading">
+
+      <div>
+        <div class="eyebrow">
+          SELEÇÃO IMOBILIÁRIA
+        </div>
+
+        <h2>
+          Imóveis em destaque
+        </h2>
+      </div>
+
+      <a href="imoveis.html" class="view-all">
+        Ver todos →
+      </a>
+
+    </div>
+
+
+    <div class="property-grid">
+
+      <article class="property-card">
+
+        <div class="property-image">
+          <div class="property-placeholder">
+            IMÓVEL EM DESTAQUE
           </div>
-        `;
-      });
-    }
+        </div>
 
-    document.getElementById('jsonOutput').value = JSON.stringify(properties, null, 2);
-    document.getElementById('count').textContent = properties.length;
-  }
+        <div class="property-info">
+          <span>VENDA</span>
 
-  function removeItem(index) {
-    properties.splice(index, 1);
-    updateUI();
-  }
+          <h3>
+            Brevemente
+          </h3>
 
-  function clearData() {
-    if (confirm('Tem a certeza que deseja apagar todos os imóveis da lista?')) {
-      properties = [];
-      updateUI();
-    }
-  }
+          <p>
+            Novo imóvel disponível em breve.
+          </p>
 
-  function copyJSON() {
-    const jsonOutput = document.getElementById('jsonOutput');
-    jsonOutput.select();
-    document.execCommand('copy');
-    alert('JSON copiado com sucesso!');
-  }
-</script>
+          <a href="imoveis.html">
+            Ver imóvel →
+          </a>
+        </div>
+
+      </article>
+
+
+      <article class="property-card">
+
+        <div class="property-image">
+          <div class="property-placeholder">
+            IMÓVEL EM DESTAQUE
+          </div>
+        </div>
+
+        <div class="property-info">
+          <span>VENDA</span>
+
+          <h3>
+            Brevemente
+          </h3>
+
+          <p>
+            Novo imóvel disponível em breve.
+          </p>
+
+          <a href="imoveis.html">
+            Ver imóvel →
+          </a>
+        </div>
+
+      </article>
+
+
+      <article class="property-card">
+
+        <div class="property-image">
+          <div class="property-placeholder">
+            IMÓVEL EM DESTAQUE
+          </div>
+        </div>
+
+        <div class="property-info">
+          <span>VENDA</span>
+
+          <h3>
+            Brevemente
+          </h3>
+
+          <p>
+            Novo imóvel disponível em breve.
+          </p>
+
+          <a href="imoveis.html">
+            Ver imóvel →
+          </a>
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+
+    <div class="contact-inner">
+
+      <div>
+
+        <div class="eyebrow">
+          CONTACTO
+        </div>
+
+        <h2>
+          Vamos encontrar<br>
+          <span>o seu próximo imóvel.</span>
+        </h2>
+
+        <p>
+          Entre em contacto comigo para saber mais sobre os imóveis
+          disponíveis ou para falar sobre a venda do seu imóvel.
+        </p>
+
+      </div>
+
+
+      <div class="contact-details">
+
+        <a href="tel:+41792601145">
+          <small>TELEFONE / WHATSAPP</small>
+          +41 79 260 11 45
+        </a>
+
+        <a
+          href="https://wa.me/41792601145"
+          target="_blank"
+          rel="noopener"
+          class="contact-whatsapp">
+          Contactar pelo WhatsApp →
+        </a>
+
+        <a
+          href="https://www.fabioneves.pt"
+          target="_blank"
+          rel="noopener">
+          <small>WEBSITE PROFISSIONAL</small>
+          www.fabioneves.pt
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RODAPÉ -->
+  <footer>
+
+    <div class="footer-logo">
+      <strong>JO TORRES</strong>
+      <span>CONSULTOR IMOBILIÁRIO</span>
+    </div>
+
+    <p>
+      © 2026 Jo Torres. Todos os direitos reservados.
+    </p>
+
+  </footer>
+
 
 </body>
 </html>
