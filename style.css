@@ -1248,3 +1248,233 @@ footer p {
   }
 
 }
+/* =====================================================
+   GRELHA DA PÁGINA DE IMÓVEIS
+   ===================================================== */
+
+.properties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+
+/* CARTÃO */
+
+.property-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  overflow: hidden;
+}
+
+
+/* SLIDESHOW */
+
+.property-card .property-slideshow {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  background: #eeeeee;
+}
+
+
+/* SLIDES */
+
+.property-card .slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+}
+
+.property-card .slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/*
+   IMPORTANTE:
+   A imagem fica confinada à caixa.
+   Não invade o texto.
+*/
+
+.property-card .slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+
+/* SETAS */
+
+.property-card .slide-prev,
+.property-card .slide-next {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 50%;
+
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.property-card .slide-prev {
+  left: 12px;
+}
+
+.property-card .slide-next {
+  right: 12px;
+}
+
+
+/* PONTOS */
+
+.property-card .slide-dots {
+  position: absolute;
+
+  left: 50%;
+  bottom: 12px;
+
+  z-index: 10;
+
+  display: flex;
+  gap: 6px;
+
+  transform: translateX(-50%);
+}
+
+.property-card .slide-dot {
+  width: 7px;
+  height: 7px;
+
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.65);
+
+  cursor: pointer;
+}
+
+.property-card .slide-dot.active {
+  background: #ffffff;
+  transform: scale(1.25);
+}
+
+
+/* INFORMAÇÃO */
+
+.property-card .property-info {
+  padding: 25px;
+}
+
+.property-card .property-info > span {
+  display: block;
+
+  margin-bottom: 9px;
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  color: #777777;
+}
+
+.property-card .property-info h2 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+.property-card .property-location {
+  margin-top: 8px;
+
+  color: #777777;
+
+  font-size: 14px;
+}
+
+.property-card .property-price {
+  display: block;
+
+  margin-top: 18px;
+
+  font-size: 20px;
+}
+
+.property-card .property-info > p:not(.property-location) {
+  margin-top: 15px;
+
+  color: #666666;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+.property-card .property-info > a {
+  display: inline-block;
+
+  margin-top: 20px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  border-bottom: 1px solid #222222;
+}
+
+
+/* TABLET */
+
+@media (max-width: 950px) {
+
+  .properties-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* TELEMÓVEL */
+
+@media (max-width: 650px) {
+
+  .properties-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .property-card .property-slideshow {
+    height: 300px;
+  }
+
+}
