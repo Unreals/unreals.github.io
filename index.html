@@ -9,17 +9,19 @@
 
   <meta
     name="description"
-    content="Jo Torres - Consultor Imobiliário. Imóveis selecionados para venda."
+    content="Jo Torres - Consultor Imobiliário. Imóveis selecionados para venda em várias regiões."
   >
 
   <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
 
-  <!-- ==================================================
-       CABEÇALHO
-       ================================================== -->
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
 
   <header class="header">
 
@@ -30,13 +32,21 @@
       </div>
 
       <div class="logo-text">
-        <strong>JO TORRES</strong>
-        <span>CONSULTOR IMOBILIÁRIO</span>
+
+        <strong>
+          JO TORRES
+        </strong>
+
+        <span>
+          CONSULTOR IMOBILIÁRIO
+        </span>
+
       </div>
 
     </a>
 
-    <nav>
+
+    <nav class="navigation">
 
       <a href="#imoveis">
         Imóveis
@@ -64,11 +74,15 @@
   </header>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        HERO
-       ================================================== -->
+       ===================================================== -->
 
   <section class="hero">
+
+    <div class="hero-overlay"></div>
+
 
     <div class="hero-content">
 
@@ -76,16 +90,19 @@
         CONSULTORIA IMOBILIÁRIA
       </div>
 
+
       <h1>
         Encontre uma<br>
         <span>casa.</span>
       </h1>
+
 
       <p>
         Imóveis selecionados para venda,
         acompanhamento próximo e uma abordagem
         profissional em várias regiões.
       </p>
+
 
       <div class="hero-buttons">
 
@@ -95,6 +112,7 @@
         >
           Ver imóveis
         </a>
+
 
         <a
           href="#contacto"
@@ -110,9 +128,10 @@
   </section>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        SOBRE MIM
-       ================================================== -->
+       ===================================================== -->
 
   <section
     class="intro"
@@ -135,10 +154,12 @@
         JO TORRES
       </div>
 
+
       <h2>
         Um acompanhamento<br>
         <span>à sua medida.</span>
       </h2>
+
 
       <p>
         Procuro proporcionar um acompanhamento
@@ -146,10 +167,12 @@
         etapa do processo imobiliário.
       </p>
 
+
       <p>
         Seja para encontrar uma nova casa ou para
         vender um imóvel, estou disponível para ajudar.
       </p>
+
 
       <a
         href="#contacto"
@@ -163,14 +186,16 @@
   </section>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        IMÓVEIS
-       ================================================== -->
+       ===================================================== -->
 
   <section
     class="properties"
     id="imoveis"
   >
+
 
     <div class="section-heading">
 
@@ -186,6 +211,7 @@
 
       </div>
 
+
       <a
         href="imoveis.html"
         class="view-all"
@@ -196,19 +222,23 @@
     </div>
 
 
+
     <div class="property-grid">
 
 
-      <!-- ==================================================
-           IMÓVEL 1
-           ================================================== -->
+      <!-- =================================================
+           IMÓVEL
+           ================================================= -->
 
       <article class="property-card">
+
+
+        <!-- SLIDESHOW -->
 
         <div class="property-slideshow">
 
 
-          <!-- FOTOGRAFIA 1 -->
+          <!-- FOTO 1 -->
 
           <div class="slide active">
 
@@ -220,7 +250,7 @@
           </div>
 
 
-          <!-- FOTOGRAFIA 2 -->
+          <!-- FOTO 2 -->
 
           <div class="slide">
 
@@ -232,7 +262,7 @@
           </div>
 
 
-          <!-- FOTOGRAFIA 3 -->
+          <!-- FOTO 3 -->
 
           <div class="slide">
 
@@ -244,7 +274,7 @@
           </div>
 
 
-          <!-- FOTOGRAFIA 4 -->
+          <!-- FOTO 4 -->
 
           <div class="slide">
 
@@ -256,7 +286,20 @@
           </div>
 
 
-          <!-- BOTÃO ANTERIOR -->
+          <!-- FOTO 5 -->
+
+          <div class="slide">
+
+            <img
+              src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/5.jpg"
+              alt="Moradia - fotografia 5"
+            >
+
+          </div>
+
+
+
+          <!-- SETA ANTERIOR -->
 
           <button
             class="slide-prev"
@@ -267,7 +310,8 @@
           </button>
 
 
-          <!-- BOTÃO SEGUINTE -->
+
+          <!-- SETA SEGUINTE -->
 
           <button
             class="slide-next"
@@ -278,6 +322,7 @@
           </button>
 
 
+
           <!-- PONTOS -->
 
           <div class="slide-dots"></div>
@@ -286,51 +331,70 @@
         </div>
 
 
-        <!-- INFORMAÇÕES -->
+
+        <!-- INFORMAÇÃO DO IMÓVEL -->
 
         <div class="property-info">
 
+
           <span class="property-status">
-            DISPONÍVEL
+            VENDA
           </span>
 
+
           <h3>
-            Moradia Teste Luxuosa
+            Moradia Teste
           </h3>
 
+
           <p>
-            Vila Nova Famalicão ·
-            480000 m² ·
-            6 quartos ·
-            4 WC
+            Vila Nova de Famalicão
           </p>
+
+
+          <p class="property-details">
+            6 quartos · 4 WC
+          </p>
+
 
           <strong class="property-price">
             990 000 €
           </strong>
 
-          <a href="imoveis.html">
+
+          <a
+            href="imoveis.html"
+            class="property-link"
+          >
             Ver imóvel →
           </a>
 
+
         </div>
+
 
       </article>
 
 
-      <!-- ==================================================
-           IMÓVEL 2
-           ================================================== -->
+
+      <!-- =================================================
+           SEGUNDO ESPAÇO
+           ================================================= -->
 
       <article class="property-card">
 
+
         <div class="property-slideshow">
 
-          <div class="slide active">
+          <div class="property-placeholder">
 
-            <div class="property-placeholder">
+            <span>
               NOVO IMÓVEL
-            </div>
+            </span>
+
+            <strong>
+              Em breve
+            </strong>
 
           </div>
 
@@ -343,15 +407,21 @@
             EM BREVE
           </span>
 
+
           <h3>
             Novo imóvel
           </h3>
+
 
           <p>
             Novo imóvel disponível em breve.
           </p>
 
-          <a href="imoveis.html">
+
+          <a
+            href="imoveis.html"
+            class="property-link"
+          >
             Ver imóveis →
           </a>
 
@@ -360,19 +430,25 @@
       </article>
 
 
-      <!-- ==================================================
-           IMÓVEL 3
-           ================================================== -->
+
+      <!-- =================================================
+           TERCEIRO ESPAÇO
+           ================================================= -->
 
       <article class="property-card">
 
+
         <div class="property-slideshow">
 
-          <div class="slide active">
+          <div class="property-placeholder">
 
-            <div class="property-placeholder">
+            <span>
               NOVO IMÓVEL
-            </div>
+            </span>
+
+            <strong>
+              Em breve
+            </strong>
 
           </div>
 
@@ -385,15 +461,21 @@
             EM BREVE
           </span>
 
+
           <h3>
             Novo imóvel
           </h3>
+
 
           <p>
             Novo imóvel disponível em breve.
           </p>
 
-          <a href="imoveis.html">
+
+          <a
+            href="imoveis.html"
+            class="property-link"
+          >
             Ver imóveis →
           </a>
 
@@ -407,28 +489,32 @@
   </section>
 
 
-  <!-- ==================================================
+
+  <!-- =====================================================
        CONTACTO
-       ================================================== -->
+       ===================================================== -->
 
   <section
     class="contact"
     id="contacto"
   >
 
+
     <div class="contact-inner">
 
 
-      <div>
+      <div class="contact-text">
 
         <div class="eyebrow">
           CONTACTO
         </div>
 
+
         <h2>
           Vamos encontrar<br>
           <span>o seu próximo imóvel.</span>
         </h2>
+
 
         <p>
           Entre em contacto comigo para saber mais
@@ -437,6 +523,7 @@
         </p>
 
       </div>
+
 
 
       <div class="contact-details">
@@ -453,6 +540,7 @@
         </a>
 
 
+
         <a
           href="https://wa.me/41792601145"
           target="_blank"
@@ -461,6 +549,7 @@
         >
           Contactar pelo WhatsApp →
         </a>
+
 
 
         <a
@@ -480,16 +569,19 @@
 
       </div>
 
+
     </div>
 
   </section>
 
 
-  <!-- ==================================================
-       RODAPÉ
-       ================================================== -->
+
+  <!-- =====================================================
+       FOOTER
+       ===================================================== -->
 
   <footer>
+
 
     <div class="footer-logo">
 
@@ -508,12 +600,15 @@
       © 2026 Jo Torres. Todos os direitos reservados.
     </p>
 
+
   </footer>
 
 
-  <!-- ==================================================
-       JAVASCRIPT DO SLIDESHOW
-       ================================================== -->
+
+  <!-- =====================================================
+       JAVASCRIPT
+       SLIDESHOW
+       ===================================================== -->
 
   <script>
 
@@ -556,18 +651,48 @@
               );
 
 
-            if (slides.length <= 1) {
+            /*
+             * Se não houver slides,
+             * não fazer nada.
+             */
+
+            if (!slides.length) {
               return;
+            }
+
+
+            /*
+             * Se existir apenas uma fotografia,
+             * esconder os controlos.
+             */
+
+            if (slides.length <= 1) {
+
+              if (previousButton) {
+                previousButton.style.display = "none";
+              }
+
+              if (nextButton) {
+                nextButton.style.display = "none";
+              }
+
+              if (dotsContainer) {
+                dotsContainer.style.display = "none";
+              }
+
+              return;
+
             }
 
 
             let currentSlide = 0;
 
-            let timer;
+            let timer = null;
+
 
 
             /*
-             * Criar os pontos
+             * Criar pontos
              */
 
             slides.forEach(
@@ -586,6 +711,13 @@
                   "slide-dot";
 
 
+                dot.setAttribute(
+                  "aria-label",
+                  "Ver fotografia " +
+                  (index + 1)
+                );
+
+
                 if (index === 0) {
 
                   dot.classList.add(
@@ -593,13 +725,6 @@
                   );
 
                 }
-
-
-                dot.setAttribute(
-                  "aria-label",
-                  "Ver fotografia " +
-                  (index + 1)
-                );
 
 
                 dot.addEventListener(
@@ -629,8 +754,9 @@
               );
 
 
+
             /*
-             * Mostrar fotografia
+             * Mostrar slide
              */
 
             function showSlide(index) {
@@ -671,8 +797,9 @@
             }
 
 
+
             /*
-             * Próxima fotografia
+             * Seguinte
              */
 
             function nextSlide() {
@@ -684,8 +811,9 @@
             }
 
 
+
             /*
-             * Fotografia anterior
+             * Anterior
              */
 
             function previousSlide() {
@@ -697,8 +825,9 @@
             }
 
 
+
             /*
-             * Reiniciar temporizador
+             * Temporizador
              */
 
             function restartTimer() {
@@ -721,25 +850,6 @@
             }
 
 
-            /*
-             * Botão seguinte
-             */
-
-            if (nextButton) {
-
-              nextButton.addEventListener(
-                "click",
-                function () {
-
-                  nextSlide();
-
-                  restartTimer();
-
-                }
-              );
-
-            }
-
 
             /*
              * Botão anterior
@@ -761,8 +871,61 @@
             }
 
 
+
             /*
-             * Começar slideshow
+             * Botão seguinte
+             */
+
+            if (nextButton) {
+
+              nextButton.addEventListener(
+                "click",
+                function () {
+
+                  nextSlide();
+
+                  restartTimer();
+
+                }
+              );
+
+            }
+
+
+
+            /*
+             * Pausar quando o rato
+             * estiver em cima
+             */
+
+            slideshow.addEventListener(
+              "mouseenter",
+              function () {
+
+                clearInterval(timer);
+
+              }
+            );
+
+
+            /*
+             * Continuar quando o rato
+             * sair
+             */
+
+            slideshow.addEventListener(
+              "mouseleave",
+              function () {
+
+                restartTimer();
+
+              }
+            );
+
+
+
+            /*
+             * Iniciar
              */
 
             restartTimer();

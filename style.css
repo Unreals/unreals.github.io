@@ -1,17 +1,11 @@
-/* =====================================================
-   JO TORRES - SITE IMOBILIÁRIO
-   CSS DEFINITIVO
-   ===================================================== */
-
-
-/* =====================================================
+/* =========================================================
    RESET
-   ===================================================== */
+   ========================================================= */
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 
@@ -21,13 +15,14 @@ html {
 
 
 body {
-  background: #f7f5ef;
-  color: #102a2d;
-
   font-family:
     Arial,
     Helvetica,
     sans-serif;
+
+  background: #ffffff;
+
+  color: #181818;
 
   line-height: 1.6;
 
@@ -42,23 +37,36 @@ img {
 
 a {
   color: inherit;
+
+  text-decoration: none;
 }
 
 
-/* =====================================================
+button {
+  font-family: inherit;
+}
+
+
+
+/* =========================================================
    HEADER
-   ===================================================== */
+   ========================================================= */
 
 .header {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 1000;
+
   width: 100%;
 
   min-height: 82px;
 
   padding:
-    18px
-    6%;
-
-  background: #ffffff;
+    15px
+    5%;
 
   display: flex;
 
@@ -66,38 +74,34 @@ a {
 
   justify-content: space-between;
 
-  gap: 30px;
+  background:
+    rgba(255, 255, 255, 0.96);
 
-  position: relative;
-
-  z-index: 20;
+  backdrop-filter:
+    blur(12px);
 
   border-bottom:
-    1px solid
-    rgba(16, 42, 45, 0.08);
+    1px solid #eeeeee;
 }
 
 
 .logo {
+
   display: flex;
 
   align-items: center;
 
   gap: 12px;
-
-  text-decoration: none;
 }
 
 
 .logo-circle {
-  width: 44px;
-  height: 44px;
+
+  width: 48px;
+
+  height: 48px;
 
   border-radius: 50%;
-
-  background: #c99b2b;
-
-  color: #ffffff;
 
   display: flex;
 
@@ -105,380 +109,465 @@ a {
 
   justify-content: center;
 
-  font-weight: 700;
+  background: #171717;
 
-  font-size: 15px;
-}
+  color: #ffffff;
 
-
-.logo-text {
-  display: flex;
-
-  flex-direction: column;
-
-  line-height: 1.1;
-}
-
-
-.logo-text strong {
   font-size: 16px;
+
+  font-weight: 700;
 
   letter-spacing: 1px;
 }
 
 
+.logo-text {
+
+  display: flex;
+
+  flex-direction: column;
+
+  line-height: 1.15;
+}
+
+
+.logo-text strong {
+
+  font-size: 17px;
+
+  letter-spacing: 1.5px;
+}
+
+
 .logo-text span {
+
   margin-top: 4px;
 
   font-size: 9px;
 
-  letter-spacing: 1.5px;
+  letter-spacing: 1.8px;
 
-  color: #657277;
+  color: #777777;
 }
 
 
-nav {
+.navigation {
+
   display: flex;
 
   align-items: center;
 
-  gap: 28px;
+  gap: 30px;
 }
 
 
-nav a {
-  text-decoration: none;
+.navigation > a {
 
   font-size: 14px;
 
-  font-weight: 600;
-
-  color: #102a2d;
+  font-weight: 500;
 
   transition:
-    color .2s ease;
+    opacity 0.2s ease;
 }
 
 
-nav a:hover {
-  color: #c99b2b;
+.navigation > a:hover {
+
+  opacity: 0.55;
 }
 
 
-nav .whatsapp {
-  background: #c99b2b;
-
-  color: white;
+.navigation .whatsapp {
 
   padding:
-    11px
-    20px;
+    10px
+    17px;
 
-  border-radius: 3px;
+  border-radius: 4px;
+
+  background: #171717;
+
+  color: #ffffff;
+
+  font-weight: 600;
 }
 
 
-nav .whatsapp:hover {
-  background: #102a2d;
+.navigation .whatsapp:hover {
 
-  color: white;
+  opacity: 1;
+
+  background: #333333;
 }
 
 
-/* =====================================================
-   TEXTOS
-   ===================================================== */
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero {
+
+  position: relative;
+
+  min-height: 650px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding:
+    90px
+    8%;
+
+  background:
+    linear-gradient(
+      100deg,
+      #181818 0%,
+      #282828 55%,
+      #404040 100%
+    );
+
+  color: #ffffff;
+
+  overflow: hidden;
+}
+
+
+.hero::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 500px;
+
+  height: 500px;
+
+  right: -150px;
+
+  top: -150px;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(255,255,255,0.08);
+}
+
+
+.hero-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 70% 40%,
+      rgba(255,255,255,0.08),
+      transparent 35%
+    );
+}
+
+
+.hero-content {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 700px;
+}
+
 
 .eyebrow {
-  color: #c99b2b;
 
-  font-size: 12px;
+  margin-bottom: 18px;
+
+  font-size: 11px;
 
   font-weight: 700;
 
-  letter-spacing: 2.5px;
+  letter-spacing: 3px;
 
-  margin-bottom: 16px;
+  color: #888888;
 }
 
 
-h1,
-h2,
-h3 {
+.hero .eyebrow {
+
+  color: #c5c5c5;
+}
+
+
+.hero h1 {
+
   font-family:
     Georgia,
     "Times New Roman",
     serif;
 
-  font-weight: 500;
-
-  color: #102a2d;
-}
-
-
-h2 span,
-h1 span {
-  color: #c99b2b;
-}
-
-
-/* =====================================================
-   HERO
-   ===================================================== */
-
-.hero {
-  min-height: 650px;
-
-  position: relative;
-
-  display: flex;
-
-  align-items: center;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(8, 28, 31, .92),
-      rgba(8, 28, 31, .55),
-      rgba(8, 28, 31, .15)
-    ),
-    url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85")
-    center / cover no-repeat;
-}
-
-
-.hero-content {
-  width: min(1150px, 88%);
-
-  margin: 0 auto;
-
-  color: white;
-
-  position: relative;
-
-  z-index: 2;
-}
-
-
-.hero-content .eyebrow {
-  color: #e0b33c;
-}
-
-
-.hero h1 {
-  color: white;
-
   font-size:
-    clamp(58px, 8vw, 110px);
+    clamp(58px, 8vw, 105px);
 
-  line-height: .95;
+  line-height: 0.95;
 
-  margin-bottom: 30px;
+  font-weight: 400;
+
+  letter-spacing: -3px;
 }
 
 
 .hero h1 span {
-  color: #e0b33c;
+
+  color: #b9b9b9;
 }
 
 
 .hero p {
-  max-width: 580px;
 
-  color:
-    rgba(255,255,255,.88);
+  max-width: 570px;
 
-  font-size: 18px;
+  margin-top: 30px;
 
-  margin-bottom: 35px;
+  font-size: 17px;
+
+  line-height: 1.8;
+
+  color: #dddddd;
 }
 
 
 .hero-buttons {
+
   display: flex;
 
-  gap: 15px;
+  gap: 14px;
 
-  flex-wrap: wrap;
+  margin-top: 38px;
 }
 
 
 .btn-primary,
 .btn-secondary {
-  display: inline-block;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 50px;
 
   padding:
-    14px
+    0
     25px;
 
-  text-decoration: none;
+  border-radius: 3px;
+
+  font-size: 13px;
 
   font-weight: 700;
 
-  transition: all .2s ease;
+  transition:
+    all 0.2s ease;
 }
 
 
 .btn-primary {
-  background: #c99b2b;
 
-  color: white;
+  background: #ffffff;
+
+  color: #181818;
 }
 
 
 .btn-primary:hover {
-  background: white;
 
-  color: #102a2d;
+  transform:
+    translateY(-2px);
 }
 
 
 .btn-secondary {
+
   border:
     1px solid
-    rgba(255,255,255,.7);
+    rgba(255,255,255,0.4);
 
-  color: white;
+  color: #ffffff;
 }
 
 
 .btn-secondary:hover {
-  background: white;
 
-  color: #102a2d;
+  background: #ffffff;
+
+  color: #181818;
 }
 
 
-/* =====================================================
-   SOBRE
-   ===================================================== */
+
+/* =========================================================
+   INTRO
+   ========================================================= */
 
 .intro {
-  width: min(1150px, 88%);
+
+  max-width: 1200px;
 
   margin:
-    110px
+    0
     auto;
+
+  padding:
+    120px
+    5%;
 
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 1fr);
+    minmax(300px, 0.9fr)
+    minmax(300px, 1fr);
 
-  gap: 80px;
+  gap: 90px;
 
   align-items: center;
 }
 
 
 .intro-photo {
+
   width: 100%;
 
-  height: 560px;
+  aspect-ratio: 4 / 5;
 
   overflow: hidden;
 
-  background: #e9e9e9;
+  background: #eeeeee;
 }
 
 
 .intro-photo img {
+
   width: 100%;
 
   height: 100%;
 
-  object-fit: cover;
-
-  object-position: center top;
-
   display: block;
+
+  object-fit: cover;
 }
 
 
 .intro-text h2 {
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:
-    clamp(42px, 5vw, 65px);
+    clamp(38px, 5vw, 58px);
 
   line-height: 1.05;
 
-  margin-bottom: 28px;
+  font-weight: 400;
+
+  letter-spacing: -1.5px;
+}
+
+
+.intro-text h2 span {
+
+  color: #777777;
 }
 
 
 .intro-text p {
-  color: #657277;
 
-  max-width: 560px;
+  max-width: 570px;
 
-  margin-bottom: 18px;
+  margin-top: 25px;
 
-  font-size: 17px;
+  color: #666666;
+
+  font-size: 16px;
 }
 
 
 .text-link {
+
   display: inline-block;
 
-  margin-top: 15px;
+  margin-top: 30px;
 
-  color: #102a2d;
+  font-size: 14px;
 
   font-weight: 700;
 
-  text-decoration: none;
+  border-bottom:
+    1px solid #222222;
+
+  padding-bottom: 4px;
 }
 
 
-.text-link:hover {
-  color: #c99b2b;
-}
 
-
-/* =====================================================
-   SECÇÃO IMÓVEIS
-   ===================================================== */
+/* =========================================================
+   PROPERTIES
+   ========================================================= */
 
 .properties {
-  width: min(1200px, 90%);
 
-  margin:
-    100px
-    auto;
-}
+  padding:
+    110px
+    5%;
 
-
-.properties-page {
-  margin-top: 30px;
+  background: #f7f7f5;
 }
 
 
 .section-heading {
-  display: flex;
 
-  align-items: end;
+  max-width: 1200px;
+
+  margin:
+    0
+    auto
+    45px;
+
+  display: flex;
 
   justify-content: space-between;
 
-  gap: 30px;
+  align-items: flex-end;
 
-  margin-bottom: 40px;
+  gap: 30px;
 }
 
 
 .section-heading h2 {
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
   font-size:
-    clamp(42px, 5vw, 68px);
+    clamp(38px, 5vw, 58px);
 
   line-height: 1;
+
+  font-weight: 400;
 }
 
 
 .view-all {
-  color: #102a2d;
 
-  text-decoration: none;
+  font-size: 14px;
 
   font-weight: 700;
 
@@ -486,66 +575,68 @@ h1 span {
 }
 
 
-.view-all:hover {
-  color: #c99b2b;
-}
-
-
-/* =====================================================
-   GRID DOS IMÓVEIS
-   ===================================================== */
-
 .property-grid {
+
+  max-width: 1200px;
+
+  margin:
+    0
+    auto;
+
   display: grid;
 
   grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+    repeat(3, 1fr);
 
-  gap: 30px;
+  gap: 25px;
 
   align-items: start;
 }
 
 
-/* =====================================================
-   CARTÃO
-   ===================================================== */
+
+/* =========================================================
+   PROPERTY CARD
+   ========================================================= */
 
 .property-card {
-  width: 100%;
 
   min-width: 0;
 
   background: #ffffff;
 
+  border:
+    1px solid #e8e8e8;
+
   overflow: hidden;
 
-  border-radius: 4px;
-
   box-shadow:
-    0 12px 35px
-    rgba(0,0,0,.08);
+    0 8px 30px
+    rgba(0,0,0,0.04);
 }
 
 
-/* =====================================================
+
+/* =========================================================
    SLIDESHOW
-   ===================================================== */
+   ========================================================= */
 
 .property-slideshow {
+
   position: relative;
 
   width: 100%;
 
-  height: 360px;
+  height: 330px;
 
   overflow: hidden;
 
-  background: #dfe4e2;
+  background: #dddddd;
 }
 
 
-.slide {
+.property-slideshow .slide {
+
   position: absolute;
 
   inset: 0;
@@ -558,23 +649,25 @@ h1 span {
 
   visibility: hidden;
 
-  transition:
-    opacity .5s ease;
+  z-index: 1;
 
-  z-index: 0;
+  transition:
+    opacity 0.45s ease;
 }
 
 
-.slide.active {
+.property-slideshow .slide.active {
+
   opacity: 1;
 
   visibility: visible;
 
-  z-index: 1;
+  z-index: 2;
 }
 
 
-.slide img {
+.property-slideshow .slide img {
+
   display: block;
 
   width: 100%;
@@ -587,93 +680,71 @@ h1 span {
 }
 
 
-.property-placeholder {
-  width: 100%;
 
-  height: 100%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  text-align: center;
-
-  background: #17373a;
-
-  color: #ffffff;
-
-  font-size: 14px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-}
-
-
-/* =====================================================
-   BOTÕES SLIDESHOW
-   ===================================================== */
+/* =========================================================
+   SLIDESHOW BUTTONS
+   ========================================================= */
 
 .slide-prev,
 .slide-next {
+
   position: absolute;
 
   top: 50%;
 
-  transform:
-    translateY(-50%);
+  z-index: 20;
 
-  z-index: 5;
+  width: 42px;
 
-  width: 44px;
-
-  height: 44px;
+  height: 42px;
 
   border: none;
 
   border-radius: 50%;
 
-  background:
-    rgba(255,255,255,.92);
-
-  color: #102a2d;
-
-  font-size: 31px;
-
-  line-height: 1;
-
-  cursor: pointer;
-
   display: flex;
 
   align-items: center;
 
   justify-content: center;
 
+  transform:
+    translateY(-50%);
+
+  background:
+    rgba(0,0,0,0.58);
+
+  color: #ffffff;
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
   transition:
-    background .2s ease,
-    color .2s ease,
-    transform .2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
 
 .slide-prev {
-  left: 15px;
+
+  left: 14px;
 }
 
 
 .slide-next {
-  right: 15px;
+
+  right: 14px;
 }
 
 
 .slide-prev:hover,
 .slide-next:hover {
-  background: #c99b2b;
 
-  color: white;
+  background:
+    rgba(0,0,0,0.85);
 
   transform:
     translateY(-50%)
@@ -681,32 +752,37 @@ h1 span {
 }
 
 
-/* =====================================================
-   PONTOS
-   ===================================================== */
+
+/* =========================================================
+   SLIDESHOW DOTS
+   ========================================================= */
 
 .slide-dots {
-  position: absolute;
 
-  bottom: 16px;
+  position: absolute;
 
   left: 50%;
 
-  transform:
-    translateX(-50%);
+  bottom: 14px;
 
-  z-index: 6;
+  z-index: 20;
 
   display: flex;
 
+  align-items: center;
+
   gap: 7px;
+
+  transform:
+    translateX(-50%);
 }
 
 
 .slide-dot {
-  width: 9px;
 
-  height: 9px;
+  width: 8px;
+
+  height: 8px;
 
   padding: 0;
 
@@ -715,162 +791,199 @@ h1 span {
   border-radius: 50%;
 
   background:
-    rgba(255,255,255,.65);
+    rgba(255,255,255,0.65);
 
   cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 
 .slide-dot.active {
-  background: #c99b2b;
 
-  transform: scale(1.25);
+  background: #ffffff;
+
+  transform:
+    scale(1.35);
 }
 
 
-/* =====================================================
-   INFORMAÇÃO
-   ===================================================== */
+
+/* =========================================================
+   PROPERTY PLACEHOLDER
+   ========================================================= */
+
+.property-placeholder {
+
+  width: 100%;
+
+  height: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #eeeeec,
+      #d9d9d7
+    );
+
+  color: #555555;
+
+  text-align: center;
+}
+
+
+.property-placeholder span {
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  font-weight: 700;
+}
+
+
+.property-placeholder strong {
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 30px;
+
+  font-weight: 400;
+}
+
+
+
+/* =========================================================
+   PROPERTY INFO
+   ========================================================= */
 
 .property-info {
-  position: relative;
 
-  padding:
-    25px
-    26px
-    30px;
-
-  background: #ffffff;
+  padding: 25px;
 }
 
 
 .property-status {
-  display: block;
 
-  margin-bottom: 9px;
+  display: inline-block;
 
-  color: #c99b2b;
+  margin-bottom: 10px;
 
-  font-size: 11px;
+  font-size: 10px;
 
   font-weight: 700;
 
   letter-spacing: 2px;
+
+  color: #777777;
 }
 
 
-.property-info h2,
 .property-info h3 {
-  margin: 0 0 12px;
 
-  font-size: 28px;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size: 27px;
 
   line-height: 1.15;
+
+  font-weight: 400;
 }
 
 
 .property-info p {
-  margin: 0 0 20px;
 
-  color: #657277;
+  margin-top: 10px;
 
-  font-size: 16px;
+  color: #777777;
 
-  line-height: 1.55;
+  font-size: 14px;
+}
+
+
+.property-info .property-details {
+
+  margin-top: 4px;
 }
 
 
 .property-price {
+
   display: block;
 
-  margin-bottom: 20px;
+  margin-top: 18px;
 
-  color: #102a2d;
-
-  font-size: 23px;
+  font-size: 22px;
 
   font-weight: 700;
 }
 
 
-.property-info a {
+.property-link {
+
   display: inline-block;
 
-  color: #102a2d;
+  margin-top: 20px;
 
-  font-size: 15px;
+  font-size: 13px;
 
   font-weight: 700;
 
-  text-decoration: none;
+  border-bottom:
+    1px solid #222222;
+
+  padding-bottom: 3px;
 }
 
 
-.property-info a:hover {
-  color: #c99b2b;
-}
 
-
-/* =====================================================
-   HERO DA PÁGINA DE IMÓVEIS
-   ===================================================== */
-
-.page-hero {
-  width: min(1200px, 90%);
-
-  margin:
-    90px
-    auto
-    30px;
-}
-
-
-.page-hero h1 {
-  font-size:
-    clamp(50px, 7vw, 88px);
-
-  line-height: 1;
-
-  margin-bottom: 20px;
-}
-
-
-.page-hero p {
-  max-width: 600px;
-
-  color: #657277;
-
-  font-size: 18px;
-}
-
-
-/* =====================================================
+/* =========================================================
    CONTACTO
-   ===================================================== */
+   ========================================================= */
 
 .contact {
-  margin-top: 120px;
 
   padding:
-    90px
-    6%;
+    110px
+    5%;
 
-  background: #102a2d;
+  background: #181818;
 
-  color: white;
+  color: #ffffff;
 }
 
 
 .contact-inner {
-  width: min(1150px, 100%);
 
-  margin: auto;
+  max-width: 1200px;
+
+  margin:
+    0
+    auto;
 
   display: grid;
 
   grid-template-columns:
-    minmax(0, 1fr)
-    minmax(300px, .7fr);
+    1.2fr
+    0.8fr;
 
   gap: 80px;
 
@@ -879,38 +992,47 @@ h1 span {
 
 
 .contact .eyebrow {
-  color: #e0b33c;
+
+  color: #999999;
 }
 
 
 .contact h2 {
-  color: white;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:
-    clamp(40px, 5vw, 65px);
+    clamp(40px, 5vw, 62px);
 
-  line-height: 1.05;
+  line-height: 1;
 
-  margin-bottom: 25px;
+  font-weight: 400;
 }
 
 
 .contact h2 span {
-  color: #e0b33c;
+
+  color: #999999;
 }
 
 
-.contact p {
+.contact-text p {
+
   max-width: 600px;
 
-  color:
-    rgba(255,255,255,.72);
+  margin-top: 25px;
 
-  font-size: 17px;
+  color: #bbbbbb;
+
+  font-size: 16px;
 }
 
 
 .contact-details {
+
   display: flex;
 
   flex-direction: column;
@@ -920,60 +1042,57 @@ h1 span {
 
 
 .contact-details a {
-  color: white;
 
-  text-decoration: none;
+  display: block;
 
-  font-size: 19px;
+  font-size: 18px;
+
+  font-weight: 500;
 }
 
 
 .contact-details small {
+
   display: block;
 
   margin-bottom: 5px;
 
-  color: #e0b33c;
-
-  font-size: 10px;
-
-  font-weight: 700;
+  font-size: 9px;
 
   letter-spacing: 2px;
+
+  color: #888888;
 }
 
 
-.contact-whatsapp {
+.contact-details .contact-whatsapp {
+
   padding:
     14px
     18px;
 
-  border:
-    1px solid
-    rgba(255,255,255,.3);
+  background: #ffffff;
+
+  color: #181818;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  text-align: center;
 }
 
 
-.contact-whatsapp:hover {
-  background: #c99b2b;
 
-  border-color: #c99b2b;
-}
-
-
-/* =====================================================
+/* =========================================================
    FOOTER
-   ===================================================== */
+   ========================================================= */
 
 footer {
+
   padding:
     35px
-    6%;
-
-  background: #081c1f;
-
-  color:
-    rgba(255,255,255,.65);
+    5%;
 
   display: flex;
 
@@ -981,11 +1100,16 @@ footer {
 
   justify-content: space-between;
 
-  gap: 30px;
+  gap: 20px;
+
+  background: #101010;
+
+  color: #ffffff;
 }
 
 
 .footer-logo {
+
   display: flex;
 
   flex-direction: column;
@@ -993,201 +1117,317 @@ footer {
 
 
 .footer-logo strong {
-  color: white;
 
-  letter-spacing: 1px;
-}
-
-
-.footer-logo span {
-  margin-top: 3px;
-
-  font-size: 9px;
+  font-size: 15px;
 
   letter-spacing: 1.5px;
 }
 
 
-footer p {
-  font-size: 13px;
+.footer-logo span {
+
+  margin-top: 3px;
+
+  font-size: 8px;
+
+  letter-spacing: 1.5px;
+
+  color: #777777;
 }
 
 
-/* =====================================================
+footer p {
+
+  color: #777777;
+
+  font-size: 11px;
+}
+
+
+
+/* =========================================================
    TABLET
-   ===================================================== */
+   ========================================================= */
 
 @media (max-width: 1000px) {
 
-  .header {
-    padding:
-      16px
-      4%;
+
+  .navigation {
+
+    gap: 16px;
   }
 
 
-  nav {
-    gap: 15px;
-  }
+  .navigation > a {
 
-
-  .property-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
-
-
-  .intro {
-    gap: 45px;
-  }
-
-
-  .intro-photo {
-    height: 500px;
-  }
-
-}
-
-
-/* =====================================================
-   TELEMÓVEL
-   ===================================================== */
-
-@media (max-width: 700px) {
-
-  .header {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    padding: 18px 5%;
-  }
-
-
-  nav {
-    width: 100%;
-
-    flex-wrap: wrap;
-
-    gap: 13px 20px;
-  }
-
-
-  nav a {
     font-size: 13px;
   }
 
 
-  .hero {
-    min-height: 570px;
+  .property-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
   }
 
 
-  .hero-content {
-    width: 90%;
-  }
+  .property-card:last-child {
 
+    grid-column:
+      1 / -1;
 
-  .hero h1 {
-    font-size:
-      clamp(52px, 16vw, 80px);
-  }
-
-
-  .hero p {
-    font-size: 16px;
+    max-width:
+      calc(
+        50% - 12.5px
+      );
   }
 
 
   .intro {
-    width: 90%;
 
-    margin:
-      70px
-      auto;
-
-    grid-template-columns: 1fr;
-
-    gap: 40px;
+    gap: 50px;
   }
 
 
-  .intro-photo {
-    height: 500px;
-  }
+}
 
 
-  .properties {
-    width: 90%;
 
-    margin:
-      70px
-      auto;
-  }
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
 
 
-  .section-heading {
+  .header {
+
+    min-height: auto;
+
+    padding:
+      14px
+      20px;
+
     flex-direction: column;
 
-    align-items: flex-start;
+    gap: 15px;
   }
 
 
-  .section-heading h2 {
-    font-size: 46px;
+  .navigation {
+
+    width: 100%;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 12px 18px;
   }
 
 
-  .property-grid {
-    grid-template-columns: 1fr;
+  .navigation > a {
 
-    gap: 25px;
+    font-size: 12px;
   }
 
 
-  .property-slideshow {
-    height: 300px;
+  .navigation .whatsapp {
+
+    padding:
+      8px
+      13px;
   }
 
 
-  .property-info h2,
-  .property-info h3 {
-    font-size: 25px;
-  }
 
+  .hero {
 
-  .page-hero {
-    width: 90%;
-
-    margin-top: 60px;
-  }
-
-
-  .page-hero h1 {
-    font-size: 52px;
-  }
-
-
-  .contact {
-    margin-top: 70px;
+    min-height: 580px;
 
     padding:
       70px
-      5%;
+      25px;
   }
 
 
-  .contact-inner {
-    grid-template-columns: 1fr;
+  .hero h1 {
+
+    font-size:
+      clamp(52px, 17vw, 80px);
+
+    letter-spacing:
+      -2px;
+  }
+
+
+  .hero p {
+
+    font-size: 15px;
+  }
+
+
+  .hero-buttons {
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .btn-primary,
+  .btn-secondary {
+
+    width: 100%;
+  }
+
+
+
+  .intro {
+
+    padding:
+      75px
+      25px;
+
+    grid-template-columns:
+      1fr;
 
     gap: 45px;
   }
 
 
+  .intro-photo {
+
+    aspect-ratio:
+      4 / 5;
+  }
+
+
+
+  .properties {
+
+    padding:
+      75px
+      20px;
+  }
+
+
+  .section-heading {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    margin-bottom: 30px;
+  }
+
+
+  .property-grid {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 22px;
+  }
+
+
+  .property-card:last-child {
+
+    grid-column:
+      auto;
+
+    max-width: none;
+  }
+
+
+  .property-slideshow {
+
+    height: 300px;
+  }
+
+
+
+  .slide-prev,
+  .slide-next {
+
+    width: 38px;
+
+    height: 38px;
+
+    font-size: 27px;
+  }
+
+
+  .slide-prev {
+
+    left: 10px;
+  }
+
+
+  .slide-next {
+
+    right: 10px;
+  }
+
+
+
+  .contact {
+
+    padding:
+      75px
+      25px;
+  }
+
+
+  .contact-inner {
+
+    grid-template-columns:
+      1fr;
+
+    gap: 45px;
+  }
+
+
+
   footer {
+
+    padding:
+      30px
+      25px;
+
     flex-direction: column;
 
     align-items: flex-start;
   }
+
+}
+
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+
+  html {
+
+    scroll-behavior: auto;
+  }
+
+
+  .property-slideshow .slide {
+
+    transition: none;
+  }
+
+
+  .slide-prev,
+  .slide-next {
+
+    transition: none;
+  }
+
 
 }
