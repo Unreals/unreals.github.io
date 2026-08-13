@@ -3,367 +3,26 @@
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-<title>
-  Imóveis | Jo Torres
-</title>
+  <title>Imóveis | Jo Torres</title>
 
-<meta
-  name="description"
-  content="Imóveis disponíveis para venda - Jo Torres, Consultor Imobiliário."
->
+  <meta
+    name="description"
+    content="Imóveis disponíveis para venda - Jo Torres."
+  >
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
 
-
-<style>
-
-:root{
-  --gold:#c9a227;
-  --gold-dark:#a88316;
-  --dark:#07171b;
-  --light:#f5f5f3;
-  --text:#172126;
-  --muted:#70777b;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:#fff;
-}
-
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-.header{
-  height:82px;
-  padding:0 6%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  border-bottom:1px solid #eee;
-  background:#fff;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logo-circle{
-  width:43px;
-  height:43px;
-  border-radius:50%;
-  background:var(--dark);
-  color:var(--gold);
-  display:grid;
-  place-items:center;
-  font-weight:800;
-}
-
-.logo strong{
-  display:block;
-}
-
-.logo span{
-  display:block;
-  font-size:10px;
-  color:#777;
-  letter-spacing:1px;
-  margin-top:3px;
-}
-
-.navigation{
-  display:flex;
-  align-items:center;
-  gap:24px;
-}
-
-.navigation a{
-  font-size:14px;
-  font-weight:600;
-}
-
-.whatsapp{
-  background:var(--dark);
-  color:#fff;
-  padding:11px 17px;
-  border-radius:7px;
-}
-
-.properties-page{
-  max-width:1200px;
-  width:88%;
-  margin:80px auto;
-}
-
-.properties-page-heading{
-  margin-bottom:50px;
-}
-
-.eyebrow{
-  color:var(--gold);
-  letter-spacing:2px;
-  font-size:12px;
-  font-weight:800;
-  margin-bottom:15px;
-}
-
-.properties-page h1{
-  font-size:60px;
-  line-height:1;
-  margin:0 0 20px;
-  font-weight:500;
-}
-
-.properties-page-heading p{
-  color:var(--muted);
-  font-size:17px;
-}
-
-.properties-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:24px;
-}
-
-.property-card{
-  background:#fff;
-  border-radius:7px;
-  overflow:hidden;
-  border:1px solid #e8e8e8;
-  box-shadow:0 10px 35px #0000000c;
-}
-
-.property-slideshow{
-  position:relative;
-  width:100%;
-  height:300px;
-  background:#ddd;
-  overflow:hidden;
-}
-
-.slide{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  visibility:hidden;
-  transition:opacity .4s ease;
-}
-
-.slide.active{
-  opacity:1;
-  visibility:visible;
-}
-
-.slide img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.slide-button{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  width:40px;
-  height:40px;
-  border:0;
-  border-radius:50%;
-  background:#0009;
-  color:#fff;
-  font-size:25px;
-  z-index:5;
-}
-
-.slide-prev{
-  left:12px;
-}
-
-.slide-next{
-  right:12px;
-}
-
-.slide-dots{
-  position:absolute;
-  bottom:12px;
-  left:0;
-  right:0;
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  z-index:5;
-}
-
-.slide-dot{
-  width:7px;
-  height:7px;
-  padding:0;
-  border:0;
-  border-radius:50%;
-  background:#ffffff99;
-}
-
-.slide-dot.active{
-  background:#fff;
-}
-
-.property-info{
-  padding:22px;
-}
-
-.property-status{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:1px;
-  color:var(--gold-dark);
-}
-
-.property-info h2{
-  font-size:23px;
-  margin:9px 0;
-}
-
-.property-location{
-  color:var(--muted);
-  font-size:14px;
-}
-
-.property-price{
-  font-size:22px;
-  font-weight:800;
-  margin:16px 0;
-}
-
-.property-features{
-  display:flex;
-  flex-wrap:wrap;
-  gap:7px;
-}
-
-.feature{
-  background:#f0f1f1;
-  padding:6px 9px;
-  border-radius:20px;
-  font-size:12px;
-}
-
-.luxury{
-  background:#f8edc8;
-  color:#80630d;
-}
-
-.description{
-  color:var(--muted);
-  line-height:1.7;
-  font-size:14px;
-  margin-top:18px;
-}
-
-.contact-button{
-  display:block;
-  margin-top:20px;
-  padding:13px 16px;
-  border-radius:7px;
-  background:var(--dark);
-  color:#fff;
-  text-align:center;
-  font-weight:700;
-}
-
-.empty{
-  grid-column:1/-1;
-  padding:60px;
-  text-align:center;
-  color:var(--muted);
-}
-
-footer{
-  margin-top:100px;
-  padding:35px 6%;
-  background:#041014;
-  color:#fff;
-  display:flex;
-  justify-content:space-between;
-}
-
-.footer-logo strong{
-  display:block;
-}
-
-.footer-logo span{
-  display:block;
-  color:#8b9497;
-  font-size:10px;
-  margin-top:5px;
-}
-
-footer p{
-  color:#7f898d;
-  font-size:12px;
-}
-
-
-@media(max-width:950px){
-
-  .properties-grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-
-}
-
-
-@media(max-width:700px){
-
-  .header{
-    padding:0 5%;
-  }
-
-  .navigation a:not(.whatsapp){
-    display:none;
-  }
-
-  .properties-page{
-    width:90%;
-    margin:60px auto;
-  }
-
-  .properties-page h1{
-    font-size:45px;
-  }
-
-  .properties-grid{
-    grid-template-columns:1fr;
-  }
-
-  .property-slideshow{
-    height:300px;
-  }
-
-  footer{
-    flex-direction:column;
-    gap:20px;
-  }
-
-}
-
-</style>
+  <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -373,16 +32,13 @@ footer p{
 
 <header class="header">
 
-  <a
-    href="index.html"
-    class="logo"
-  >
+  <a href="index.html" class="logo">
 
     <div class="logo-circle">
       JT
     </div>
 
-    <div>
+    <div class="logo-text">
 
       <strong>
         JO TORRES
@@ -418,9 +74,10 @@ footer p{
     <a
       href="https://wa.me/41792601145"
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       class="whatsapp"
     >
+      <i class="fa-brands fa-whatsapp"></i>
       WhatsApp
     </a>
 
@@ -430,6 +87,7 @@ footer p{
 
 
 <main>
+
 
 <section class="properties-page">
 
@@ -451,18 +109,25 @@ footer p{
   </div>
 
 
-  <div
-    id="propertiesGrid"
-    class="properties-grid"
-  >
+  <div id="propertyList">
 
-    <div class="empty">
+    <div class="loading-state">
       A carregar imóveis...
     </div>
 
   </div>
 
+
+  <div
+    id="propertyDetail"
+    class="property-detail"
+    style="display:none"
+  >
+
+  </div>
+
 </section>
+
 
 </main>
 
@@ -488,98 +153,118 @@ footer p{
 </footer>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
 <script>
 
 const SUPABASE_URL =
-'https://scmorocdbdyvnxodpwyi.supabase.co';
+  'https://scmorocdbdyvnxodpwyi.supabase.co';
 
 const SUPABASE_KEY =
-'sb_publishable_W28Qdq8POfYXjCu3BwUxPQ_2z2o2GcM';
+  'sb_publishable_W28Qdq8POfYXjCu3BwUxPQ_2z2o2GcM';
 
 const sb =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
-const grid =
-document.getElementById(
-  'propertiesGrid'
-);
-
-
-function esc(value){
+function esc(value) {
 
   return String(value ?? '')
-    .replace(/[&<>"']/g,c=>({
+    .replace(/[&<>"']/g, function(char) {
 
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
 
-    }[c]));
+      }[char];
+
+    });
 
 }
 
 
-function money(value){
+function formatPrice(price) {
 
-  if(!value)
+  if (!price) {
     return 'Preço sob consulta';
+  }
 
   return new Intl.NumberFormat(
     'pt-PT',
     {
-      style:'currency',
-      currency:'EUR',
-      maximumFractionDigits:0
+      style: 'currency',
+      currency: 'EUR',
+      maximumFractionDigits: 0
     }
-  ).format(value);
+  ).format(price);
 
 }
 
 
-async function loadProperties(){
+function feature(icon, value, label) {
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === '' ||
+    value === false
+  ) {
+    return '';
+  }
+
+  return `
+
+    <div class="detail-feature">
+
+      <i class="${icon}"></i>
+
+      <strong>
+        ${esc(value)}
+      </strong>
+
+      <span>
+        ${label}
+      </span>
+
+    </div>
+
+  `;
+
+}
+
+
+async function loadProperties() {
 
   const result =
     await sb
       .from('imoveis')
-      .select(`
-        *,
-        imovel_fotos (
-          id,
-          url,
-          ordem
-        )
-      `)
-      .eq(
-        'publicado',
-        true
-      )
-      .order(
-        'created_at',
-        {
-          ascending:false
-        }
-      );
+      .select('*')
+      .eq('publicado', true)
+      .order('created_at', {
+        ascending: false
+      });
 
 
-  if(result.error){
+  const list =
+    document.getElementById('propertyList');
 
-    console.error(
-      result.error
-    );
 
-    grid.innerHTML =
-      `<div class="empty">
-        Erro ao carregar os imóveis.
-      </div>`;
+  if (result.error) {
+
+    list.innerHTML = `
+      <div class="empty-state">
+        Não foi possível carregar os imóveis.
+      </div>
+    `;
 
     return;
-
   }
 
 
@@ -587,249 +272,419 @@ async function loadProperties(){
     result.data || [];
 
 
-  if(!properties.length){
+  if (!properties.length) {
 
-    grid.innerHTML =
-      `<div class="empty">
+    list.innerHTML = `
+      <div class="empty-state">
         De momento não existem imóveis publicados.
-      </div>`;
+      </div>
+    `;
 
     return;
-
   }
 
 
-  grid.innerHTML =
-    properties
-      .map(
-        createProperty
-      )
-      .join('');
+  list.innerHTML = `
+
+    <div class="properties-list">
+
+      ${
+        properties.map(function(property) {
+
+          return `
+
+            <article class="property-list-card">
+
+              <a
+                href="imoveis.html?id=${encodeURIComponent(property.id)}"
+                class="property-list-image"
+              >
+
+                ${
+                  property.imagem_capa
+                  ?
+                  `<img
+                    src="${esc(property.imagem_capa)}"
+                    alt="${esc(property.titulo)}"
+                    loading="lazy"
+                  >`
+                  :
+                  `<div class="property-placeholder">
+                    <i class="fa-solid fa-house"></i>
+                    Sem fotografia
+                  </div>`
+                }
+
+              </a>
 
 
-  document
-    .querySelectorAll(
-      '.property-slideshow'
-    )
-    .forEach(
-      createSlideshow
-    );
+              <div class="property-list-info">
+
+                <span class="property-status">
+                  ${esc(property.estado || 'Disponível')}
+                </span>
+
+                ${
+                  property.luxo
+                  ?
+                  `<span class="luxury-badge">
+                    <i class="fa-solid fa-gem"></i>
+                    LUXO
+                  </span>`
+                  : ''
+                }
+
+                <h2>
+                  ${esc(property.titulo)}
+                </h2>
+
+                <div class="property-location">
+                  <i class="fa-solid fa-location-dot"></i>
+                  ${esc(property.localizacao)}
+                </div>
+
+                <div class="property-list-price">
+                  ${formatPrice(property.preco)}
+                </div>
+
+
+                <div class="property-mini-features">
+
+                  ${
+                    property.quartos != null
+                    ?
+                    `<span>
+                      <i class="fa-solid fa-bed"></i>
+                      ${property.quartos} quartos
+                    </span>`
+                    : ''
+                  }
+
+                  ${
+                    property.casas_banho != null
+                    ?
+                    `<span>
+                      <i class="fa-solid fa-bath"></i>
+                      ${property.casas_banho} WC
+                    </span>`
+                    : ''
+                  }
+
+                  ${
+                    property.area
+                    ?
+                    `<span>
+                      <i class="fa-solid fa-ruler-combined"></i>
+                      ${property.area} m²
+                    </span>`
+                    : ''
+                  }
+
+                  ${
+                    property.garagem
+                    ?
+                    `<span>
+                      <i class="fa-solid fa-car"></i>
+                      Garagem
+                    </span>`
+                    : ''
+                  }
+
+                  ${
+                    property.piscina
+                    ?
+                    `<span>
+                      <i class="fa-solid fa-person-swimming"></i>
+                      Piscina
+                    </span>`
+                    : ''
+                  }
+
+                </div>
+
+
+                <a
+                  href="imoveis.html?id=${encodeURIComponent(property.id)}"
+                  class="property-link"
+                >
+                  Ver imóvel
+                  <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+              </div>
+
+            </article>
+
+          `;
+
+        }).join('')
+      }
+
+    </div>
+
+  `;
 
 }
 
 
-function createProperty(
-  property
-){
+async function loadPropertyDetail(id) {
 
-  let photos =
-    (property.imovel_fotos || [])
-      .sort(
-        (a,b) =>
-          (a.ordem || 0) -
-          (b.ordem || 0)
-      );
+  const list =
+    document.getElementById('propertyList');
+
+  const detail =
+    document.getElementById('propertyDetail');
 
 
-  if(
-    !photos.length &&
-    property.imagem_capa
-  ){
+  const propertyResult =
+    await sb
+      .from('imoveis')
+      .select('*')
+      .eq('id', id)
+      .eq('publicado', true)
+      .single();
 
-    photos = [{
-      url:
-        property.imagem_capa
-    }];
 
+  if (propertyResult.error) {
+
+    list.innerHTML = `
+      <div class="empty-state">
+        Imóvel não encontrado.
+      </div>
+    `;
+
+    return;
   }
 
 
-  const features = [];
+  const property =
+    propertyResult.data;
 
 
-  if(property.area){
-
-    features.push(
-      `${property.area} m²`
-    );
-
-  }
-
-
-  if(property.quartos){
-
-    features.push(
-      `${property.quartos} quartos`
-    );
-
-  }
+  const photosResult =
+    await sb
+      .from('imovel_fotos')
+      .select('*')
+      .eq('imovel_id', id)
+      .order('ordem', {
+        ascending: true
+      });
 
 
-  if(property.casas_banho){
-
-    features.push(
-      `${property.casas_banho} WC`
-    );
-
-  }
+  const photos =
+    photosResult.data || [];
 
 
-  if(property.garagem){
+  list.style.display = 'none';
 
-    features.push(
-      'Garagem'
-    );
-
-  }
+  detail.style.display = 'block';
 
 
-  return `
+  detail.innerHTML = `
 
-    <article class="property-card">
+    <a
+      href="imoveis.html"
+      class="back-link"
+    >
+      <i class="fa-solid fa-arrow-left"></i>
+      Voltar aos imóveis
+    </a>
+
+
+    <article class="property-detail-card">
+
 
       <div class="property-slideshow">
 
         ${
           photos.length
-
           ?
+          photos.map(function(photo, index) {
 
-          photos.map(
-            (photo,i) => `
+            return `
 
               <div
-                class="slide ${i===0?'active':''}"
+                class="slide ${index === 0 ? 'active' : ''}"
               >
 
                 <img
                   src="${esc(photo.url)}"
-                  alt="${esc(property.titulo)}"
-                  loading="lazy"
+                  alt="${esc(property.titulo)} - fotografia ${index + 1}"
                 >
+
+                <div class="fnai-watermark">
+                  FNAI
+                </div>
 
               </div>
 
-            `
-          ).join('')
+            `;
 
+          }).join('')
           :
+          property.imagem_capa
+          ?
+          `
+            <div class="slide active">
 
-          `<div class="slide active">
-            <div
-              style="
-                width:100%;
-                height:100%;
-                display:grid;
-                place-items:center;
-                color:#777;
-              "
-            >
-              Sem fotografia
+              <img
+                src="${esc(property.imagem_capa)}"
+                alt="${esc(property.titulo)}"
+              >
+
+              <div class="fnai-watermark">
+                FNAI
+              </div>
+
             </div>
-          </div>`
+          `
+          :
+          `
+            <div class="slide active">
 
+              <div class="property-placeholder">
+                <i class="fa-solid fa-house"></i>
+                Sem fotografia
+              </div>
+
+            </div>
+          `
         }
 
 
         ${
           photos.length > 1
-
           ?
-
           `
 
-          <button
-            type="button"
-            class="slide-button slide-prev"
-            aria-label="Fotografia anterior"
-          >
-            ‹
-          </button>
+            <button
+              type="button"
+              class="slide-prev"
+              aria-label="Fotografia anterior"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
 
 
-          <button
-            type="button"
-            class="slide-button slide-next"
-            aria-label="Fotografia seguinte"
-          >
-            ›
-          </button>
+            <button
+              type="button"
+              class="slide-next"
+              aria-label="Fotografia seguinte"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
 
 
-          <div class="slide-dots">
-
-            ${
-              photos.map(
-                (_,i) =>
-                `<button
-                  type="button"
-                  class="slide-dot ${i===0?'active':''}"
-                  data-slide="${i}"
-                  aria-label="Fotografia ${i+1}"
-                ></button>`
-              ).join('')
-            }
-
-          </div>
+            <div class="slide-dots"></div>
 
           `
-
-          :
-
-          ''
-
+          : ''
         }
 
       </div>
 
 
-      <div class="property-info">
+      <div class="property-detail-info">
 
-        <span class="property-status">
-          ${esc(property.estado || 'Disponível')}
-        </span>
+        <div class="property-detail-top">
 
+          <span class="property-status">
+            ${esc(property.estado || 'Disponível')}
+          </span>
 
-        <h2>
-          ${esc(property.titulo)}
-        </h2>
+          ${
+            property.luxo
+            ?
+            `<span class="luxury-badge">
+              <i class="fa-solid fa-gem"></i>
+              IMÓVEL DE LUXO
+            </span>`
+            : ''
+          }
 
-
-        <div class="property-location">
-          ${esc(property.localizacao)}
         </div>
 
 
-        <div class="property-price">
-          ${money(property.preco)}
+        <h1>
+          ${esc(property.titulo)}
+        </h1>
+
+
+        <div class="property-location property-location-large">
+
+          <i class="fa-solid fa-location-dot"></i>
+
+          ${esc(property.localizacao)}
+
+        </div>
+
+
+        <div class="property-detail-price">
+          ${formatPrice(property.preco)}
         </div>
 
 
         <div class="property-features">
 
+          ${feature(
+            'fa-solid fa-bed',
+            property.quartos,
+            'Quartos'
+          )}
+
+          ${feature(
+            'fa-solid fa-bath',
+            property.casas_banho,
+            'WC'
+          )}
+
+          ${feature(
+            'fa-solid fa-ruler-combined',
+            property.area,
+            'm²'
+          )}
+
           ${
-            features.map(
-              feature =>
-              `<span class="feature">
-                ${esc(feature)}
-              </span>`
-            ).join('')
+            property.garagem
+            ?
+            `
+              <div class="detail-feature">
+
+                <i class="fa-solid fa-car"></i>
+
+                <strong>
+                  <i class="fa-solid fa-check"></i>
+                </strong>
+
+                <span>
+                  Garagem
+                </span>
+
+              </div>
+            `
+            : ''
           }
 
 
           ${
-            property.luxo
-
+            property.piscina
             ?
+            `
+              <div class="detail-feature">
 
-            `<span class="feature luxury">
-              Imóvel de luxo
-            </span>`
+                <i class="fa-solid fa-person-swimming"></i>
 
-            :
+                <strong>
+                  <i class="fa-solid fa-check"></i>
+                </strong>
 
-            ''
+                <span>
+                  Piscina
+                </span>
 
+              </div>
+            `
+            : ''
           }
 
         </div>
@@ -837,27 +692,51 @@ function createProperty(
 
         ${
           property.descricao
-
           ?
+          `
+            <div class="property-description">
 
-          `<p class="description">
-            ${esc(property.descricao)}
-          </p>`
+              ${esc(property.descricao)
+                .replace(/\n/g, '<br>')}
 
-          :
+            </div>
+          `
+          : ''
+        }
 
-          ''
 
+        ${
+          property.fnai_url
+          ?
+          `
+            <a
+              href="${esc(property.fnai_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="fnai-property-link"
+            >
+
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+              Ver anúncio na FNAI
+
+            </a>
+          `
+          : ''
         }
 
 
         <a
           href="https://wa.me/41792601145"
           target="_blank"
-          rel="noopener"
-          class="contact-button"
+          rel="noopener noreferrer"
+          class="property-contact-button"
         >
-          Pedir informações pelo WhatsApp →
+
+          <i class="fa-brands fa-whatsapp"></i>
+
+          Pedir informações pelo WhatsApp
+
         </a>
 
       </div>
@@ -866,41 +745,42 @@ function createProperty(
 
   `;
 
+
+  if (photos.length > 1) {
+
+    initSlideshow();
+
+  }
+
 }
 
 
-function createSlideshow(
-  slideshow
-){
+function initSlideshow() {
+
+  const slideshow =
+    document.querySelector('.property-slideshow');
+
+  if (!slideshow) {
+    return;
+  }
+
 
   const slides =
-    Array.from(
-      slideshow.querySelectorAll(
-        '.slide'
-      )
-    );
+    slideshow.querySelectorAll('.slide');
 
-
-  if(slides.length <= 1)
-    return;
-
+  const previous =
+    slideshow.querySelector('.slide-prev');
 
   const next =
-    slideshow.querySelector(
-      '.slide-next'
-    );
+    slideshow.querySelector('.slide-next');
 
-  const prev =
-    slideshow.querySelector(
-      '.slide-prev'
-    );
+  const dotsContainer =
+    slideshow.querySelector('.slide-dots');
 
-  const dots =
-    Array.from(
-      slideshow.querySelectorAll(
-        '.slide-dot'
-      )
-    );
+
+  if (slides.length <= 1) {
+    return;
+  }
 
 
   let current = 0;
@@ -908,87 +788,110 @@ function createSlideshow(
   let timer;
 
 
-  function show(index){
+  slides.forEach(function(_, index) {
+
+    const dot =
+      document.createElement('button');
+
+    dot.type = 'button';
+
+    dot.className =
+      'slide-dot';
+
+    dot.setAttribute(
+      'aria-label',
+      `Fotografia ${index + 1}`
+    );
+
+
+    if (index === 0) {
+      dot.classList.add('active');
+    }
+
+
+    dot.addEventListener(
+      'click',
+      function() {
+
+        show(index);
+
+        restart();
+
+      }
+    );
+
+
+    dotsContainer.appendChild(dot);
+
+  });
+
+
+  const dots =
+    dotsContainer.querySelectorAll('.slide-dot');
+
+
+  function show(index) {
 
     current =
-      (
-        index +
-        slides.length
-      ) %
+      (index + slides.length) %
       slides.length;
 
 
-    slides.forEach(
-      (slide,i) =>
+    slides.forEach(function(slide, i) {
+
       slide.classList.toggle(
         'active',
         i === current
-      )
-    );
+      );
+
+    });
 
 
-    dots.forEach(
-      (dot,i) =>
+    dots.forEach(function(dot, i) {
+
       dot.classList.toggle(
         'active',
         i === current
-      )
-    );
+      );
+
+    });
 
   }
 
 
-  function start(){
+  function restart() {
 
     clearInterval(timer);
 
     timer =
-      setInterval(
-        () =>
-        show(current+1),
-        4500
-      );
+      setInterval(function() {
+
+        show(current + 1);
+
+      }, 5000);
 
   }
 
 
+  previous.addEventListener(
+    'click',
+    function() {
+
+      show(current - 1);
+
+      restart();
+
+    }
+  );
+
+
   next.addEventListener(
     'click',
-    () => {
+    function() {
 
-      show(current+1);
+      show(current + 1);
 
-      start();
-
-    }
-  );
-
-
-  prev.addEventListener(
-    'click',
-    () => {
-
-      show(current-1);
-
-      start();
-
-    }
-  );
-
-
-  dots.forEach(
-    (dot,i) => {
-
-      dot.addEventListener(
-        'click',
-        () => {
-
-          show(i);
-
-          start();
-
-        }
-      );
+      restart();
 
     }
   );
@@ -996,26 +899,46 @@ function createSlideshow(
 
   slideshow.addEventListener(
     'mouseenter',
-    () =>
-      clearInterval(timer)
+    function() {
+
+      clearInterval(timer);
+
+    }
   );
 
 
   slideshow.addEventListener(
     'mouseleave',
-    start
+    restart
   );
 
 
-  start();
+  restart();
 
 }
 
 
-loadProperties();
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const propertyId =
+  params.get('id');
+
+
+if (propertyId) {
+
+  loadPropertyDetail(propertyId);
+
+} else {
+
+  loadProperties();
+
+}
 
 </script>
-
 
 </body>
 </html>
