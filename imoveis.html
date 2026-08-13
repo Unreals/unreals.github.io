@@ -2,40 +2,418 @@
 <html lang="pt-PT">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Imóveis | Jo Torres</title>
+<meta charset="UTF-8">
 
-  <meta
-    name="description"
-    content="Imóveis disponíveis para venda - Jo Torres, Consultor Imobiliário."
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <link rel="stylesheet" href="style.css">
+<title>
+  Imóveis | Jo Torres
+</title>
+
+<meta
+  name="description"
+  content="Imóveis disponíveis para venda - Jo Torres, Consultor Imobiliário."
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+:root{
+  --gold:#c9a227;
+  --gold-dark:#a88316;
+  --dark:#07171b;
+  --light:#f5f5f3;
+  --text:#172126;
+  --muted:#70777b;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:#fff;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.header{
+  height:82px;
+  padding:0 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  background:#fff;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-circle{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  background:var(--dark);
+  color:var(--gold);
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+.logo strong{
+  display:block;
+}
+
+.logo span{
+  display:block;
+  font-size:10px;
+  color:#777;
+  letter-spacing:1px;
+  margin-top:3px;
+}
+
+.navigation{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.navigation a{
+  font-size:14px;
+  font-weight:600;
+}
+
+.whatsapp{
+  background:var(--dark);
+  color:#fff;
+  padding:11px 17px;
+  border-radius:7px;
+}
+
+.properties-page{
+  max-width:1200px;
+  width:88%;
+  margin:80px auto;
+}
+
+.properties-page-heading{
+  margin-bottom:50px;
+}
+
+.eyebrow{
+  color:var(--gold);
+  letter-spacing:2px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.properties-page h1{
+  font-size:60px;
+  line-height:1;
+  margin:0 0 20px;
+  font-weight:500;
+}
+
+.properties-page-heading p{
+  color:var(--muted);
+  font-size:17px;
+}
+
+.properties-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+}
+
+.property-card{
+  background:#fff;
+  border-radius:7px;
+  overflow:hidden;
+  border:1px solid #e8e8e8;
+  box-shadow:0 10px 35px #0000000c;
+}
+
+.property-slideshow{
+  position:relative;
+  width:100%;
+  height:300px;
+  background:#ddd;
+  overflow:hidden;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .4s ease;
+}
+
+.slide.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.slide-button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:#0009;
+  color:#fff;
+  font-size:25px;
+  z-index:5;
+}
+
+.slide-prev{
+  left:12px;
+}
+
+.slide-next{
+  right:12px;
+}
+
+.slide-dots{
+  position:absolute;
+  bottom:12px;
+  left:0;
+  right:0;
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  z-index:5;
+}
+
+.slide-dot{
+  width:7px;
+  height:7px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:#ffffff99;
+}
+
+.slide-dot.active{
+  background:#fff;
+}
+
+.property-info{
+  padding:22px;
+}
+
+.property-status{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--gold-dark);
+}
+
+.property-info h2{
+  font-size:23px;
+  margin:9px 0;
+}
+
+.property-location{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.property-price{
+  font-size:22px;
+  font-weight:800;
+  margin:16px 0;
+}
+
+.property-features{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.feature{
+  background:#f0f1f1;
+  padding:6px 9px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.luxury{
+  background:#f8edc8;
+  color:#80630d;
+}
+
+.description{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+  margin-top:18px;
+}
+
+.contact-button{
+  display:block;
+  margin-top:20px;
+  padding:13px 16px;
+  border-radius:7px;
+  background:var(--dark);
+  color:#fff;
+  text-align:center;
+  font-weight:700;
+}
+
+.empty{
+  grid-column:1/-1;
+  padding:60px;
+  text-align:center;
+  color:var(--muted);
+}
+
+footer{
+  margin-top:100px;
+  padding:35px 6%;
+  background:#041014;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+}
+
+.footer-logo strong{
+  display:block;
+}
+
+.footer-logo span{
+  display:block;
+  color:#8b9497;
+  font-size:10px;
+  margin-top:5px;
+}
+
+footer p{
+  color:#7f898d;
+  font-size:12px;
+}
+
+
+@media(max-width:950px){
+
+  .properties-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+}
+
+
+@media(max-width:700px){
+
+  .header{
+    padding:0 5%;
+  }
+
+  .navigation a:not(.whatsapp){
+    display:none;
+  }
+
+  .properties-page{
+    width:90%;
+    margin:60px auto;
+  }
+
+  .properties-page h1{
+    font-size:45px;
+  }
+
+  .properties-grid{
+    grid-template-columns:1fr;
+  }
+
+  .property-slideshow{
+    height:300px;
+  }
+
+  footer{
+    flex-direction:column;
+    gap:20px;
+  }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <header class="header">
 
-  <a href="index.html" class="logo">
+  <a
+    href="index.html"
+    class="logo"
+  >
 
-    <div class="logo-circle">JT</div>
+    <div class="logo-circle">
+      JT
+    </div>
 
-    <div class="logo-text">
-      <strong>JO TORRES</strong>
-      <span>CONSULTOR IMOBILIÁRIO</span>
+    <div>
+
+      <strong>
+        JO TORRES
+      </strong>
+
+      <span>
+        CONSULTOR IMOBILIÁRIO
+      </span>
+
     </div>
 
   </a>
 
+
   <nav class="navigation">
 
-    <a href="index.html">Início</a>
-    <a href="imoveis.html">Imóveis</a>
-    <a href="index.html#sobre">Sobre mim</a>
-    <a href="index.html#contacto">Contacto</a>
+    <a href="index.html">
+      Início
+    </a>
+
+    <a href="imoveis.html">
+      Imóveis
+    </a>
+
+    <a href="index.html#sobre">
+      Sobre mim
+    </a>
+
+    <a href="index.html#contacto">
+      Contacto
+    </a>
 
     <a
       href="https://wa.me/41792601145"
@@ -61,7 +439,9 @@
       SELEÇÃO IMOBILIÁRIA
     </div>
 
-    <h1>Imóveis</h1>
+    <h1>
+      Imóveis
+    </h1>
 
     <p>
       Conheça os imóveis atualmente disponíveis
@@ -71,304 +451,14 @@
   </div>
 
 
-  <!-- ==================================================
-       GRELHA DE IMÓVEIS
-       ================================================== -->
-
-  <div class="properties-grid">
-
-
-    <!-- ==================================================
-         IMÓVEL 1
-         ================================================== -->
-
-    <article class="property-card">
-
-      <div class="property-slideshow">
-
-        <div class="slide active">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/1.jpg"
-            alt="Moradia - fotografia 1"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/2.jpg"
-            alt="Moradia - fotografia 2"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/3.jpg"
-            alt="Moradia - fotografia 3"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/4.jpg"
-            alt="Moradia - fotografia 4"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/5.jpg"
-            alt="Moradia - fotografia 5"
-          >
-        </div>
-
-
-        <button
-          class="slide-prev"
-          type="button"
-          aria-label="Fotografia anterior"
-        >
-          ‹
-        </button>
-
-        <button
-          class="slide-next"
-          type="button"
-          aria-label="Fotografia seguinte"
-        >
-          ›
-        </button>
-
-        <div class="slide-dots"></div>
-
-      </div>
-
-
-      <div class="property-info">
-
-        <span>VENDA</span>
-
-        <h2>Moradia Teste</h2>
-
-        <p class="property-location">
-          Vila Nova de Famalicão
-        </p>
-
-        <strong class="property-price">
-          990 000 €
-        </strong>
-
-        <p>
-          Moradia disponível para venda.
-          Para mais informações entre em contacto.
-        </p>
-
-        <a
-          href="https://wa.me/41792601145"
-          target="_blank"
-          rel="noopener"
-        >
-          Pedir informações →
-        </a>
-
-      </div>
-
-    </article>
-
-
-
-    <!-- ==================================================
-         IMÓVEL 2
-         ================================================== -->
-
-    <article class="property-card">
-
-      <div class="property-slideshow">
-
-        <div class="slide active">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/1.jpg"
-            alt="Imóvel - fotografia 1"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/2.jpg"
-            alt="Imóvel - fotografia 2"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/3.jpg"
-            alt="Imóvel - fotografia 3"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/4.jpg"
-            alt="Imóvel - fotografia 4"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/5.jpg"
-            alt="Imóvel - fotografia 5"
-          >
-        </div>
-
-
-        <button
-          class="slide-prev"
-          type="button"
-          aria-label="Fotografia anterior"
-        >
-          ‹
-        </button>
-
-        <button
-          class="slide-next"
-          type="button"
-          aria-label="Fotografia seguinte"
-        >
-          ›
-        </button>
-
-        <div class="slide-dots"></div>
-
-      </div>
-
-
-      <div class="property-info">
-
-        <span>VENDA</span>
-
-        <h2>Novo imóvel</h2>
-
-        <p class="property-location">
-          Localização a definir
-        </p>
-
-        <strong class="property-price">
-          Sob consulta
-        </strong>
-
-        <p>
-          Novo imóvel disponível.
-          Contacte-me para mais informações.
-        </p>
-
-        <a
-          href="https://wa.me/41792601145"
-          target="_blank"
-          rel="noopener"
-        >
-          Pedir informações →
-        </a>
-
-      </div>
-
-    </article>
-
-
-
-    <!-- ==================================================
-         IMÓVEL 3
-         ================================================== -->
-
-    <article class="property-card">
-
-      <div class="property-slideshow">
-
-        <div class="slide active">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/1.jpg"
-            alt="Imóvel - fotografia 1"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/2.jpg"
-            alt="Imóvel - fotografia 2"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/3.jpg"
-            alt="Imóvel - fotografia 3"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/4.jpg"
-            alt="Imóvel - fotografia 4"
-          >
-        </div>
-
-        <div class="slide">
-          <img
-            src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/5.jpg"
-            alt="Imóvel - fotografia 5"
-          >
-        </div>
-
-
-        <button
-          class="slide-prev"
-          type="button"
-          aria-label="Fotografia anterior"
-        >
-          ‹
-        </button>
-
-        <button
-          class="slide-next"
-          type="button"
-          aria-label="Fotografia seguinte"
-        >
-          ›
-        </button>
-
-        <div class="slide-dots"></div>
-
-      </div>
-
-
-      <div class="property-info">
-
-        <span>VENDA</span>
-
-        <h2>Novo imóvel</h2>
-
-        <p class="property-location">
-          Localização a definir
-        </p>
-
-        <strong class="property-price">
-          Sob consulta
-        </strong>
-
-        <p>
-          Novo imóvel disponível.
-          Contacte-me para mais informações.
-        </p>
-
-        <a
-          href="https://wa.me/41792601145"
-          target="_blank"
-          rel="noopener"
-        >
-          Pedir informações →
-        </a>
-
-      </div>
-
-    </article>
+  <div
+    id="propertiesGrid"
+    class="properties-grid"
+  >
+
+    <div class="empty">
+      A carregar imóveis...
+    </div>
 
   </div>
 
@@ -381,9 +471,13 @@
 
   <div class="footer-logo">
 
-    <strong>JO TORRES</strong>
+    <strong>
+      JO TORRES
+    </strong>
 
-    <span>CONSULTOR IMOBILIÁRIO</span>
+    <span>
+      CONSULTOR IMOBILIÁRIO
+    </span>
 
   </div>
 
@@ -394,223 +488,534 @@
 </footer>
 
 
-
 <script>
 
-document.addEventListener(
-  "DOMContentLoaded",
-  function () {
+const SUPABASE_URL =
+'https://scmorocdbdyvnxodpwyi.supabase.co';
 
-    const slideshows =
-      document.querySelectorAll(
-        ".property-slideshow"
+const SUPABASE_KEY =
+'sb_publishable_W28Qdq8POfYXjCu3BwUxPQ_2z2o2GcM';
+
+const sb =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+const grid =
+document.getElementById(
+  'propertiesGrid'
+);
+
+
+function esc(value){
+
+  return String(value ?? '')
+    .replace(/[&<>"']/g,c=>({
+
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+
+    }[c]));
+
+}
+
+
+function money(value){
+
+  if(!value)
+    return 'Preço sob consulta';
+
+  return new Intl.NumberFormat(
+    'pt-PT',
+    {
+      style:'currency',
+      currency:'EUR',
+      maximumFractionDigits:0
+    }
+  ).format(value);
+
+}
+
+
+async function loadProperties(){
+
+  const result =
+    await sb
+      .from('imoveis')
+      .select(`
+        *,
+        imovel_fotos (
+          id,
+          url,
+          ordem
+        )
+      `)
+      .eq(
+        'publicado',
+        true
+      )
+      .order(
+        'created_at',
+        {
+          ascending:false
+        }
       );
 
 
-    slideshows.forEach(
-      function (slideshow) {
+  if(result.error){
 
-        const slides =
-          slideshow.querySelectorAll(
-            ".slide"
-          );
+    console.error(
+      result.error
+    );
 
-        const previous =
-          slideshow.querySelector(
-            ".slide-prev"
-          );
+    grid.innerHTML =
+      `<div class="empty">
+        Erro ao carregar os imóveis.
+      </div>`;
 
-        const next =
-          slideshow.querySelector(
-            ".slide-next"
-          );
+    return;
 
-        const dotsContainer =
-          slideshow.querySelector(
-            ".slide-dots"
-          );
+  }
 
 
-        let current = 0;
+  const properties =
+    result.data || [];
 
-        let timer;
 
+  if(!properties.length){
 
-        /* Criar pontos */
+    grid.innerHTML =
+      `<div class="empty">
+        De momento não existem imóveis publicados.
+      </div>`;
 
-        slides.forEach(
-          function (_, index) {
+    return;
 
-            const dot =
-              document.createElement(
-                "button"
-              );
+  }
 
-            dot.type = "button";
 
-            dot.className =
-              "slide-dot";
+  grid.innerHTML =
+    properties
+      .map(
+        createProperty
+      )
+      .join('');
 
 
-            if (index === 0) {
+  document
+    .querySelectorAll(
+      '.property-slideshow'
+    )
+    .forEach(
+      createSlideshow
+    );
 
-              dot.classList.add(
-                "active"
-              );
+}
 
-            }
 
+function createProperty(
+  property
+){
 
-            dot.addEventListener(
-              "click",
-              function () {
+  let photos =
+    (property.imovel_fotos || [])
+      .sort(
+        (a,b) =>
+          (a.ordem || 0) -
+          (b.ordem || 0)
+      );
 
-                show(index);
 
-                restart();
+  if(
+    !photos.length &&
+    property.imagem_capa
+  ){
 
-              }
-            );
+    photos = [{
+      url:
+        property.imagem_capa
+    }];
 
+  }
 
-            dotsContainer.appendChild(
-              dot
-            );
 
-          }
-        );
+  const features = [];
 
 
-        const dots =
-          dotsContainer.querySelectorAll(
-            ".slide-dot"
-          );
+  if(property.area){
 
-
-        /* Mostrar slide */
-
-        function show(index) {
-
-          current =
-            (
-              index +
-              slides.length
-            ) %
-            slides.length;
-
-
-          slides.forEach(
-            function (slide, i) {
-
-              slide.classList.toggle(
-                "active",
-                i === current
-              );
-
-            }
-          );
-
-
-          dots.forEach(
-            function (dot, i) {
-
-              dot.classList.toggle(
-                "active",
-                i === current
-              );
-
-            }
-          );
-
-        }
-
-
-        /* Seguinte */
-
-        function nextSlide() {
-
-          show(current + 1);
-
-        }
-
-
-        /* Anterior */
-
-        function previousSlide() {
-
-          show(current - 1);
-
-        }
-
-
-        /* Temporizador */
-
-        function restart() {
-
-          clearInterval(timer);
-
-          timer =
-            setInterval(
-              nextSlide,
-              4000
-            );
-
-        }
-
-
-        previous.addEventListener(
-          "click",
-          function () {
-
-            previousSlide();
-
-            restart();
-
-          }
-        );
-
-
-        next.addEventListener(
-          "click",
-          function () {
-
-            nextSlide();
-
-            restart();
-
-          }
-        );
-
-
-        slideshow.addEventListener(
-          "mouseenter",
-          function () {
-
-            clearInterval(timer);
-
-          }
-        );
-
-
-        slideshow.addEventListener(
-          "mouseleave",
-          function () {
-
-            restart();
-
-          }
-        );
-
-
-        restart();
-
-      }
+    features.push(
+      `${property.area} m²`
     );
 
   }
-);
+
+
+  if(property.quartos){
+
+    features.push(
+      `${property.quartos} quartos`
+    );
+
+  }
+
+
+  if(property.casas_banho){
+
+    features.push(
+      `${property.casas_banho} WC`
+    );
+
+  }
+
+
+  if(property.garagem){
+
+    features.push(
+      'Garagem'
+    );
+
+  }
+
+
+  return `
+
+    <article class="property-card">
+
+      <div class="property-slideshow">
+
+        ${
+          photos.length
+
+          ?
+
+          photos.map(
+            (photo,i) => `
+
+              <div
+                class="slide ${i===0?'active':''}"
+              >
+
+                <img
+                  src="${esc(photo.url)}"
+                  alt="${esc(property.titulo)}"
+                  loading="lazy"
+                >
+
+              </div>
+
+            `
+          ).join('')
+
+          :
+
+          `<div class="slide active">
+            <div
+              style="
+                width:100%;
+                height:100%;
+                display:grid;
+                place-items:center;
+                color:#777;
+              "
+            >
+              Sem fotografia
+            </div>
+          </div>`
+
+        }
+
+
+        ${
+          photos.length > 1
+
+          ?
+
+          `
+
+          <button
+            type="button"
+            class="slide-button slide-prev"
+            aria-label="Fotografia anterior"
+          >
+            ‹
+          </button>
+
+
+          <button
+            type="button"
+            class="slide-button slide-next"
+            aria-label="Fotografia seguinte"
+          >
+            ›
+          </button>
+
+
+          <div class="slide-dots">
+
+            ${
+              photos.map(
+                (_,i) =>
+                `<button
+                  type="button"
+                  class="slide-dot ${i===0?'active':''}"
+                  data-slide="${i}"
+                  aria-label="Fotografia ${i+1}"
+                ></button>`
+              ).join('')
+            }
+
+          </div>
+
+          `
+
+          :
+
+          ''
+
+        }
+
+      </div>
+
+
+      <div class="property-info">
+
+        <span class="property-status">
+          ${esc(property.estado || 'Disponível')}
+        </span>
+
+
+        <h2>
+          ${esc(property.titulo)}
+        </h2>
+
+
+        <div class="property-location">
+          ${esc(property.localizacao)}
+        </div>
+
+
+        <div class="property-price">
+          ${money(property.preco)}
+        </div>
+
+
+        <div class="property-features">
+
+          ${
+            features.map(
+              feature =>
+              `<span class="feature">
+                ${esc(feature)}
+              </span>`
+            ).join('')
+          }
+
+
+          ${
+            property.luxo
+
+            ?
+
+            `<span class="feature luxury">
+              Imóvel de luxo
+            </span>`
+
+            :
+
+            ''
+
+          }
+
+        </div>
+
+
+        ${
+          property.descricao
+
+          ?
+
+          `<p class="description">
+            ${esc(property.descricao)}
+          </p>`
+
+          :
+
+          ''
+
+        }
+
+
+        <a
+          href="https://wa.me/41792601145"
+          target="_blank"
+          rel="noopener"
+          class="contact-button"
+        >
+          Pedir informações pelo WhatsApp →
+        </a>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+function createSlideshow(
+  slideshow
+){
+
+  const slides =
+    Array.from(
+      slideshow.querySelectorAll(
+        '.slide'
+      )
+    );
+
+
+  if(slides.length <= 1)
+    return;
+
+
+  const next =
+    slideshow.querySelector(
+      '.slide-next'
+    );
+
+  const prev =
+    slideshow.querySelector(
+      '.slide-prev'
+    );
+
+  const dots =
+    Array.from(
+      slideshow.querySelectorAll(
+        '.slide-dot'
+      )
+    );
+
+
+  let current = 0;
+
+  let timer;
+
+
+  function show(index){
+
+    current =
+      (
+        index +
+        slides.length
+      ) %
+      slides.length;
+
+
+    slides.forEach(
+      (slide,i) =>
+      slide.classList.toggle(
+        'active',
+        i === current
+      )
+    );
+
+
+    dots.forEach(
+      (dot,i) =>
+      dot.classList.toggle(
+        'active',
+        i === current
+      )
+    );
+
+  }
+
+
+  function start(){
+
+    clearInterval(timer);
+
+    timer =
+      setInterval(
+        () =>
+        show(current+1),
+        4500
+      );
+
+  }
+
+
+  next.addEventListener(
+    'click',
+    () => {
+
+      show(current+1);
+
+      start();
+
+    }
+  );
+
+
+  prev.addEventListener(
+    'click',
+    () => {
+
+      show(current-1);
+
+      start();
+
+    }
+  );
+
+
+  dots.forEach(
+    (dot,i) => {
+
+      dot.addEventListener(
+        'click',
+        () => {
+
+          show(i);
+
+          start();
+
+        }
+      );
+
+    }
+  );
+
+
+  slideshow.addEventListener(
+    'mouseenter',
+    () =>
+      clearInterval(timer)
+  );
+
+
+  slideshow.addEventListener(
+    'mouseleave',
+    start
+  );
+
+
+  start();
+
+}
+
+
+loadProperties();
 
 </script>
+
 
 </body>
 </html>

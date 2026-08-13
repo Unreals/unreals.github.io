@@ -2,588 +2,595 @@
 <html lang="pt-PT">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Jo Torres | Consultor Imobiliário</title>
+<meta charset="UTF-8">
 
-  <meta
-    name="description"
-    content="Jo Torres - Consultor Imobiliário. Imóveis selecionados para venda em várias regiões."
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <link rel="stylesheet" href="style.css">
+<title>
+  Jo Torres | Consultor Imobiliário
+</title>
+
+<meta
+  name="description"
+  content="Jo Torres - Consultor Imobiliário. Imóveis selecionados para venda."
+>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<style>
+
+:root{
+  --gold:#c9a227;
+  --gold-dark:#a88316;
+  --dark:#07171b;
+  --light:#f5f5f3;
+  --text:#172126;
+  --muted:#70777b;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:#fff;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.header{
+  height:82px;
+  padding:0 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  background:#fff;
+  position:relative;
+  z-index:10;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo-circle{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  background:var(--dark);
+  color:var(--gold);
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+.logo strong{
+  display:block;
+  letter-spacing:1px;
+}
+
+.logo span{
+  display:block;
+  font-size:10px;
+  letter-spacing:1px;
+  color:#777;
+  margin-top:3px;
+}
+
+nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+}
+
+nav a{
+  font-size:14px;
+  font-weight:600;
+}
+
+nav a:hover{
+  color:var(--gold-dark);
+}
+
+.whatsapp{
+  background:var(--dark);
+  color:#fff;
+  padding:11px 17px;
+  border-radius:7px;
+}
+
+.hero{
+  min-height:650px;
+  position:relative;
+  background:
+    linear-gradient(#07171b66,#07171bcc),
+    url("https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/1.jpg")
+    center/cover no-repeat;
+  display:flex;
+  align-items:center;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  color:#fff;
+  width:min(1200px,88%);
+  margin:auto;
+}
+
+.eyebrow{
+  color:var(--gold);
+  letter-spacing:2px;
+  font-size:12px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+.hero h1{
+  font-size:clamp(48px,7vw,90px);
+  line-height:.95;
+  margin:0 0 25px;
+  font-weight:500;
+}
+
+.hero h1 span{
+  color:var(--gold);
+}
+
+.hero p{
+  max-width:580px;
+  font-size:18px;
+  line-height:1.7;
+  color:#eee;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:30px;
+}
+
+.btn-primary,
+.btn-secondary{
+  padding:14px 22px;
+  border-radius:7px;
+  font-weight:700;
+}
+
+.btn-primary{
+  background:var(--gold);
+  color:#fff;
+}
+
+.btn-secondary{
+  border:1px solid #fff;
+  color:#fff;
+}
+
+.intro{
+  max-width:1200px;
+  width:88%;
+  margin:100px auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:center;
+}
+
+.intro-photo{
+  height:500px;
+  overflow:hidden;
+  border-radius:4px;
+  background:#eee;
+}
+
+.intro-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 25%;
+  display:block;
+}
+
+.intro h2,
+.properties h2,
+.contact h2{
+  font-size:45px;
+  line-height:1.05;
+  font-weight:500;
+  margin:0 0 25px;
+}
+
+.intro h2 span,
+.contact h2 span{
+  color:var(--gold);
+}
+
+.intro p{
+  line-height:1.8;
+  color:var(--muted);
+}
+
+.text-link{
+  display:inline-block;
+  margin-top:15px;
+  font-weight:700;
+  color:var(--gold-dark);
+}
+
+.properties{
+  background:var(--light);
+  padding:100px 6%;
+}
+
+.section-heading{
+  max-width:1200px;
+  margin:0 auto 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+}
+
+.section-heading h2{
+  margin:0;
+}
+
+.view-all{
+  font-weight:700;
+}
+
+.property-grid{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+}
+
+.property-card{
+  background:#fff;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 10px 30px #0000000d;
+}
+
+.property-slideshow{
+  position:relative;
+  width:100%;
+  height:280px;
+  background:#ddd;
+  overflow:hidden;
+}
+
+.slide{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .45s ease;
+}
+
+.slide.active{
+  opacity:1;
+  visibility:visible;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.slide-button{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:#0008;
+  color:#fff;
+  font-size:24px;
+  z-index:3;
+}
+
+.slide-prev{
+  left:12px;
+}
+
+.slide-next{
+  right:12px;
+}
+
+.slide-dots{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:12px;
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  z-index:4;
+}
+
+.slide-dot{
+  width:7px;
+  height:7px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:#ffffff99;
+}
+
+.slide-dot.active{
+  background:#fff;
+}
+
+.property-info{
+  padding:22px;
+}
+
+.property-status{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--gold-dark);
+}
+
+.property-info h3{
+  margin:9px 0;
+  font-size:22px;
+}
+
+.property-location{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.property-price{
+  margin:15px 0;
+  font-size:21px;
+  font-weight:800;
+}
+
+.property-features{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.feature{
+  padding:6px 9px;
+  background:#f0f1f1;
+  border-radius:20px;
+  font-size:12px;
+}
+
+.luxury{
+  background:#f8edc8;
+  color:#80630d;
+}
+
+.property-link{
+  display:block;
+  margin-top:18px;
+  color:var(--gold-dark);
+  font-weight:700;
+}
+
+.loading-properties,
+.no-properties{
+  grid-column:1/-1;
+  text-align:center;
+  padding:50px;
+  color:var(--muted);
+}
+
+.contact{
+  background:var(--dark);
+  color:#fff;
+  padding:100px 6%;
+}
+
+.contact-inner{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+}
+
+.contact h2{
+  color:#fff;
+}
+
+.contact p{
+  color:#cdd3d5;
+  line-height:1.8;
+  max-width:600px;
+}
+
+.contact-details{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.contact-details a{
+  font-size:20px;
+}
+
+.contact-details small{
+  display:block;
+  font-size:10px;
+  letter-spacing:1px;
+  color:var(--gold);
+  margin-bottom:7px;
+}
+
+.contact-whatsapp{
+  color:var(--gold);
+}
+
+footer{
+  background:#041014;
+  color:#fff;
+  padding:35px 6%;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.footer-logo strong{
+  display:block;
+}
+
+.footer-logo span{
+  display:block;
+  color:#8b9497;
+  font-size:10px;
+  margin-top:5px;
+}
+
+footer p{
+  color:#7f898d;
+  font-size:12px;
+}
+
+
+@media(max-width:900px){
+
+  nav{
+    gap:10px;
+  }
+
+  nav a:not(.whatsapp){
+    display:none;
+  }
+
+  .intro,
+  .contact-inner{
+    grid-template-columns:1fr;
+  }
+
+  .intro-photo{
+    height:420px;
+  }
+
+  .property-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+}
+
+
+@media(max-width:650px){
+
+  .header{
+    height:70px;
+    padding:0 5%;
+  }
+
+  .hero{
+    min-height:570px;
+  }
+
+  .hero-content{
+    width:90%;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .intro{
+    width:90%;
+    margin:70px auto;
+  }
+
+  .intro h2,
+  .properties h2,
+  .contact h2{
+    font-size:36px;
+  }
+
+  .intro-photo{
+    height:400px;
+  }
+
+  .properties{
+    padding:70px 5%;
+  }
+
+  .section-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:15px;
+  }
+
+  .property-grid{
+    grid-template-columns:1fr;
+  }
+
+  .property-slideshow{
+    height:300px;
+  }
+
+  .contact{
+    padding:70px 5%;
+  }
+
+  footer{
+    flex-direction:column;
+  }
+
+}
+
+</style>
+
 </head>
 
 
 <body>
 
 
-  <!-- =====================================================
-       HEADER
-       ===================================================== -->
+<header class="header">
 
-  <header class="header">
-
-    <a href="index.html" class="logo">
-
-      <div class="logo-circle">
-        JT
-      </div>
-
-      <div class="logo-text">
-
-        <strong>
-          JO TORRES
-        </strong>
-
-        <span>
-          CONSULTOR IMOBILIÁRIO
-        </span>
-
-      </div>
-
-    </a>
-
-
-    <nav class="navigation">
-
-      <a href="#imoveis">
-        Imóveis
-      </a>
-
-      <a href="#sobre">
-        Sobre mim
-      </a>
-
-      <a href="#contacto">
-        Contacto
-      </a>
-
-      <a
-        href="https://wa.me/41792601145"
-        target="_blank"
-        rel="noopener"
-        class="whatsapp"
-      >
-        WhatsApp
-      </a>
-
-    </nav>
-
-  </header>
-
-
-
-  <!-- =====================================================
-       HERO
-       ===================================================== -->
-
-  <section class="hero">
-
-    <div class="hero-overlay"></div>
-
-
-    <div class="hero-content">
-
-      <div class="eyebrow">
-        CONSULTORIA IMOBILIÁRIA
-      </div>
-
-
-      <h1>
-        Encontre uma<br>
-        <span>casa.</span>
-      </h1>
-
-
-      <p>
-        Imóveis selecionados para venda,
-        acompanhamento próximo e uma abordagem
-        profissional em várias regiões.
-      </p>
-
-
-      <div class="hero-buttons">
-
-        <a
-          href="#imoveis"
-          class="btn-primary"
-        >
-          Ver imóveis
-        </a>
-
-
-        <a
-          href="#contacto"
-          class="btn-secondary"
-        >
-          Fale comigo
-        </a>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       SOBRE MIM
-       ===================================================== -->
-
-  <section
-    class="intro"
-    id="sobre"
+  <a
+    href="index.html"
+    class="logo"
   >
 
-    <div class="intro-photo">
-
-      <img
-        src="jo-torres.jpg"
-        alt="Jo Torres - Consultor Imobiliário"
-      >
-
+    <div class="logo-circle">
+      JT
     </div>
 
-
-    <div class="intro-text">
-
-      <div class="eyebrow">
-        JO TORRES
-      </div>
-
-
-      <h2>
-        Um acompanhamento<br>
-        <span>à sua medida.</span>
-      </h2>
-
-
-      <p>
-        Procuro proporcionar um acompanhamento
-        profissional, transparente e próximo em cada
-        etapa do processo imobiliário.
-      </p>
-
-
-      <p>
-        Seja para encontrar uma nova casa ou para
-        vender um imóvel, estou disponível para ajudar.
-      </p>
-
-
-      <a
-        href="#contacto"
-        class="text-link"
-      >
-        Fale comigo →
-      </a>
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       IMÓVEIS
-       ===================================================== -->
-
-  <section
-    class="properties"
-    id="imoveis"
-  >
-
-
-    <div class="section-heading">
-
-      <div>
-
-        <div class="eyebrow">
-          SELEÇÃO IMOBILIÁRIA
-        </div>
-
-        <h2>
-          Imóveis em destaque
-        </h2>
-
-      </div>
-
-
-      <a
-        href="imoveis.html"
-        class="view-all"
-      >
-        Ver todos →
-      </a>
-
-    </div>
-
-
-
-    <div class="property-grid">
-
-
-      <!-- =================================================
-           IMÓVEL
-           ================================================= -->
-
-      <article class="property-card">
-
-
-        <!-- SLIDESHOW -->
-
-        <div class="property-slideshow">
-
-
-          <!-- FOTO 1 -->
-
-          <div class="slide active">
-
-            <img
-              src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/1.jpg"
-              alt="Moradia - fotografia 1"
-            >
-
-          </div>
-
-
-          <!-- FOTO 2 -->
-
-          <div class="slide">
-
-            <img
-              src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/2.jpg"
-              alt="Moradia - fotografia 2"
-            >
-
-          </div>
-
-
-          <!-- FOTO 3 -->
-
-          <div class="slide">
-
-            <img
-              src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/3.jpg"
-              alt="Moradia - fotografia 3"
-            >
-
-          </div>
-
-
-          <!-- FOTO 4 -->
-
-          <div class="slide">
-
-            <img
-              src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/4.jpg"
-              alt="Moradia - fotografia 4"
-            >
-
-          </div>
-
-
-          <!-- FOTO 5 -->
-
-          <div class="slide">
-
-            <img
-              src="https://scmorocdbdyvnxodpwyi.supabase.co/storage/v1/object/public/moradia-teste/5.jpg"
-              alt="Moradia - fotografia 5"
-            >
-
-          </div>
-
-
-
-          <!-- SETA ANTERIOR -->
-
-          <button
-            class="slide-prev"
-            type="button"
-            aria-label="Fotografia anterior"
-          >
-            ‹
-          </button>
-
-
-
-          <!-- SETA SEGUINTE -->
-
-          <button
-            class="slide-next"
-            type="button"
-            aria-label="Fotografia seguinte"
-          >
-            ›
-          </button>
-
-
-
-          <!-- PONTOS -->
-
-          <div class="slide-dots"></div>
-
-
-        </div>
-
-
-
-        <!-- INFORMAÇÃO DO IMÓVEL -->
-
-        <div class="property-info">
-
-
-          <span class="property-status">
-            VENDA
-          </span>
-
-
-          <h3>
-            Moradia Teste
-          </h3>
-
-
-          <p>
-            Vila Nova de Famalicão
-          </p>
-
-
-          <p class="property-details">
-            6 quartos · 4 WC
-          </p>
-
-
-          <strong class="property-price">
-            990 000 €
-          </strong>
-
-
-          <a
-            href="imoveis.html"
-            class="property-link"
-          >
-            Ver imóvel →
-          </a>
-
-
-        </div>
-
-
-      </article>
-
-
-
-      <!-- =================================================
-           SEGUNDO ESPAÇO
-           ================================================= -->
-
-      <article class="property-card">
-
-
-        <div class="property-slideshow">
-
-          <div class="property-placeholder">
-
-            <span>
-              NOVO IMÓVEL
-            </span>
-
-            <strong>
-              Em breve
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <div class="property-info">
-
-          <span class="property-status">
-            EM BREVE
-          </span>
-
-
-          <h3>
-            Novo imóvel
-          </h3>
-
-
-          <p>
-            Novo imóvel disponível em breve.
-          </p>
-
-
-          <a
-            href="imoveis.html"
-            class="property-link"
-          >
-            Ver imóveis →
-          </a>
-
-        </div>
-
-      </article>
-
-
-
-      <!-- =================================================
-           TERCEIRO ESPAÇO
-           ================================================= -->
-
-      <article class="property-card">
-
-
-        <div class="property-slideshow">
-
-          <div class="property-placeholder">
-
-            <span>
-              NOVO IMÓVEL
-            </span>
-
-            <strong>
-              Em breve
-            </strong>
-
-          </div>
-
-        </div>
-
-
-        <div class="property-info">
-
-          <span class="property-status">
-            EM BREVE
-          </span>
-
-
-          <h3>
-            Novo imóvel
-          </h3>
-
-
-          <p>
-            Novo imóvel disponível em breve.
-          </p>
-
-
-          <a
-            href="imoveis.html"
-            class="property-link"
-          >
-            Ver imóveis →
-          </a>
-
-        </div>
-
-      </article>
-
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       CONTACTO
-       ===================================================== -->
-
-  <section
-    class="contact"
-    id="contacto"
-  >
-
-
-    <div class="contact-inner">
-
-
-      <div class="contact-text">
-
-        <div class="eyebrow">
-          CONTACTO
-        </div>
-
-
-        <h2>
-          Vamos encontrar<br>
-          <span>o seu próximo imóvel.</span>
-        </h2>
-
-
-        <p>
-          Entre em contacto comigo para saber mais
-          sobre os imóveis disponíveis ou para falar
-          sobre a venda do seu imóvel.
-        </p>
-
-      </div>
-
-
-
-      <div class="contact-details">
-
-
-        <a href="tel:+41792601145">
-
-          <small>
-            TELEFONE / WHATSAPP
-          </small>
-
-          +41 79 260 11 45
-
-        </a>
-
-
-
-        <a
-          href="https://wa.me/41792601145"
-          target="_blank"
-          rel="noopener"
-          class="contact-whatsapp"
-        >
-          Contactar pelo WhatsApp →
-        </a>
-
-
-
-        <a
-          href="https://www.fabioneves.pt"
-          target="_blank"
-          rel="noopener"
-        >
-
-          <small>
-            WEBSITE PROFISSIONAL
-          </small>
-
-          www.fabioneves.pt
-
-        </a>
-
-
-      </div>
-
-
-    </div>
-
-  </section>
-
-
-
-  <!-- =====================================================
-       FOOTER
-       ===================================================== -->
-
-  <footer>
-
-
-    <div class="footer-logo">
+    <div>
 
       <strong>
         JO TORRES
@@ -595,352 +602,760 @@
 
     </div>
 
+  </a>
+
+
+  <nav>
+
+    <a href="#imoveis">
+      Imóveis
+    </a>
+
+    <a href="#sobre">
+      Sobre mim
+    </a>
+
+    <a href="#contacto">
+      Contacto
+    </a>
+
+    <a
+      class="whatsapp"
+      href="https://wa.me/41792601145"
+      target="_blank"
+      rel="noopener"
+    >
+      WhatsApp
+    </a>
+
+  </nav>
+
+</header>
+
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      CONSULTORIA IMOBILIÁRIA
+    </div>
+
+    <h1>
+      Encontre uma<br>
+      <span>casa.</span>
+    </h1>
 
     <p>
-      © 2026 Jo Torres. Todos os direitos reservados.
+      Imóveis selecionados para venda,
+      acompanhamento próximo e uma abordagem
+      profissional.
     </p>
 
+    <div class="hero-buttons">
 
-  </footer>
+      <a
+        href="#imoveis"
+        class="btn-primary"
+      >
+        Ver imóveis
+      </a>
 
+      <a
+        href="#contacto"
+        class="btn-secondary"
+      >
+        Fale comigo
+      </a>
 
+    </div>
 
-  <!-- =====================================================
-       JAVASCRIPT
-       SLIDESHOW
-       ===================================================== -->
+  </div>
 
-  <script>
+</section>
 
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
 
+<section
+  class="intro"
+  id="sobre"
+>
 
-        const slideshows =
-          document.querySelectorAll(
-            ".property-slideshow"
-          );
+  <div class="intro-photo">
 
+    <img
+      src="jo-torres.jpg"
+      alt="Jo Torres - Consultor Imobiliário"
+    >
 
-        slideshows.forEach(
-          function (slideshow) {
+  </div>
 
 
-            const slides =
-              slideshow.querySelectorAll(
-                ".slide"
-              );
+  <div>
 
+    <div class="eyebrow">
+      JO TORRES
+    </div>
 
-            const previousButton =
-              slideshow.querySelector(
-                ".slide-prev"
-              );
+    <h2>
+      Um acompanhamento<br>
+      <span>à sua medida.</span>
+    </h2>
 
+    <p>
+      Procuro proporcionar um acompanhamento
+      profissional, transparente e próximo em
+      cada etapa do processo imobiliário.
+    </p>
 
-            const nextButton =
-              slideshow.querySelector(
-                ".slide-next"
-              );
+    <p>
+      Seja para encontrar uma nova casa ou para
+      vender um imóvel, estou disponível para ajudar.
+    </p>
 
+    <a
+      href="#contacto"
+      class="text-link"
+    >
+      Fale comigo →
+    </a>
 
-            const dotsContainer =
-              slideshow.querySelector(
-                ".slide-dots"
-              );
+  </div>
 
+</section>
 
-            /*
-             * Se não houver slides,
-             * não fazer nada.
-             */
 
-            if (!slides.length) {
-              return;
-            }
+<section
+  class="properties"
+  id="imoveis"
+>
 
+  <div class="section-heading">
 
-            /*
-             * Se existir apenas uma fotografia,
-             * esconder os controlos.
-             */
+    <div>
 
-            if (slides.length <= 1) {
+      <div class="eyebrow">
+        SELEÇÃO IMOBILIÁRIA
+      </div>
 
-              if (previousButton) {
-                previousButton.style.display = "none";
-              }
+      <h2>
+        Imóveis em destaque
+      </h2>
 
-              if (nextButton) {
-                nextButton.style.display = "none";
-              }
+    </div>
 
-              if (dotsContainer) {
-                dotsContainer.style.display = "none";
-              }
+    <a
+      href="imoveis.html"
+      class="view-all"
+    >
+      Ver todos →
+    </a>
 
-              return;
+  </div>
 
-            }
 
+  <div
+    id="propertyGrid"
+    class="property-grid"
+  >
 
-            let currentSlide = 0;
+    <div class="loading-properties">
+      A carregar imóveis...
+    </div>
 
-            let timer = null;
+  </div>
 
+</section>
 
 
-            /*
-             * Criar pontos
-             */
+<section
+  class="contact"
+  id="contacto"
+>
 
-            slides.forEach(
-              function (_, index) {
+  <div class="contact-inner">
 
+    <div>
 
-                const dot =
-                  document.createElement(
-                    "button"
-                  );
+      <div class="eyebrow">
+        CONTACTO
+      </div>
 
+      <h2>
+        Vamos encontrar<br>
+        <span>o seu próximo imóvel.</span>
+      </h2>
 
-                dot.type = "button";
+      <p>
+        Entre em contacto comigo para saber mais
+        sobre os imóveis disponíveis ou para falar
+        sobre a venda do seu imóvel.
+      </p>
 
-                dot.className =
-                  "slide-dot";
+    </div>
 
 
-                dot.setAttribute(
-                  "aria-label",
-                  "Ver fotografia " +
-                  (index + 1)
-                );
+    <div class="contact-details">
 
+      <a href="tel:+41792601145">
 
-                if (index === 0) {
+        <small>
+          TELEFONE / WHATSAPP
+        </small>
 
-                  dot.classList.add(
-                    "active"
-                  );
+        +41 79 260 11 45
 
-                }
+      </a>
 
 
-                dot.addEventListener(
-                  "click",
-                  function () {
+      <a
+        href="https://wa.me/41792601145"
+        target="_blank"
+        rel="noopener"
+        class="contact-whatsapp"
+      >
+        Contactar pelo WhatsApp →
+      </a>
 
-                    showSlide(index);
+    </div>
 
-                    restartTimer();
+  </div>
 
-                  }
-                );
+</section>
 
 
-                dotsContainer.appendChild(
-                  dot
-                );
+<footer>
 
+  <div class="footer-logo">
 
-              }
-            );
+    <strong>
+      JO TORRES
+    </strong>
 
+    <span>
+      CONSULTOR IMOBILIÁRIO
+    </span>
 
-            const dots =
-              dotsContainer.querySelectorAll(
-                ".slide-dot"
-              );
+  </div>
 
+  <p>
+    © 2026 Jo Torres. Todos os direitos reservados.
+  </p>
 
+</footer>
 
-            /*
-             * Mostrar slide
-             */
 
-            function showSlide(index) {
+<script>
 
+const SUPABASE_URL =
+'https://scmorocdbdyvnxodpwyi.supabase.co';
 
-              currentSlide =
-                (
-                  index +
-                  slides.length
-                ) %
-                slides.length;
+const SUPABASE_KEY =
+'sb_publishable_W28Qdq8POfYXjCu3BwUxPQ_2z2o2GcM';
 
+const sb =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-              slides.forEach(
-                function (slide, i) {
 
-                  slide.classList.toggle(
-                    "active",
-                    i === currentSlide
-                  );
+const grid =
+document.getElementById(
+  'propertyGrid'
+);
 
-                }
-              );
 
+function esc(value){
 
-              dots.forEach(
-                function (dot, i) {
+  return String(value ?? '')
+    .replace(/[&<>"']/g,c=>({
 
-                  dot.classList.toggle(
-                    "active",
-                    i === currentSlide
-                  );
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
 
-                }
-              );
+    }[c]));
 
+}
 
-            }
 
+function money(value){
 
+  if(!value)
+    return 'Preço sob consulta';
 
-            /*
-             * Seguinte
-             */
+  return new Intl.NumberFormat(
+    'pt-PT',
+    {
+      style:'currency',
+      currency:'EUR',
+      maximumFractionDigits:0
+    }
+  ).format(value);
 
-            function nextSlide() {
+}
 
-              showSlide(
-                currentSlide + 1
-              );
 
-            }
+async function loadProperties(){
 
+  const result =
+    await sb
+      .from('imoveis')
+      .select(`
+        *,
+        imovel_fotos (
+          id,
+          url,
+          ordem
+        )
+      `)
+      .eq(
+        'publicado',
+        true
+      )
+      .order(
+        'created_at',
+        {
+          ascending:false
+        }
+      );
 
 
-            /*
-             * Anterior
-             */
+  if(result.error){
 
-            function previousSlide() {
-
-              showSlide(
-                currentSlide - 1
-              );
-
-            }
-
-
-
-            /*
-             * Temporizador
-             */
-
-            function restartTimer() {
-
-
-              clearInterval(timer);
-
-
-              timer =
-                setInterval(
-                  function () {
-
-                    nextSlide();
-
-                  },
-                  4000
-                );
-
-
-            }
-
-
-
-            /*
-             * Botão anterior
-             */
-
-            if (previousButton) {
-
-              previousButton.addEventListener(
-                "click",
-                function () {
-
-                  previousSlide();
-
-                  restartTimer();
-
-                }
-              );
-
-            }
-
-
-
-            /*
-             * Botão seguinte
-             */
-
-            if (nextButton) {
-
-              nextButton.addEventListener(
-                "click",
-                function () {
-
-                  nextSlide();
-
-                  restartTimer();
-
-                }
-              );
-
-            }
-
-
-
-            /*
-             * Pausar quando o rato
-             * estiver em cima
-             */
-
-            slideshow.addEventListener(
-              "mouseenter",
-              function () {
-
-                clearInterval(timer);
-
-              }
-            );
-
-
-            /*
-             * Continuar quando o rato
-             * sair
-             */
-
-            slideshow.addEventListener(
-              "mouseleave",
-              function () {
-
-                restartTimer();
-
-              }
-            );
-
-
-
-            /*
-             * Iniciar
-             */
-
-            restartTimer();
-
-
-          }
-        );
-
-
-      }
+    console.error(
+      result.error
     );
 
-  </script>
+    grid.innerHTML =
+      `<div class="no-properties">
+        Não foi possível carregar os imóveis.
+      </div>`;
+
+    return;
+
+  }
+
+
+  const properties =
+    result.data || [];
+
+
+  if(!properties.length){
+
+    grid.innerHTML =
+      `<div class="no-properties">
+        De momento não existem imóveis publicados.
+      </div>`;
+
+    return;
+
+  }
+
+
+  grid.innerHTML =
+    properties.map(
+      (property,index) =>
+      createCard(
+        property,
+        index
+      )
+    ).join('');
+
+
+  document
+    .querySelectorAll(
+      '.property-slideshow'
+    )
+    .forEach(
+      createSlideshow
+    );
+
+}
+
+
+function createCard(
+  property,
+  index
+){
+
+  const photos =
+    (property.imovel_fotos || [])
+      .sort(
+        (a,b) =>
+          (a.ordem || 0) -
+          (b.ordem || 0)
+      );
+
+
+  /*
+   * Se não houver registos em
+   * imovel_fotos, usamos imagem_capa.
+   */
+
+  if(
+    !photos.length &&
+    property.imagem_capa
+  ){
+
+    photos.push({
+      url:
+        property.imagem_capa
+    });
+
+  }
+
+
+  const features = [];
+
+
+  if(property.area){
+
+    features.push(
+      `${property.area} m²`
+    );
+
+  }
+
+
+  if(property.quartos){
+
+    features.push(
+      `${property.quartos} quartos`
+    );
+
+  }
+
+
+  if(property.casas_banho){
+
+    features.push(
+      `${property.casas_banho} WC`
+    );
+
+  }
+
+
+  if(property.garagem){
+
+    features.push(
+      'Garagem'
+    );
+
+  }
+
+
+  return `
+
+    <article class="property-card">
+
+      <div
+        class="property-slideshow"
+        data-index="${index}"
+      >
+
+        ${
+          photos.length
+
+          ?
+
+          photos.map(
+            (photo,i) => `
+
+              <div
+                class="slide ${i===0?'active':''}"
+              >
+
+                <img
+                  src="${esc(photo.url)}"
+                  alt="${esc(property.titulo)}"
+                  loading="lazy"
+                >
+
+              </div>
+
+            `
+          ).join('')
+
+          :
+
+          `<div class="slide active">
+            <div
+              style="
+                width:100%;
+                height:100%;
+                display:grid;
+                place-items:center;
+                color:#777;
+              "
+            >
+              Sem fotografia
+            </div>
+          </div>`
+
+        }
+
+
+        ${
+          photos.length > 1
+
+          ?
+
+          `
+
+          <button
+            class="slide-button slide-prev"
+            type="button"
+            aria-label="Anterior"
+          >
+            ‹
+          </button>
+
+          <button
+            class="slide-button slide-next"
+            type="button"
+            aria-label="Seguinte"
+          >
+            ›
+          </button>
+
+          <div class="slide-dots">
+
+            ${
+              photos.map(
+                (_,i) =>
+                `<button
+                  class="slide-dot ${i===0?'active':''}"
+                  type="button"
+                  aria-label="Fotografia ${i+1}"
+                  data-slide="${i}"
+                ></button>`
+              ).join('')
+            }
+
+          </div>
+
+          `
+
+          :
+
+          ''
+
+        }
+
+      </div>
+
+
+      <div class="property-info">
+
+        <span class="property-status">
+          ${esc(property.estado || 'VENDA')}
+        </span>
+
+        <h3>
+          ${esc(property.titulo)}
+        </h3>
+
+        <div class="property-location">
+          ${esc(property.localizacao)}
+        </div>
+
+        <div class="property-price">
+          ${money(property.preco)}
+        </div>
+
+        <div class="property-features">
+
+          ${
+            features.map(
+              feature =>
+              `<span class="feature">
+                ${esc(feature)}
+              </span>`
+            ).join('')
+          }
+
+          ${
+            property.luxo
+
+            ?
+
+            `<span class="feature luxury">
+              Imóvel de luxo
+            </span>`
+
+            :
+
+            ''
+
+          }
+
+        </div>
+
+        <a
+          class="property-link"
+          href="imoveis.html"
+        >
+          Ver imóvel →
+        </a>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+function createSlideshow(
+  slideshow
+){
+
+  const slides =
+    Array.from(
+      slideshow.querySelectorAll(
+        '.slide'
+      )
+    );
+
+
+  if(slides.length <= 1)
+    return;
+
+
+  const next =
+    slideshow.querySelector(
+      '.slide-next'
+    );
+
+  const prev =
+    slideshow.querySelector(
+      '.slide-prev'
+    );
+
+  const dots =
+    Array.from(
+      slideshow.querySelectorAll(
+        '.slide-dot'
+      )
+    );
+
+
+  let current = 0;
+
+  let timer;
+
+
+  function show(index){
+
+    current =
+      (
+        index +
+        slides.length
+      ) %
+      slides.length;
+
+
+    slides.forEach(
+      (slide,i) =>
+      slide.classList.toggle(
+        'active',
+        i === current
+      )
+    );
+
+
+    dots.forEach(
+      (dot,i) =>
+      dot.classList.toggle(
+        'active',
+        i === current
+      )
+    );
+
+  }
+
+
+  function start(){
+
+    clearInterval(timer);
+
+    timer =
+      setInterval(
+        () => show(current+1),
+        4500
+      );
+
+  }
+
+
+  next.addEventListener(
+    'click',
+    () => {
+
+      show(current+1);
+
+      start();
+
+    }
+  );
+
+
+  prev.addEventListener(
+    'click',
+    () => {
+
+      show(current-1);
+
+      start();
+
+    }
+  );
+
+
+  dots.forEach(
+    (dot,i) => {
+
+      dot.addEventListener(
+        'click',
+        () => {
+
+          show(i);
+
+          start();
+
+        }
+      );
+
+    }
+  );
+
+
+  slideshow.addEventListener(
+    'mouseenter',
+    () =>
+      clearInterval(timer)
+  );
+
+
+  slideshow.addEventListener(
+    'mouseleave',
+    start
+  );
+
+
+  start();
+
+}
+
+
+loadProperties();
+
+</script>
 
 
 </body>
-
 </html>
