@@ -1,480 +1,535 @@
 <!doctype html>
 <html lang="pt-PT">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Painel — Jo Torres Imobiliário</title>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<title>
+  Painel — Jo Torres Imobiliário
+</title>
+
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<script
+  src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
 
 <style>
-:root{
-  --gold:#c9a227;
-  --gold-dark:#a88316;
+
+:root {
+  --gold:#d4a72c;
   --dark:#07171b;
-  --bg:#f4f5f6;
+  --bg:#f5f6f7;
   --text:#172126;
-  --muted:#6b7378;
-  --border:#e3e6e8;
-  --danger:#b52b22;
+  --muted:#6b7280;
+  --border:#e1e5e7;
 }
 
-*{
+* {
   box-sizing:border-box;
 }
 
-body{
+body {
   margin:0;
-  font-family:Arial,Helvetica,sans-serif;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   background:var(--bg);
+
   color:var(--text);
 }
 
 button,
 input,
 select,
-textarea{
+textarea {
   font:inherit;
 }
 
-button{
+button {
   cursor:pointer;
 }
 
 input,
 select,
-textarea{
+textarea {
   width:100%;
-  padding:12px 13px;
-  border:1px solid #d7dcdf;
+
+  padding:12px;
+
+  border:1px solid #d8dde0;
+
   border-radius:10px;
+
   background:#fff;
-  outline:none;
+
+  color:var(--text);
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-  border-color:var(--gold);
-}
-
-textarea{
+textarea {
   min-height:130px;
   resize:vertical;
 }
 
-.login{
+.login {
   min-height:100vh;
+
   display:grid;
+
   place-items:center;
+
   padding:20px;
 }
 
-.login-card{
-  width:min(430px,100%);
+.login-card,
+.modal-card,
+.card {
   background:#fff;
-  border-radius:20px;
-  padding:32px;
-  box-shadow:0 15px 50px #00000012;
-}
 
-.login-logo{
-  font-size:24px;
-  font-weight:800;
-}
-
-.login-logo span{
-  color:var(--gold);
-}
-
-.primary{
-  background:var(--gold);
-  color:#fff;
-  border:0;
-  border-radius:10px;
-  padding:12px 18px;
-  font-weight:700;
-}
-
-.primary:hover{
-  background:var(--gold-dark);
-}
-
-.secondary{
-  background:#eef1f2;
-  color:var(--text);
-  border:0;
-  border-radius:10px;
-  padding:11px 15px;
-  font-weight:700;
-}
-
-.danger{
-  background:#feeceb;
-  color:var(--danger);
-  border:0;
-  border-radius:10px;
-  padding:10px 14px;
-  font-weight:700;
-}
-
-.msg{
-  padding:12px;
-  border-radius:10px;
-  margin-top:15px;
-  background:#fff0f0;
-  color:#9d2b23;
-}
-
-.app{
-  display:none;
-}
-
-.top{
-  min-height:72px;
-  background:var(--dark);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 28px;
-}
-
-.top small{
-  display:block;
-  color:var(--gold);
-  margin-top:4px;
-}
-
-.layout{
-  display:grid;
-  grid-template-columns:250px 1fr;
-  min-height:calc(100vh - 72px);
-}
-
-.side{
-  background:#fff;
-  padding:20px;
-  border-right:1px solid var(--border);
-}
-
-.side button{
-  width:100%;
-  margin-bottom:8px;
-  text-align:left;
-}
-
-.content{
-  padding:30px;
-  max-width:1400px;
-  width:100%;
-  margin:auto;
-}
-
-.head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:25px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:20px;
-}
-
-.card{
-  background:#fff;
   border-radius:18px;
-  overflow:hidden;
-  border:1px solid var(--border);
-  box-shadow:0 8px 25px #00000008;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,.07);
 }
 
-.thumb{
-  height:210px;
-  background:#e9edef;
-  overflow:hidden;
+.login-card {
+  width:min(420px,100%);
+
+  padding:30px;
 }
 
-.thumb img{
-  width:100%;
-  height:100%;
+label {
   display:block;
-  object-fit:cover;
-}
 
-.no-image{
-  height:100%;
-  display:grid;
-  place-items:center;
-  color:#8a9296;
-  font-weight:700;
-}
-
-.body{
-  padding:18px;
-}
-
-.body h3{
-  margin:0 0 7px;
-}
-
-.price{
-  font-size:20px;
-  font-weight:800;
-  margin:10px 0;
-}
-
-.muted{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.5;
-}
-
-.badges{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-
-.badge{
-  background:#f0f2f3;
-  border-radius:20px;
-  padding:5px 9px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.badge.gold{
-  background:#f8edc8;
-  color:#856811;
-}
-
-.actions{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
-.actions button{
-  flex:1;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#07171bcc;
-  padding:20px;
-  overflow:auto;
-  z-index:20;
-}
-
-.modal-card{
-  width:min(800px,100%);
-  background:#fff;
-  border-radius:20px;
-  margin:20px auto;
-  padding:28px;
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-}
-
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0 16px;
-}
-
-.full{
-  grid-column:1/-1;
-}
-
-label{
-  display:block;
   font-size:13px;
+
   font-weight:700;
+
   margin:15px 0 7px;
 }
 
-.check-row{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
+.primary {
+  background:var(--gold);
 
-.check{
-  display:flex;
-  align-items:center;
-  gap:8px;
+  color:white;
+
+  border:0;
+
+  border-radius:10px;
+
+  padding:12px 18px;
+
   font-weight:700;
 }
 
-.check input{
-  width:auto;
-}
+.secondary {
+  background:#eef1f2;
 
-.filebox{
-  border:2px dashed #d5dadd;
-  padding:20px;
-  text-align:center;
-  border-radius:12px;
-  margin-top:5px;
-}
+  color:var(--text);
 
-.photos{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:10px;
-  margin-top:12px;
-}
+  border:0;
 
-.photo{
-  height:110px;
-  position:relative;
   border-radius:10px;
-  overflow:hidden;
-  background:#eee;
+
+  padding:11px 15px;
+
+  font-weight:700;
 }
 
-.photo img{
+.danger {
+  background:#fee;
+
+  color:#b52b22;
+
+  border:0;
+
+  border-radius:10px;
+
+  padding:10px 14px;
+
+  font-weight:700;
+}
+
+.app {
+  display:none;
+}
+
+.top {
+  min-height:72px;
+
+  background:var(--dark);
+
+  color:#fff;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:0 28px;
+}
+
+.top small {
+  display:block;
+
+  color:var(--gold);
+
+  margin-top:4px;
+}
+
+.layout {
+  display:grid;
+
+  grid-template-columns:250px 1fr;
+
+  min-height:calc(100vh - 72px);
+}
+
+.side {
+  background:#fff;
+
+  padding:20px;
+
+  border-right:1px solid #e5e7e9;
+}
+
+.side button {
+  width:100%;
+
+  margin-bottom:8px;
+
+  text-align:left;
+}
+
+.content {
+  padding:28px;
+
+  max-width:1250px;
+
+  width:100%;
+
+  margin:auto;
+}
+
+.head {
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:20px;
+}
+
+.grid {
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(270px,1fr));
+
+  gap:18px;
+}
+
+.card {
+  overflow:hidden;
+
+  border:1px solid #e8eaec;
+}
+
+.thumb {
+  height:200px;
+
+  background:#e9edef;
+}
+
+.thumb img {
   width:100%;
   height:100%;
+
   object-fit:cover;
-  display:block;
 }
 
-.photo button{
-  position:absolute;
-  right:5px;
-  top:5px;
-  width:27px;
-  height:27px;
-  border:0;
-  border-radius:50%;
-  background:#fff;
-  color:#a00;
+.body {
+  padding:16px;
+}
+
+.price {
   font-weight:800;
+
+  font-size:19px;
+
+  margin:9px 0;
 }
 
-.photo-number{
-  position:absolute;
-  left:5px;
-  bottom:5px;
-  background:#000b;
-  color:#fff;
-  padding:3px 7px;
-  border-radius:5px;
-  font-size:11px;
-}
-
-.empty{
-  background:#fff;
-  border-radius:16px;
-  padding:40px;
-  text-align:center;
+.muted {
   color:var(--muted);
+
+  font-size:14px;
+}
+
+.actions {
+  display:flex;
+
+  gap:8px;
+
+  margin-top:14px;
+}
+
+.actions button {
+  flex:1;
+}
+
+.modal {
+  display:none;
+
+  position:fixed;
+
+  inset:0;
+
+  background:#07171b99;
+
+  padding:20px;
+
+  overflow:auto;
+
+  z-index:5;
+}
+
+.modal-card {
+  max-width:800px;
+
+  margin:30px auto;
+
+  padding:25px;
+}
+
+.modal-head {
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+}
+
+.form-grid {
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:0 15px;
+}
+
+.full {
   grid-column:1/-1;
 }
 
-.loading{
-  padding:30px;
+.checkbox-grid {
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:10px;
+
+  margin-top:10px;
+}
+
+.check-card {
+  padding:14px;
+
+  border:1px solid var(--border);
+
+  border-radius:10px;
+
+  background:#fafafa;
+
+  cursor:pointer;
+}
+
+.check-card input {
+  width:auto;
+
+  margin-right:8px;
+}
+
+.photos {
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(110px,1fr));
+
+  gap:10px;
+
+  margin-top:10px;
+}
+
+.photo {
+  height:100px;
+
+  position:relative;
+
+  border-radius:10px;
+
+  overflow:hidden;
+
+  background:#eee;
+}
+
+.photo img {
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.photo button {
+  position:absolute;
+
+  right:4px;
+  top:4px;
+
+  border:0;
+
+  border-radius:50%;
+
+  width:25px;
+  height:25px;
+
+  cursor:pointer;
+}
+
+.filebox {
+  border:2px dashed #d5dadd;
+
+  padding:18px;
+
   text-align:center;
+
+  border-radius:12px;
+}
+
+.msg {
+  padding:11px;
+
+  border-radius:10px;
+
+  margin:10px 0;
+
+  background:#fff0f0;
+
+  color:#9d2b23;
+}
+
+.empty {
+  background:#fff;
+
+  border-radius:16px;
+
+  padding:40px;
+
+  text-align:center;
+
   color:var(--muted);
 }
 
-.form-message{
-  display:none;
-  padding:12px;
-  background:#fff0f0;
-  color:#9d2b23;
-  border-radius:10px;
-  margin-top:15px;
-}
+@media(max-width:800px) {
 
-@media(max-width:1050px){
-  .grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-@media(max-width:800px){
-
-  .layout{
+  .layout {
     grid-template-columns:1fr;
   }
 
-  .side{
+  .side {
     display:none;
   }
 
-  .content{
+  .content {
     padding:18px;
   }
 
-  .grid{
+  .form-grid {
     grid-template-columns:1fr;
   }
 
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .full{
+  .full {
     grid-column:auto;
   }
 
-  .photos{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .head{
+  .head {
     flex-direction:column;
+
     align-items:flex-start;
+
+    gap:10px;
   }
 
-  .top{
-    padding:0 16px;
+  .checkbox-grid {
+    grid-template-columns:1fr;
   }
+
 }
+
 </style>
+
 </head>
 
+
 <body>
+
 
 <section id="login" class="login">
 
   <div class="login-card">
 
-    <div class="login-logo">
-      JO <span>TORRES</span>
-    </div>
+    <h2 style="margin:0">
+      JO
+      <span style="color:#d4a72c">
+        TORRES
+      </span>
+    </h2>
 
     <p>
       Consultor Imobiliário · Painel de gestão
     </p>
 
+
     <form id="loginForm">
 
-      <label>Email</label>
-      <input id="email" type="email" required>
+      <label>
+        Email
+      </label>
 
-      <label>Palavra-passe</label>
-      <input id="password" type="password" required>
+      <input
+        id="email"
+        type="email"
+        required
+      >
+
+
+      <label>
+        Palavra-passe
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        required
+      >
+
 
       <button
-        type="submit"
         class="primary"
         style="width:100%;margin-top:20px"
       >
@@ -483,7 +538,12 @@ label{
 
     </form>
 
-    <div id="loginMsg" class="msg" style="display:none"></div>
+
+    <div
+      id="loginMsg"
+      class="msg"
+      style="display:none"
+    ></div>
 
   </div>
 
@@ -492,356 +552,434 @@ label{
 
 <section id="app" class="app">
 
-  <header class="top">
 
-    <div>
-      <b>JO TORRES</b>
-      <small>PAINEL DE GESTÃO</small>
-    </div>
+<header class="top">
 
-    <button id="logout" class="secondary">
-      Sair
-    </button>
+  <div>
 
-  </header>
+    <b>
+      JO TORRES
+    </b>
 
-
-  <div class="layout">
-
-    <aside class="side">
-
-      <button
-        class="secondary"
-        onclick="openNew()"
-      >
-        ＋ Novo imóvel
-      </button>
-
-      <button
-        class="secondary"
-        onclick="loadProperties()"
-      >
-        🏠 Imóveis
-      </button>
-
-    </aside>
-
-
-    <main class="content">
-
-      <div class="head">
-
-        <div>
-          <h1 style="margin:0">
-            Imóveis
-          </h1>
-
-          <p class="muted">
-            Gerir os imóveis publicados no site.
-          </p>
-        </div>
-
-        <button
-          class="primary"
-          onclick="openNew()"
-        >
-          ＋ Adicionar imóvel
-        </button>
-
-      </div>
-
-      <div
-        id="properties"
-        class="grid"
-      ></div>
-
-    </main>
+    <small>
+      PAINEL DE GESTÃO
+    </small>
 
   </div>
+
+  <button
+    id="logout"
+    class="secondary"
+  >
+    Sair
+  </button>
+
+</header>
+
+
+<div class="layout">
+
+
+<aside class="side">
+
+  <button
+    class="secondary"
+    onclick="openNew()"
+  >
+    <i class="fa-solid fa-plus"></i>
+    Novo imóvel
+  </button>
+
+
+  <button
+    class="secondary"
+    onclick="loadProperties()"
+  >
+    <i class="fa-solid fa-house"></i>
+    Imóveis
+  </button>
+
+</aside>
+
+
+<main class="content">
+
+
+<div class="head">
+
+  <div>
+
+    <h1 style="margin:0">
+      Imóveis
+    </h1>
+
+    <p class="muted">
+      Gerir os imóveis publicados no site.
+    </p>
+
+  </div>
+
+
+  <button
+    class="primary"
+    onclick="openNew()"
+  >
+    <i class="fa-solid fa-plus"></i>
+    Adicionar imóvel
+  </button>
+
+</div>
+
+
+<div
+  id="properties"
+  class="grid"
+></div>
+
+
+</main>
+
+</div>
 
 </section>
 
 
-<div id="modal" class="modal">
+<div
+  id="modal"
+  class="modal"
+>
 
-  <div class="modal-card">
+<div class="modal-card">
 
-    <div class="modal-head">
 
-      <h2 id="modalTitle">
-        Novo imóvel
-      </h2>
+<div class="modal-head">
 
-      <button
-        class="secondary"
-        onclick="closeModal()"
-        type="button"
-      >
-        Fechar
-      </button>
+  <h2 id="modalTitle">
+    Novo imóvel
+  </h2>
 
-    </div>
+  <button
+    class="secondary"
+    onclick="closeModal()"
+  >
+    Fechar
+  </button>
 
+</div>
 
-    <form id="propertyForm">
 
-      <input
-        id="propertyId"
-        type="hidden"
-      >
+<form id="propertyForm">
 
-      <div class="form-grid">
 
-        <div class="full">
+<input
+  id="propertyId"
+  type="hidden"
+>
 
-          <label>
-            Título
-          </label>
 
-          <input
-            id="titulo"
-            required
-            placeholder="Moradia moderna com jardim"
-          >
+<div class="form-grid">
 
-        </div>
 
+<div class="full">
 
-        <div>
+<label>
+  Título
+</label>
 
-          <label>
-            Tipo
-          </label>
+<input
+  id="titulo"
+  required
+  placeholder="Moradia moderna com jardim"
+>
 
-          <select id="tipo">
-            <option>Moradia</option>
-            <option>Apartamento</option>
-            <option>Villa</option>
-            <option>Terreno</option>
-            <option>Comercial</option>
-            <option>Outro</option>
-          </select>
+</div>
 
-        </div>
 
+<div>
 
-        <div>
+<label>
+  Tipo
+</label>
 
-          <label>
-            Localização
-          </label>
+<select id="tipo">
 
-          <input
-            id="localizacao"
-            required
-          >
+  <option>Moradia</option>
+  <option>Apartamento</option>
+  <option>Villa</option>
+  <option>Terreno</option>
+  <option>Comercial</option>
+  <option>Outro</option>
 
-        </div>
+</select>
 
+</div>
 
-        <div>
 
-          <label>
-            Preço (€)
-          </label>
+<div>
 
-          <input
-            id="preco"
-            type="number"
-            min="0"
-            step="0.01"
-          >
+<label>
+  Localização
+</label>
 
-        </div>
+<input
+  id="localizacao"
+  required
+>
 
+</div>
 
-        <div>
 
-          <label>
-            Área (m²)
-          </label>
+<div>
 
-          <input
-            id="area"
-            type="number"
-            min="0"
-            step="0.01"
-          >
+<label>
+  Preço (€)
+</label>
 
-        </div>
+<input
+  id="preco"
+  type="number"
+  min="0"
+  step="0.01"
+>
 
+</div>
 
-        <div>
 
-          <label>
-            Quartos
-          </label>
+<div>
 
-          <input
-            id="quartos"
-            type="number"
-            min="0"
-          >
+<label>
+  Área (m²)
+</label>
 
-        </div>
+<input
+  id="area"
+  type="number"
+  min="0"
+  step="0.01"
+>
 
+</div>
 
-        <div>
 
-          <label>
-            Casas de banho
-          </label>
+<div>
 
-          <input
-            id="casas_banho"
-            type="number"
-            min="0"
-          >
+<label>
+  Quartos
+</label>
 
-        </div>
+<input
+  id="quartos"
+  type="number"
+  min="0"
+>
 
+</div>
 
-        <div>
 
-          <label>
-            Estado
-          </label>
+<div>
 
-          <select id="estado">
-            <option>Disponível</option>
-            <option>Reservado</option>
-            <option>Vendido</option>
-            <option>Arrendado</option>
-          </select>
+<label>
+  Casas de banho
+</label>
 
-        </div>
+<input
+  id="casas_banho"
+  type="number"
+  min="0"
+>
 
+</div>
 
-        <div class="full">
 
-          <div class="check-row">
+<div>
 
-            <label class="check">
-              <input
-                id="garagem"
-                type="checkbox"
-              >
-              Garagem
-            </label>
+<label>
+  Estado
+</label>
 
+<select id="estado">
 
-            <label class="check">
-              <input
-                id="luxo"
-                type="checkbox"
-              >
-              Imóvel de luxo
-            </label>
+  <option>Disponível</option>
+  <option>Reservado</option>
+  <option>Vendido</option>
+  <option>Arrendado</option>
 
+</select>
 
-            <label class="check">
-              <input
-                id="publicado"
-                type="checkbox"
-              >
-              Publicar no site
-            </label>
+</div>
 
-          </div>
 
-        </div>
+<div class="full">
 
+<label>
+  Características
+</label>
 
-        <div class="full">
 
-          <label>
-            Descrição
-          </label>
+<div class="checkbox-grid">
 
-          <textarea
-            id="descricao"
-            placeholder="Descrição do imóvel..."
-          ></textarea>
 
-        </div>
+<label class="check-card">
 
+  <input
+    id="garagem"
+    type="checkbox"
+  >
 
-        <div class="full">
+  <i class="fa-solid fa-car"></i>
 
-          <label>
-            Fotografias
-          </label>
+  Garagem
 
-          <div class="filebox">
+</label>
 
-            <input
-              id="photos"
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              multiple
-            >
 
-            <p class="muted">
-              Pode selecionar várias fotografias.
-              Máximo 10 MB por imagem.
-            </p>
+<label class="check-card">
 
-          </div>
+  <input
+    id="piscina"
+    type="checkbox"
+  >
 
+  <i class="fa-solid fa-person-swimming"></i>
 
-          <label class="check" style="margin-top:12px">
+  Piscina
 
-            <input
-              id="replacePhotos"
-              type="checkbox"
-            >
+</label>
 
-            Substituir as fotografias atuais pelas novas
 
-          </label>
+<label class="check-card">
 
+  <input
+    id="luxo"
+    type="checkbox"
+  >
 
-          <div
-            id="photoPreview"
-            class="photos"
-          ></div>
+  <i class="fa-solid fa-gem"></i>
 
-        </div>
+  Imóvel de luxo
 
-      </div>
+</label>
 
 
-      <div
-        style="display:flex;justify-content:flex-end;gap:10px;margin-top:22px"
-      >
+</div>
 
-        <button
-          type="button"
-          class="secondary"
-          onclick="closeModal()"
-        >
-          Cancelar
-        </button>
+</div>
 
-        <button
-          type="submit"
-          class="primary"
-          id="saveButton"
-        >
-          Guardar imóvel
-        </button>
 
-      </div>
+<div class="full">
 
+<label>
+  Link do imóvel na FNAI
+</label>
 
-      <div
-        id="formMessage"
-        class="form-message"
-      ></div>
+<input
+  id="fnai_url"
+  type="url"
+  placeholder="https://www.fnai.pt/..."
+>
 
-    </form>
+<p class="muted">
+  Cole aqui o link direto deste imóvel na FNAI.
+</p>
 
-  </div>
+</div>
+
+
+<div class="full">
+
+<label>
+  Descrição
+</label>
+
+<textarea
+  id="descricao"
+></textarea>
+
+</div>
+
+
+<div class="full">
+
+<label>
+  Fotografias
+</label>
+
+
+<div class="filebox">
+
+<input
+  id="photos"
+  type="file"
+  accept="image/jpeg,image/png,image/webp,image/gif"
+  multiple
+>
+
+<p class="muted">
+  Selecione várias imagens.
+  Máximo 10 MB por imagem.
+</p>
+
+</div>
+
+
+<div
+  id="photoPreview"
+  class="photos"
+></div>
+
+</div>
+
+
+<div class="full">
+
+<label>
+
+<input
+  id="publicado"
+  type="checkbox"
+  style="width:auto"
+>
+
+ Publicar este imóvel
+
+</label>
+
+</div>
+
+
+</div>
+
+
+<div
+  style="
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:22px
+  "
+>
+
+<button
+  type="button"
+  class="secondary"
+  onclick="closeModal()"
+>
+  Cancelar
+</button>
+
+
+<button
+  class="primary"
+>
+  Guardar imóvel
+</button>
+
+</div>
+
+
+</form>
+
+</div>
 
 </div>
 
@@ -849,73 +987,63 @@ label{
 <script>
 
 const SUPABASE_URL =
-'https://scmorocdbdyvnxodpwyi.supabase.co';
+  'https://scmorocdbdyvnxodpwyi.supabase.co';
 
 const SUPABASE_KEY =
-'sb_publishable_W28Qdq8POfYXjCu3BwUxPQ_2z2o2GcM';
-
-const BUCKET =
-'imoveis';
+  'sb_publishable_W28Qdq8POfYXjCu3BwUxPQ_2z2o2GcM';
 
 const sb =
-window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
 let currentPhotos = [];
+
 let newFiles = [];
 
 
-const $ = id =>
-document.getElementById(id);
+const $ =
+  id =>
+  document.getElementById(id);
 
 
-function esc(value){
+function esc(value) {
 
   return String(value ?? '')
-    .replace(/[&<>"']/g, c => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#039;'
-    }[c]));
+    .replace(/[&<>"']/g, function(char) {
+
+      return {
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[char];
+
+    });
 
 }
 
 
-function showLoginMessage(text){
+function msg(text) {
 
-  $('loginMsg').textContent = text;
-  $('loginMsg').style.display = 'block';
+  $('loginMsg').textContent =
+    text;
 
-}
-
-
-function showFormMessage(text){
-
-  $('formMessage').textContent = text;
-  $('formMessage').style.display = 'block';
+  $('loginMsg').style.display =
+    'block';
 
 }
 
 
-function hideFormMessage(){
+async function init() {
 
-  $('formMessage').style.display = 'none';
+  const sessionResult =
+    await sb.auth.getSession();
 
-}
-
-
-async function init(){
-
-  const {
-    data:{session}
-  } = await sb.auth.getSession();
-
-  if(session){
+  if (sessionResult.data.session) {
 
     showApp();
 
@@ -924,101 +1052,117 @@ async function init(){
 }
 
 
-$('loginForm').addEventListener(
-  'submit',
-  async e => {
+$('loginForm').onsubmit =
+async function(event) {
 
-    e.preventDefault();
+  event.preventDefault();
 
-    const {
-      error
-    } = await sb.auth.signInWithPassword({
 
-      email:$('email').value.trim(),
+  const result =
+    await sb.auth.signInWithPassword({
+
+      email:$('email').value,
 
       password:$('password').value
 
     });
 
 
-    if(error){
+  if (result.error) {
 
-      showLoginMessage(error.message);
+    msg(result.error.message);
 
-      return;
-
-    }
-
-
-    showApp();
+    return;
 
   }
-);
 
 
-$('logout').addEventListener(
-  'click',
-  async () => {
+  showApp();
 
-    await sb.auth.signOut();
-
-    location.reload();
-
-  }
-);
+};
 
 
-function showApp(){
+$('logout').onclick =
+async function() {
 
-  $('login').style.display = 'none';
+  await sb.auth.signOut();
 
-  $('app').style.display = 'block';
+  location.reload();
+
+};
+
+
+function showApp() {
+
+  $('login').style.display =
+    'none';
+
+  $('app').style.display =
+    'block';
 
   loadProperties();
 
 }
 
 
-async function loadProperties(){
+function formatPrice(price) {
+
+  if (!price) {
+    return 'Preço sob consulta';
+  }
+
+  return new Intl.NumberFormat(
+    'pt-PT',
+    {
+      style:'currency',
+      currency:'EUR',
+      maximumFractionDigits:0
+    }
+  ).format(price);
+
+}
+
+
+async function loadProperties() {
 
   const box =
     $('properties');
 
   box.innerHTML =
-    '<div class="empty">A carregar imóveis...</div>';
+    '<div class="empty">A carregar...</div>';
 
 
-  const {
-    data,
-    error
-  } =
-  await sb
-    .from('imoveis')
-    .select('*')
-    .order('created_at',{
-      ascending:false
-    });
+  const result =
+    await sb
+      .from('imoveis')
+      .select('*')
+      .order('created_at', {
+        ascending:false
+      });
 
 
-  if(error){
+  if (result.error) {
 
     box.innerHTML =
-      `<div class="empty">
-        Erro: ${esc(error.message)}
-      </div>`;
+      '<div class="empty">Erro: ' +
+      esc(result.error.message) +
+      '</div>';
 
     return;
 
   }
 
 
-  if(!data || !data.length){
+  const data =
+    result.data || [];
+
+
+  if (!data.length) {
 
     box.innerHTML =
-      `<div class="empty">
-        Ainda não existem imóveis.<br><br>
-        Carrega em "Adicionar imóvel".
-      </div>`;
+      '<div class="empty">' +
+      'Ainda não existem imóveis.' +
+      '</div>';
 
     return;
 
@@ -1026,204 +1170,185 @@ async function loadProperties(){
 
 
   box.innerHTML =
-  data.map(p => {
+    data.map(function(p) {
 
-    const features = [];
+      return `
 
-    if(p.area)
-      features.push(`${p.area} m²`);
+        <article class="card">
 
-    features.push(
-      `${p.quartos || 0} quartos`
-    );
-
-    features.push(
-      `${p.casas_banho || 0} WC`
-    );
-
-    if(p.garagem)
-      features.push('Garagem');
-
-    if(p.luxo)
-      features.push('Luxo');
-
-
-    return `
-
-      <article class="card">
-
-        <div class="thumb">
-
-          ${
-            p.imagem_capa
-
-            ?
-
-            `<img
-              src="${esc(p.imagem_capa)}"
-              alt="${esc(p.titulo)}"
-              loading="lazy"
-            >`
-
-            :
-
-            `<div class="no-image">
-              SEM FOTOGRAFIA
-            </div>`
-          }
-
-        </div>
-
-
-        <div class="body">
-
-          <h3>
-            ${esc(p.titulo)}
-          </h3>
-
-          <div class="muted">
-            ${esc(p.localizacao)}
-            ·
-            ${esc(p.tipo)}
-          </div>
-
-
-          <div class="price">
+          <div class="thumb">
 
             ${
-              p.preco
-
+              p.imagem_capa
               ?
-
-              new Intl.NumberFormat(
-                'pt-PT',
-                {
-                  style:'currency',
-                  currency:'EUR',
-                  maximumFractionDigits:0
-                }
-              ).format(p.preco)
-
+              `<img
+                src="${esc(p.imagem_capa)}"
+                alt="${esc(p.titulo)}"
+              >`
               :
-
-              'Preço sob consulta'
+              ''
             }
 
           </div>
 
 
-          <div class="badges">
+          <div class="body">
 
-            ${
-              features.map(x =>
-                `<span class="badge">
-                  ${esc(x)}
-                </span>`
-              ).join('')
-            }
+            <h3>
+              ${esc(p.titulo)}
+            </h3>
 
-            ${
-              p.publicado
 
-              ?
+            <div class="muted">
 
-              `<span class="badge gold">
-                PUBLICADO
-              </span>`
+              <i class="fa-solid fa-location-dot"></i>
 
-              :
+              ${esc(p.localizacao)}
 
-              `<span class="badge">
-                RASCUNHO
-              </span>`
-            }
+            </div>
+
+
+            <div class="price">
+              ${formatPrice(p.preco)}
+            </div>
+
+
+            <div class="muted">
+
+              ${
+                p.area
+                ?
+                `${p.area} m² · `
+                : ''
+              }
+
+              ${
+                p.quartos || 0
+              }
+              quartos ·
+
+              ${
+                p.casas_banho || 0
+              }
+              WC
+
+              ${
+                p.garagem
+                ? ' · Garagem'
+                : ''
+              }
+
+              ${
+                p.piscina
+                ? ' · Piscina'
+                : ''
+              }
+
+              ${
+                p.luxo
+                ? ' · Luxo'
+                : ''
+              }
+
+            </div>
+
+
+            <div class="muted">
+
+              ${
+                p.publicado
+                ? 'Publicado'
+                : 'Rascunho'
+              }
+
+            </div>
+
+
+            <div class="actions">
+
+              <button
+                class="secondary"
+                onclick="editProperty('${p.id}')"
+              >
+                Editar
+              </button>
+
+
+              <button
+                class="danger"
+                onclick="deleteProperty('${p.id}')"
+              >
+                Eliminar
+              </button>
+
+            </div>
 
           </div>
 
+        </article>
 
-          <div class="actions">
+      `;
 
-            <button
-              class="secondary"
-              onclick="editProperty('${p.id}')"
-            >
-              Editar
-            </button>
-
-            <button
-              class="danger"
-              onclick="deleteProperty('${p.id}')"
-            >
-              Eliminar
-            </button>
-
-          </div>
-
-        </div>
-
-      </article>
-
-    `;
-
-  }).join('');
+    }).join('');
 
 }
 
 
-function openNew(){
+function openNew() {
 
   $('propertyForm').reset();
 
-  $('propertyId').value = '';
+  $('propertyId').value =
+    '';
 
   $('modalTitle').textContent =
     'Novo imóvel';
-
-  $('replacePhotos').checked = false;
 
   currentPhotos = [];
 
   newFiles = [];
 
-  hideFormMessage();
-
   renderPhotos();
 
-  $('modal').style.display = 'block';
+  $('modal').style.display =
+    'block';
 
 }
 
 
-function closeModal(){
+function closeModal() {
 
-  $('modal').style.display = 'none';
+  $('modal').style.display =
+    'none';
 
 }
 
 
-async function editProperty(id){
+async function editProperty(id) {
 
-  const {
-    data:p,
-    error
-  } =
-  await sb
-    .from('imoveis')
-    .select('*')
-    .eq('id',id)
-    .single();
+  const result =
+    await sb
+      .from('imoveis')
+      .select('*')
+      .eq('id', id)
+      .single();
 
 
-  if(error){
+  if (result.error) {
 
-    alert(error.message);
+    alert(result.error.message);
 
     return;
 
   }
 
 
-  $('propertyId').value = id;
+  const p =
+    result.data;
+
+
+  $('propertyId').value =
+    id;
 
   $('modalTitle').textContent =
     'Editar imóvel';
@@ -1256,45 +1381,40 @@ async function editProperty(id){
   $('descricao').value =
     p.descricao || '';
 
+  $('publicado').checked =
+    !!p.publicado;
+
   $('garagem').checked =
     !!p.garagem;
+
+  $('piscina').checked =
+    !!p.piscina;
 
   $('luxo').checked =
     !!p.luxo;
 
-  $('publicado').checked =
-    !!p.publicado;
+  $('fnai_url').value =
+    p.fnai_url || '';
 
 
-  const result =
+  const photos =
     await sb
       .from('imovel_fotos')
       .select('*')
-      .eq('imovel_id',id)
-      .order('ordem',{
+      .eq('imovel_id', id)
+      .order('ordem', {
         ascending:true
       });
 
 
-  if(result.error){
-
-    alert(result.error.message);
-
-    return;
-
-  }
-
-
   currentPhotos =
-    result.data || [];
+    photos.data || [];
 
   newFiles = [];
 
-  $('replacePhotos').checked = false;
-
-  hideFormMessage();
 
   renderPhotos();
+
 
   $('modal').style.display =
     'block';
@@ -1302,51 +1422,44 @@ async function editProperty(id){
 }
 
 
-$('photos').addEventListener(
-  'change',
-  e => {
+$('photos').onchange =
+function(event) {
 
-    newFiles =
-      Array.from(e.target.files || []);
+  newFiles =
+    [
+      ...event.target.files
+    ];
 
-    renderPhotos();
+  renderPhotos();
 
-  }
-);
+};
 
 
-function renderPhotos(){
+function renderPhotos() {
 
-  const box =
-    $('photoPreview');
-
-  box.innerHTML = '';
+  $('photoPreview').innerHTML =
+    '';
 
 
   currentPhotos.forEach(
-    (photo,index) => {
+    function(photo,index) {
 
-      const div =
+      const d =
         document.createElement('div');
 
-      div.className =
+      d.className =
         'photo';
 
 
-      div.innerHTML = `
+      d.innerHTML = `
 
         <img
           src="${esc(photo.url)}"
-          alt="Fotografia ${index+1}"
+          alt=""
         >
-
-        <span class="photo-number">
-          ${index+1}
-        </span>
 
         <button
           type="button"
-          onclick="removeExistingPhoto(${index})"
         >
           ×
         </button>
@@ -1354,26 +1467,36 @@ function renderPhotos(){
       `;
 
 
-      box.appendChild(div);
+      d.querySelector('button')
+        .onclick =
+        function() {
+
+          removePhoto(index);
+
+        };
+
+
+      $('photoPreview')
+        .appendChild(d);
 
     }
   );
 
 
   newFiles.forEach(
-    (file,index) => {
+    function(file,index) {
 
-      const div =
+      const d =
         document.createElement('div');
 
-      div.className =
+      d.className =
         'photo';
 
 
-      const img =
+      const image =
         document.createElement('img');
 
-      img.src =
+      image.src =
         URL.createObjectURL(file);
 
 
@@ -1387,20 +1510,27 @@ function renderPhotos(){
         '×';
 
 
-      button.onclick = () => {
+      button.onclick =
+        function() {
 
-        newFiles.splice(index,1);
+          newFiles.splice(
+            index,
+            1
+          );
 
-        renderPhotos();
+          renderPhotos();
 
-      };
+        };
 
 
-      div.appendChild(img);
+      d.append(
+        image,
+        button
+      );
 
-      div.appendChild(button);
 
-      box.appendChild(div);
+      $('photoPreview')
+        .appendChild(d);
 
     }
   );
@@ -1408,16 +1538,14 @@ function renderPhotos(){
 }
 
 
-async function removeExistingPhoto(index){
+async function removePhoto(index) {
 
-  if(
+  if (
     !confirm(
       'Eliminar esta fotografia?'
     )
-  ){
-
+  ) {
     return;
-
   }
 
 
@@ -1425,23 +1553,16 @@ async function removeExistingPhoto(index){
     currentPhotos[index];
 
 
-  if(!photo){
-
-    return;
-
-  }
-
-
   const storage =
     await sb
       .storage
-      .from(BUCKET)
+      .from('imoveis')
       .remove([
         photo.storage_path
       ]);
 
 
-  if(storage.error){
+  if (storage.error) {
 
     alert(storage.error.message);
 
@@ -1450,16 +1571,16 @@ async function removeExistingPhoto(index){
   }
 
 
-  const db =
+  const database =
     await sb
       .from('imovel_fotos')
       .delete()
-      .eq('id',photo.id);
+      .eq('id', photo.id);
 
 
-  if(db.error){
+  if (database.error) {
 
-    alert(db.error.message);
+    alert(database.error.message);
 
     return;
 
@@ -1472,96 +1593,136 @@ async function removeExistingPhoto(index){
   );
 
 
-  await updateCover();
-
   renderPhotos();
 
 }
 
 
-async function deleteAllPhotos(propertyId){
+$('propertyForm').onsubmit =
+async function(event) {
 
-  const result =
-    await sb
-      .from('imovel_fotos')
-      .select('id,storage_path')
-      .eq('imovel_id',propertyId);
+  event.preventDefault();
 
 
-  if(result.error){
-
-    throw result.error;
-
-  }
+  const id =
+    $('propertyId').value;
 
 
-  const photos =
-    result.data || [];
+  const payload = {
+
+    titulo:
+      $('titulo').value.trim(),
+
+    tipo:
+      $('tipo').value,
+
+    localizacao:
+      $('localizacao').value.trim(),
+
+    preco:
+      Number($('preco').value) || null,
+
+    area:
+      Number($('area').value) || null,
+
+    quartos:
+      Number($('quartos').value) || 0,
+
+    casas_banho:
+      Number($('casas_banho').value) || 0,
+
+    estado:
+      $('estado').value,
+
+    descricao:
+      $('descricao').value.trim(),
+
+    garagem:
+      $('garagem').checked,
+
+    piscina:
+      $('piscina').checked,
+
+    luxo:
+      $('luxo').checked,
+
+    fnai_url:
+      $('fnai_url').value.trim() || null,
+
+    publicado:
+      $('publicado').checked
+
+  };
 
 
-  if(photos.length){
-
-    const paths =
-      photos
-        .map(p => p.storage_path)
-        .filter(Boolean);
+  let propertyId =
+    id;
 
 
-    if(paths.length){
+  if (id) {
 
-      const storage =
-        await sb
-          .storage
-          .from(BUCKET)
-          .remove(paths);
-
-
-      if(storage.error){
-
-        throw storage.error;
-
-      }
-
-    }
-
-
-    const db =
+    const result =
       await sb
-        .from('imovel_fotos')
-        .delete()
-        .eq('imovel_id',propertyId);
+        .from('imoveis')
+        .update(payload)
+        .eq('id', id);
 
 
-    if(db.error){
+    if (result.error) {
 
-      throw db.error;
+      alert(result.error.message);
+
+      return;
 
     }
 
+  } else {
+
+    const result =
+      await sb
+        .from('imoveis')
+        .insert(payload)
+        .select()
+        .single();
+
+
+    if (result.error) {
+
+      alert(result.error.message);
+
+      return;
+
+    }
+
+
+    propertyId =
+      result.data.id;
+
   }
 
-}
+
+  let order =
+    currentPhotos.length;
 
 
-async function uploadPhotos(propertyId){
+  for (const file of newFiles) {
 
-  for(
-    const file of newFiles
-  ){
-
-    if(
+    if (
       file.size >
       10 * 1024 * 1024
-    ){
+    ) {
 
-      throw new Error(
-        `${file.name} ultrapassa 10 MB.`
+      alert(
+        file.name +
+        ' ultrapassa 10 MB.'
       );
+
+      continue;
 
     }
 
 
-    const safeName =
+    const safe =
       file.name
         .toLowerCase()
         .replace(
@@ -1575,29 +1736,33 @@ async function uploadPhotos(propertyId){
       '/' +
       crypto.randomUUID() +
       '-' +
-      safeName;
+      safe;
 
 
     const upload =
       await sb
         .storage
-        .from(BUCKET)
+        .from('imoveis')
         .upload(
           path,
           file,
           {
-            contentType:file.type,
+            contentType:
+              file.type,
+
             upsert:false
           }
         );
 
 
-    if(upload.error){
+    if (upload.error) {
 
-      throw new Error(
-        'Erro no upload: ' +
+      alert(
+        'Upload: ' +
         upload.error.message
       );
+
+      continue;
 
     }
 
@@ -1605,17 +1770,13 @@ async function uploadPhotos(propertyId){
     const publicUrl =
       sb
         .storage
-        .from(BUCKET)
+        .from('imoveis')
         .getPublicUrl(path)
         .data
         .publicUrl;
 
 
-    const order =
-      currentPhotos.length;
-
-
-    const inserted =
+    const insert =
       await sb
         .from('imovel_fotos')
         .insert({
@@ -1630,340 +1791,150 @@ async function uploadPhotos(propertyId){
             publicUrl,
 
           ordem:
-            order
+            order++
 
         })
         .select()
         .single();
 
 
-    if(inserted.error){
+    if (insert.error) {
 
-      await sb
-        .storage
-        .from(BUCKET)
-        .remove([path]);
-
-      throw new Error(
-        'Erro ao guardar fotografia: ' +
-        inserted.error.message
+      alert(
+        'Registo da imagem: ' +
+        insert.error.message
       );
+
+      continue;
 
     }
 
 
-    currentPhotos.push(
-      inserted.data
-    );
+    currentPhotos.push({
+
+      id:
+        insert.data.id,
+
+      storage_path:
+        path,
+
+      url:
+        publicUrl,
+
+      ordem:
+        order - 1
+
+    });
 
   }
 
-}
 
+  if (currentPhotos.length) {
 
-async function updatePhotoOrder(propertyId){
-
-  for(
-    let i=0;
-    i<currentPhotos.length;
-    i++
-  ){
-
-    await sb
-      .from('imovel_fotos')
-      .update({
-        ordem:i
-      })
-      .eq(
-        'id',
-        currentPhotos[i].id
-      );
-
-  }
-
-}
-
-
-async function updateCover(){
-
-  const cover =
-    currentPhotos.length
-      ? currentPhotos[0].url
-      : null;
-
-
-  const result =
     await sb
       .from('imoveis')
       .update({
-        imagem_capa:cover
+        imagem_capa:
+          currentPhotos[0].url
       })
       .eq(
         'id',
-        $('propertyId').value
-      );
-
-
-  if(result.error){
-
-    console.error(
-      result.error
-    );
-
-  }
-
-}
-
-
-$('propertyForm').addEventListener(
-  'submit',
-  async e => {
-
-    e.preventDefault();
-
-    hideFormMessage();
-
-
-    const button =
-      $('saveButton');
-
-    button.disabled =
-      true;
-
-    button.textContent =
-      'A guardar...';
-
-
-    try{
-
-      const id =
-        $('propertyId').value;
-
-
-      const payload = {
-
-        titulo:
-          $('titulo').value.trim(),
-
-        tipo:
-          $('tipo').value,
-
-        localizacao:
-          $('localizacao').value.trim(),
-
-        preco:
-          Number($('preco').value) || null,
-
-        area:
-          Number($('area').value) || null,
-
-        quartos:
-          Number($('quartos').value) || 0,
-
-        casas_banho:
-          Number($('casas_banho').value) || 0,
-
-        estado:
-          $('estado').value,
-
-        descricao:
-          $('descricao').value.trim(),
-
-        garagem:
-          $('garagem').checked,
-
-        luxo:
-          $('luxo').checked,
-
-        publicado:
-          $('publicado').checked
-
-      };
-
-
-      let propertyId =
-        id;
-
-
-      if(id){
-
-        const result =
-          await sb
-            .from('imoveis')
-            .update(payload)
-            .eq('id',id);
-
-
-        if(result.error){
-
-          throw result.error;
-
-        }
-
-      }else{
-
-        const result =
-          await sb
-            .from('imoveis')
-            .insert(payload)
-            .select()
-            .single();
-
-
-        if(result.error){
-
-          throw result.error;
-
-        }
-
-
-        propertyId =
-          result.data.id;
-
-      }
-
-
-      /*
-       * Se o utilizador marcou
-       * "Substituir fotografias",
-       * apagar primeiro as antigas.
-       */
-
-      if(
-        $('replacePhotos').checked &&
-        newFiles.length
-      ){
-
-        await deleteAllPhotos(
-          propertyId
-        );
-
-        currentPhotos = [];
-
-      }
-
-
-      /*
-       * Fazer upload das novas.
-       */
-
-      if(newFiles.length){
-
-        await uploadPhotos(
-          propertyId
-        );
-
-      }
-
-
-      /*
-       * Corrigir ordem.
-       */
-
-      await updatePhotoOrder(
         propertyId
       );
 
+  } else {
 
-      /*
-       * Atualizar capa.
-       */
-
-      const cover =
-        currentPhotos.length
-          ? currentPhotos[0].url
-          : null;
-
-
-      const coverResult =
-        await sb
-          .from('imoveis')
-          .update({
-            imagem_capa:cover
-          })
-          .eq(
-            'id',
-            propertyId
-          );
-
-
-      if(coverResult.error){
-
-        throw coverResult.error;
-
-      }
-
-
-      closeModal();
-
-      await loadProperties();
-
-
-    }catch(error){
-
-      console.error(error);
-
-      showFormMessage(
-        error.message ||
-        'Ocorreu um erro ao guardar.'
+    await sb
+      .from('imoveis')
+      .update({
+        imagem_capa:null
+      })
+      .eq(
+        'id',
+        propertyId
       );
 
-    }finally{
-
-      button.disabled =
-        false;
-
-      button.textContent =
-        'Guardar imóvel';
-
-    }
-
   }
-);
 
 
-async function deleteProperty(id){
+  closeModal();
 
-  if(
+  loadProperties();
+
+};
+
+
+async function deleteProperty(id) {
+
+  if (
     !confirm(
       'Eliminar este imóvel e todas as fotografias?'
     )
-  ){
+  ) {
+    return;
+  }
+
+
+  const photos =
+    await sb
+      .from('imovel_fotos')
+      .select('storage_path')
+      .eq('imovel_id', id);
+
+
+  if (photos.error) {
+
+    alert(photos.error.message);
 
     return;
 
   }
 
 
-  try{
+  if (photos.data.length) {
 
-    await deleteAllPhotos(id);
+    await sb
+      .storage
+      .from('imoveis')
+      .remove(
+        photos.data.map(
+          function(photo) {
 
+            return photo.storage_path;
 
-    const result =
-      await sb
-        .from('imoveis')
-        .delete()
-        .eq('id',id);
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    loadProperties();
-
-
-  }catch(error){
-
-    alert(
-      error.message
-    );
+          }
+        )
+      );
 
   }
+
+
+  await sb
+    .from('imovel_fotos')
+    .delete()
+    .eq(
+      'imovel_id',
+      id
+    );
+
+
+  const result =
+    await sb
+      .from('imoveis')
+      .delete()
+      .eq('id', id);
+
+
+  if (result.error) {
+
+    alert(result.error.message);
+
+    return;
+
+  }
+
+
+  loadProperties();
 
 }
 
