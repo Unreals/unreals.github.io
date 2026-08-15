@@ -1100,20 +1100,230 @@ loadProperties();
 
 async function loadProperties(){
 
-const box=$('properties');
-box.innerHTML='<div class="empty">A carregar...</div>';
+const box =
+$('properties');
 
-const result=await sb.from('imoveis').select('*').order('created_at',{ascending:false});
+box.innerHTML =
+'<div class="empty">A carregar...</div>';
 
-if(result.error){box.innerHTML='<div class="empty">Erro: '+esc(result.error.message)+'</div>';return;}
-const data=result.data||[];
-if(!data.length){box.innerHTML='<div class="empty">Ainda não existem imóveis.</div>';return;}
 
-box.innerHTML=data.map(function(p){
-const image=p.imagem_capa||'';
-return `<article class="card"><div class="thumb">${image?`<img src="${esc(image)}" alt="${esc(p.titulo)}" loading="lazy" decoding="async">`:''}<div class="fnai-watermark">FNAI</div></div><div class="body"><h3>${esc(p.titulo)}</h3><div class="muted"><i class="fa-solid fa-location-dot"></i> ${esc(p.localizacao)} · ${esc(p.tipo)}</div><div class="price">${p.preco?new Intl.NumberFormat('pt-PT',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(p.preco):'Preço sob consulta'}</div><div class="muted">${p.area||0} m² · ${p.quartos||0} quartos · ${p.casas_banho||0} WC</div><div class="status-row">${p.garagem?'<span class="tag"><i class="fa-solid fa-car"></i> Garagem</span>':''}${p.piscina?'<span class="tag"><i class="fa-solid fa-person-swimming"></i> Piscina</span>':''}${p.luxo?'<span class="tag gold"><i class="fa-solid fa-gem"></i> Luxo</span>':''}${p.publicado?'<span class="tag">Publicado</span>':'<span class="tag">Rascunho</span>'}</div><div class="actions"><button class="secondary" onclick="editProperty('${p.id}')"><i class="fa-solid fa-pen"></i> Editar</button><button class="danger" onclick="deleteProperty('${p.id}')"><i class="fa-solid fa-trash"></i> Eliminar</button></div></div></article>`;
-}).join('');
+const result =
+await sb
+.from('imoveis')
+.select('*')
+.order('created_at',{
+ascending:false
+});
+
+
+if(result.error){
+
+box.innerHTML =
+'<div class="empty">Erro: '+esc(result.error.message)+'</div>';
+
+return;
+
 }
+
+
+const data =
+result.data || [];
+
+
+if(!data.length){
+
+box.innerHTML =
+'<div class="empty">Ainda não existem imóveis.</div>';
+
+return;
+
+}
+
+
+const ids =
+data.map(x=>x.id);
+
+
+const photoResult =
+await sb
+.from('imovel_fotos')
+.select('*')
+.in('imovel_id',ids)
+.order('ordem',{
+ascending:true
+});
+
+
+const photos =
+photoResult.data || [];
+
+
+box.innerHTML =
+data.map(function(p){
+
+const propertyPhotos =
+photos.filter(
+x=>x.imovel_id===p.id
+);
+
+
+const image =
+propertyPhotos[0]?.url ||
+p.imagem_capa ||
+'';
+
+
+return `
+
+<article class="card">
+
+<div class="thumb">
+
+${
+image
+?
+`<img
+src="${esc(image)}"
+alt="${esc(p.titulo)}"
+>`
+:
+''
+}
+
+<div class="fnai-watermark">
+FNAI
+</div>
+
+</div>
+
+
+<div class="body">
+
+<h3>
+${esc(p.titulo)}
+</h3>
+
+
+<div class="muted">
+
+<i class="fa-solid fa-location-dot"></i>
+
+${esc(p.localizacao)}
+·
+${esc(p.tipo)}
+
+</div>
+
+
+<div class="price">
+
+${
+p.preco
+?
+new Intl.NumberFormat(
+'pt-PT',
+{
+style:'currency',
+currency:'EUR',
+maximumFractionDigits:0
+}
+).format(p.preco)
+:
+'Preço sob consulta'
+}
+
+</div>
+
+
+<div class="muted">
+
+${p.area || 0} m²
+
+·
+
+${p.quartos || 0} quartos
+
+·
+
+${p.casas_banho || 0} WC
+
+</div>
+
+
+<div class="status-row">
+
+${
+p.garagem
+?
+'<span class="tag"><i class="fa-solid fa-car"></i> Garagem</span>'
+:
+''
+}
+
+${
+p.piscina
+?
+'<span class="tag"><i class="fa-solid fa-person-swimming"></i> Piscina</span>'
+:
+''
+}
+
+${
+p.luxo
+?
+'<span class="tag gold"><i class="fa-solid fa-gem"></i> Luxo</span>'
+:
+''
+}
+
+${
+p.publicado
+?
+'<span class="tag">Publicado</span>'
+:
+'<span class="tag">Rascunho</span>'
+}
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="secondary"
+onclick="editProperty('${p.id}')"
+>
+
+<i class="fa-solid fa-pen"></i>
+
+Editar
+
+</button>
+
+
+<button
+class="danger"
+onclick="deleteProperty('${p.id}')"
+>
+
+<i class="fa-solid fa-trash"></i>
+
+Eliminar
+
+</button>
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+}).join('');
+
+}
+
 
 function openNew(){
 
@@ -1328,41 +1538,65 @@ $('photoPreview')
 }
 
 
-
-async function compressImage(file){
-return new Promise(function(resolve){
-const url=URL.createObjectURL(file);
-const img=new Image();
-img.onload=function(){
-const max=2000;
-let w=img.naturalWidth,h=img.naturalHeight;
-if(w>max||h>max){const r=Math.min(max/w,max/h);w=Math.round(w*r);h=Math.round(h*r);}
-const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
-const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);
-canvas.toBlob(function(blob){
-URL.revokeObjectURL(url);
-if(!blob){resolve({file,extension:file.name.split('.').pop().toLowerCase(),contentType:file.type});return;}
-const f=new File([blob],file.name.replace(/\.[^.]+$/,'')+'.webp',{type:'image/webp',lastModified:Date.now()});
-resolve({file:f,extension:'webp',contentType:'image/webp'});
-},'image/webp',0.82);
-};
-img.onerror=function(){URL.revokeObjectURL(url);resolve({file,extension:file.name.split('.').pop().toLowerCase(),contentType:file.type});};
-img.src=url;
-});
-}
-
 async function removePhoto(i){
-if(!confirm('Eliminar esta fotografia?'))return;
-const photo=currentPhotos[i];
-const storageResult=await sb.storage.from('imoveis').remove([photo.storage_path]);
-if(storageResult.error){alert(storageResult.error.message);return;}
-const dbResult=await sb.from('imovel_fotos').delete().eq('id',photo.id);
-if(dbResult.error){alert(dbResult.error.message);return;}
-currentPhotos.splice(i,1);
-const propertyId=$('propertyId').value;
-if(propertyId){await sb.from('imoveis').update({imagem_capa:currentPhotos[0]?.url||null}).eq('id',propertyId);}
-renderPhotos();
+
+if(
+!confirm(
+'Eliminar esta fotografia?'
+)
+){
+return;
 }
+
+
+const photo =
+currentPhotos[i];
+
+
+const storageResult =
+await sb
+.storage
+.from('imoveis')
+.remove([
+photo.storage_path
+]);
+
+
+if(storageResult.error){
+
+alert(
+storageResult.error.message
+);
+
+return;
+
+}
+
+
+const dbResult =
+await sb
+.from('imovel_fotos')
+.delete()
+.eq('id',photo.id);
+
+
+if(dbResult.error){
+
+alert(
+dbResult.error.message
+);
+
+return;
+
+}
+
+
+currentPhotos.splice(i,1);
+
+renderPhotos();
+
+}
+
 
 $('propertyForm').onsubmit =
 async function(e){
@@ -1470,26 +1704,133 @@ result.data.id;
 }
 
 
-for(const originalFile of newFiles){
-if(originalFile.size>10*1024*1024){alert(originalFile.name+' ultrapassa 10 MB.');continue;}
-const optimized=await compressImage(originalFile);
-const file=optimized.file;
-if(file.size>10*1024*1024){alert(file.name+' continua a ultrapassar 10 MB depois da compressão.');continue;}
-const safe=file.name.toLowerCase().replace(/[^a-z0-9._-]/g,'-').replace(/\.[^.]+$/,'');
-const path=propertyId+'/'+crypto.randomUUID()+'-'+safe+'.'+optimized.extension;
-const upload=await sb.storage.from('imoveis').upload(path,file,{contentType:optimized.contentType,upsert:false});
-if(upload.error){alert('Upload: '+upload.error.message);continue;}
-const url=sb.storage.from('imoveis').getPublicUrl(path).data.publicUrl;
-const ordem=currentPhotos.length;
-const insert=await sb.from('imovel_fotos').insert({imovel_id:propertyId,storage_path:path,url:url,ordem:ordem}).select().single();
-if(insert.error){await sb.storage.from('imoveis').remove([path]);alert('Registo da imagem: '+insert.error.message);continue;}
-currentPhotos.push({id:insert.data.id,storage_path:path,url:url});
+for(
+const file of newFiles
+){
+
+if(
+file.size >
+10*1024*1024
+){
+
+alert(
+file.name+
+' ultrapassa 10 MB.'
+);
+
+continue;
+
 }
+
+
+const safe =
+file.name
+.toLowerCase()
+.replace(
+/[^a-z0-9._-]/g,
+'-'
+);
+
+
+const path =
+propertyId+
+'/'+
+crypto.randomUUID()+
+'-'+
+safe;
+
+
+const upload =
+await sb
+.storage
+.from('imoveis')
+.upload(
+path,
+file,
+{
+contentType:file.type,
+upsert:false
+}
+);
+
+
+if(upload.error){
+
+alert(
+'Upload: '+
+upload.error.message
+);
+
+continue;
+
+}
+
+
+const url =
+sb
+.storage
+.from('imoveis')
+.getPublicUrl(path)
+.data
+.publicUrl;
+
+
+const ordem =
+currentPhotos.length;
+
+
+const insert =
+await sb
+.from('imovel_fotos')
+.insert({
+
+imovel_id:
+propertyId,
+
+storage_path:
+path,
+
+url:url,
+
+ordem:ordem
+
+})
+.select()
+.single();
+
+
+if(insert.error){
+
+alert(
+'Registo da imagem: '+
+insert.error.message
+);
+
+continue;
+
+}
+
+
+currentPhotos.push({
+id:insert.data.id,
+storage_path:path,
+url:url
+});
+
+}
+
+
+if(currentPhotos.length){
 
 await sb
 .from('imoveis')
-.update({imagem_capa:currentPhotos[0]?.url||null})
+.update({
+imagem_capa:
+currentPhotos[0].url
+})
 .eq('id',propertyId);
+
+}
 
 
 closeModal();

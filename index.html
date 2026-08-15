@@ -273,7 +273,7 @@ a{
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:center 18%;
+  object-position:center top;
   display:block;
 }
 
@@ -1116,11 +1116,29 @@ return;
 
 }
 
+const ids =
+properties.map(p=>p.id);
+
+const photosResult =
+await sb
+.from('imovel_fotos')
+.select('*')
+.in('imovel_id',ids)
+.order('ordem',{ascending:true});
+
+const photos =
+photosResult.data || [];
 
 container.innerHTML =
 properties.map(function(p){
 
-const image = p.imagem_capa || '';
+const propertyPhotos =
+photos.filter(x=>x.imovel_id===p.id);
+
+const image =
+propertyPhotos[0]?.url ||
+p.imagem_capa ||
+'';
 
 return `
 
