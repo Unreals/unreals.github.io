@@ -1293,6 +1293,33 @@
 
     }
 
+  
+.property-card-link{display:block}
+.property-slideshow.cover-only{height:280px}
+.property-slideshow.cover-only>img{width:100%;height:100%;object-fit:cover;display:block}
+.cover-empty,.detail-no-photo{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#7b8387}
+.cover-empty i,.detail-no-photo i{font-size:42px}
+.property-badge-detail{position:absolute;left:14px;top:14px;z-index:8;padding:7px 11px;background:#fff;color:#172126;font-size:10px;font-weight:800;letter-spacing:1px}
+.property-badge-detail.luxury{background:#d4a72c;color:#fff}
+.property-detail{grid-column:1/-1;background:#fff;border-radius:18px;overflow:hidden;border:1px solid #e6e9ea;box-shadow:0 12px 40px rgba(0,0,0,.07)}
+.detail-slideshow{position:relative;width:100%;height:min(680px,62vw);min-height:420px;background:#07171b;overflow:hidden}
+.detail-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .35s ease}
+.detail-slide.active{opacity:1;visibility:visible;z-index:2}
+.detail-slide img{width:100%;height:100%;display:block;object-fit:contain;background:#07171b}
+.detail-watermark{z-index:20;font-size:18px;bottom:18px;right:20px}
+.photo-counter{position:absolute;left:18px;bottom:17px;z-index:20;background:rgba(7,23,27,.72);color:#fff;padding:6px 10px;border-radius:5px;font-size:12px;font-weight:700}
+.property-detail-content{padding:32px}
+.property-detail-top{display:flex;justify-content:space-between;align-items:flex-start;gap:30px}
+.property-detail-top h2{font-family:Georgia,serif;font-size:38px;line-height:1.15;color:#07171b;margin:7px 0 10px}
+.property-detail-price{font-size:30px;font-weight:900;white-space:nowrap;color:#07171b}
+.detail-features{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:25px;padding:18px 0;border-top:1px solid #edf0f1;border-bottom:1px solid #edf0f1}
+.detail-description{margin-top:22px;color:#5f686d;font-size:15px;line-height:1.8;white-space:pre-line}
+.detail-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:25px}
+.detail-actions .property-button{width:auto;display:inline-flex}
+.detail-fnai{margin-top:0;padding:13px 18px;border:1px solid #e1e4e5;border-radius:8px;background:#f8f9f9}
+.back-link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;color:#07171b;font-size:13px;font-weight:800}
+@media(max-width:760px){.detail-slideshow{height:72vw;min-height:280px}.property-detail-content{padding:22px}.property-detail-top{flex-direction:column;gap:12px}.property-detail-top h2{font-size:30px}.property-detail-price{font-size:25px}.detail-features{grid-template-columns:repeat(2,1fr)}}
+
   </style>
 
 </head>
@@ -1999,7 +2026,6 @@
       result.data || [];
 
 
-    await loadPhotos();
 
 
     applyFilters();
@@ -3171,6 +3197,61 @@
 
 
 
+
+  /* =====================================================
+     DETALHE DO IMÓVEL — FOTOS SÓ CARREGADAS AQUI
+  ===================================================== */
+
+  async function loadPropertyDetail(id){
+
+    document.querySelector('.filters').style.display='none';
+    document.getElementById('resultsCount').style.display='none';
+
+    const grid=document.getElementById('propertyGrid');
+    grid.innerHTML='<div class="empty"><i class="fa-solid fa-spinner fa-spin"></i><h2>A carregar imóvel</h2><p>Aguarde um momento...</p></div>';
+
+    const propertyResult=await sb.from('imoveis').select('*').eq('id',id).eq('publicado',true).single();
+
+    if(propertyResult.error){
+      grid.innerHTML='<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><h2>Imóvel não encontrado</h2><p>Este imóvel pode já não estar disponível.</p><a href="imoveis.html" class="property-button detail-back"><i class="fa-solid fa-arrow-left"></i> Voltar aos imóveis</a></div>';
+      return;
+    }
+
+    const property=propertyResult.data;
+    const photosResult=await sb.from('imovel_fotos').select('id,url,ordem').eq('imovel_id',id).order('ordem',{ascending:true});
+    const photos=photosResult.data||[];
+    const photoList=photos.length?photos:(property.imagem_capa?[{id:'cover',url:property.imagem_capa,ordem:0}]:[]);
+
+    document.querySelector('.page-heading').innerHTML=`<div class="eyebrow">${escapeHtml(property.tipo||'IMÓVEL')}</div><h1>${escapeHtml(property.titulo)}</h1><p><i class="fa-solid fa-location-dot"></i> ${escapeHtml(property.localizacao)}</p>`;
+
+    const garage=isTrue(property.garagem), pool=isTrue(property.piscina), luxury=isTrue(property.luxo);
+    const tags=(garage?'<span class="property-tag"><i class="fa-solid fa-car"></i> Garagem</span>':'')+(pool?'<span class="property-tag"><i class="fa-solid fa-person-swimming"></i> Piscina</span>':'')+(luxury?'<span class="property-tag"><i class="fa-solid fa-gem"></i> Luxo</span>':'');
+
+    const slideshow=photoList.length?`<div class="detail-slideshow" id="detailSlideshow">${photoList.map((photo,i)=>`<div class="detail-slide ${i===0?'active':''}" data-index="${i}"><img ${i===0?`src="${escapeHtml(photo.url)}"`:`data-src="${escapeHtml(photo.url)}"`} alt="${escapeHtml(property.titulo)} - fotografia ${i+1}" loading="${i===0?'eager':'lazy'}" decoding="async"></div>`).join('')}<div class="fnai-watermark detail-watermark">FNAI</div>${photoList.length>1?`<button type="button" class="slide-button slide-prev" id="detailPrev" aria-label="Fotografia anterior"><i class="fa-solid fa-chevron-left"></i></button><button type="button" class="slide-button slide-next" id="detailNext" aria-label="Fotografia seguinte"><i class="fa-solid fa-chevron-right"></i></button><div class="slide-dots">${photoList.map((_,i)=>`<button type="button" class="slide-dot ${i===0?'active':''}" data-index="${i}" aria-label="Fotografia ${i+1}"></button>`).join('')}</div>`:''}<div class="photo-counter" id="photoCounter">1 / ${photoList.length}</div></div>`:'<div class="detail-no-photo"><i class="fa-regular fa-image"></i><span>Fotografia brevemente</span></div>';
+
+    grid.innerHTML=`<article class="property-detail">${slideshow}<div class="property-detail-content"><div class="property-detail-top"><div><span class="property-status">${escapeHtml(property.estado||'VENDA')}</span><h2>${escapeHtml(property.titulo)}</h2><div class="property-location"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(property.localizacao)}</div></div><div class="property-detail-price">${formatPrice(property.preco)}</div></div><div class="detail-features"><div class="feature"><i class="fa-solid fa-bed"></i><strong>${Number(property.quartos)||0}</strong><span>Quartos</span></div><div class="feature"><i class="fa-solid fa-bath"></i><strong>${Number(property.casas_banho)||0}</strong><span>WC</span></div><div class="feature"><i class="fa-solid fa-ruler-combined"></i><strong>${property.area?escapeHtml(property.area):'—'}</strong><span>m²</span></div><div class="feature"><i class="fa-solid fa-car"></i><strong>${garage?'Sim':'Não'}</strong><span>Garagem</span></div><div class="feature"><i class="fa-solid fa-person-swimming"></i><strong>${pool?'Sim':'Não'}</strong><span>Piscina</span></div></div>${tags?`<div class="property-tags">${tags}</div>`:''}<div class="detail-description">${escapeHtml(property.descricao||'Para mais informações sobre este imóvel, entre em contacto comigo.')}</div><div class="detail-actions"><a href="https://wa.me/41792601145?text=${encodeURIComponent('Olá Jo, gostaria de obter informações sobre o imóvel "'+(property.titulo||'')+'".') }" target="_blank" rel="noopener" class="property-button"><i class="fa-brands fa-whatsapp"></i> Pedir informações pelo WhatsApp</a>${property.fnai_url?`<a href="${escapeHtml(property.fnai_url)}" target="_blank" rel="noopener" class="fnai-link detail-fnai"><i class="fa-solid fa-arrow-up-right-from-square"></i> Ver anúncio na FNAI</a>`:''}</div><a href="imoveis.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Voltar aos imóveis</a></div></article>`;
+
+    if(photoList.length>1) initializeDetailSlideshow();
+  }
+
+  function initializeDetailSlideshow(){
+    const slideshow=document.getElementById('detailSlideshow');
+    if(!slideshow) return;
+    const slides=[...slideshow.querySelectorAll('.detail-slide')];
+    const dots=[...slideshow.querySelectorAll('.slide-dot')];
+    let current=0;
+    let timer;
+    const loadImage=i=>{const img=slides[i]?.querySelector('img'); if(img && !img.src && img.dataset.src) img.src=img.dataset.src;};
+    const show=i=>{current=(i+slides.length)%slides.length;loadImage(current);slides.forEach((x,n)=>x.classList.toggle('active',n===current));dots.forEach((x,n)=>x.classList.toggle('active',n===current));const c=document.getElementById('photoCounter');if(c)c.textContent=`${current+1} / ${slides.length}`;};
+    const restart=()=>{clearInterval(timer);timer=setInterval(()=>show(current+1),5000)};
+    document.getElementById('detailPrev').onclick=()=>{show(current-1);restart()};
+    document.getElementById('detailNext').onclick=()=>{show(current+1);restart()};
+    dots.forEach(d=>d.onclick=()=>{show(Number(d.dataset.index));restart()});
+    slideshow.onmouseenter=()=>clearInterval(timer);
+    slideshow.onmouseleave=restart;
+    restart();
+  }
+
   /* =====================================================
      LIMPAR TIMERS
   ===================================================== */
@@ -3337,11 +3418,11 @@
      CARREGAR AO ABRIR
   ===================================================== */
 
-  loadProperties();
+  const urlParams=new URLSearchParams(window.location.search);
+  const requestedId=urlParams.get('id');
+  if(requestedId){loadPropertyDetail(requestedId);}else{loadProperties();}
 
 </script>
-
-
 </body>
 
 </html>
