@@ -1948,7 +1948,7 @@
 
         <i class="fa-solid fa-spinner fa-spin"></i>
 
-        <h2>A carregar imóveis</h2>
+        <h2>A carregar imóvel</h2>
 
         <p>
           Aguarde um momento...
@@ -1958,17 +1958,31 @@
     `;
 
 
-    const result =
-      await sb
-        .from('imoveis')
-        .select('*')
-        .eq('publicado', true)
-        .order(
-          'created_at',
-          {
-            ascending: false
-          }
-        );
+    /*
+       Se existir ?id=UUID na URL, estamos a abrir
+       um imóvel específico. Nesse caso NÃO carregamos
+       a lista completa: carregamos apenas esse imóvel.
+    */
+    const params = new URLSearchParams(window.location.search);
+    const selectedId = params.get('id');
+
+    let query = sb
+      .from('imoveis')
+      .select('*')
+      .eq('publicado', true);
+
+    if (selectedId) {
+      query = query.eq('id', selectedId);
+    } else {
+      query = query.order(
+        'created_at',
+        {
+          ascending: false
+        }
+      );
+    }
+
+    const result = await query;
 
 
     if (result.error) {
@@ -1999,8 +2013,68 @@
       result.data || [];
 
 
+    if (selectedId && !properties.length) {
+
+      const filters = document.querySelector('.filters');
+      if (filters) filters.style.display = 'none';
+
+      const heading = document.querySelector('.page-heading');
+      if (heading) {
+        heading.innerHTML = `
+          <div class="eyebrow">IMÓVEL</div>
+          <h1>Imóvel não encontrado</h1>
+          <p>O imóvel que procura não está disponível ou já não está publicado.</p>
+          <p style="margin-top:18px;">
+            <a href="imoveis.html" class="property-button" style="display:inline-flex;text-decoration:none;">
+              <i class="fa-solid fa-arrow-left"></i>
+              Ver todos os imóveis
+            </a>
+          </p>
+        `;
+      }
+
+      grid.innerHTML = '';
+      count.textContent = '';
+      return;
+    }
+
+
     await loadPhotos();
 
+
+    if (selectedId) {
+      /* Modo detalhe: esconder filtros e mostrar apenas o imóvel escolhido. */
+      const filters = document.querySelector('.filters');
+      if (filters) filters.style.display = 'none';
+
+      const heading = document.querySelector('.page-heading');
+      if (heading) {
+        heading.innerHTML = `
+          <div class="eyebrow">DETALHE DO IMÓVEL</div>
+          <h1>${escapeHtml(properties[0].titulo || 'Imóvel')}</h1>
+          <p>${escapeHtml(properties[0].localizacao || '')}</p>
+          <p style="margin-top:18px;">
+            <a href="imoveis.html" class="property-button" style="display:inline-flex;text-decoration:none;">
+              <i class="fa-solid fa-arrow-left"></i>
+              Voltar aos imóveis
+            </a>
+          </p>
+        `;
+      }
+
+      grid.style.gridTemplateColumns = 'minmax(0, 1fr)';
+      grid.style.maxWidth = '1000px';
+      grid.style.margin = '0 auto';
+      count.innerHTML = '';
+      grid.innerHTML = createPropertyCard(properties[0]);
+      initializeSlideshows();
+      return;
+    }
+
+
+    /* Modo lista normal: filtros + todos os imóveis. */
+    const filters = document.querySelector('.filters');
+    if (filters) filters.style.display = '';
 
     applyFilters();
 
@@ -2927,6 +3001,16 @@
 
           </a>
 
+
+
+          <a
+            href="imoveis.html?id=${encodeURIComponent(property.id)}"
+            class="property-button"
+            style="margin-top:12px;text-decoration:none;"
+          >
+            <i class="fa-solid fa-eye"></i>
+            Ver imóvel
+          </a>
 
 
           ${
