@@ -1293,7 +1293,68 @@
 
     }
 
-  </style>
+  
+.energy-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:4px;
+  margin-bottom:18px;
+  font-size:13px;
+  color:#687177;
+  font-weight:700;
+}
+.energy-letter{
+  min-width:40px;
+  height:32px;
+  padding:0 9px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:2px;
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+  line-height:1;
+}
+.energy-Aplus,.energy-A{background:#70ad47}
+.energy-B,.energy-Bminus{background:#a8c85a}
+.energy-C{background:#f2c84b}
+.energy-D{background:#ee9b43}
+.energy-E{background:#e06f43}
+.energy-F{background:#cf3f3f}
+
+.property-map-section{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-top:55px;
+  background:#eef1f2;
+}
+.property-map-heading{
+  width:min(1400px,92%);
+  margin:0 auto;
+  padding:42px 0 22px;
+}
+.property-map-heading .eyebrow{
+  margin-bottom:6px;
+}
+.property-map-heading h2{
+  font-family:Georgia,serif;
+  font-size:clamp(30px,4vw,48px);
+  color:#07171b;
+}
+.property-map{
+  width:100%;
+  height:480px;
+  border:0;
+  display:block;
+}
+@media(max-width:700px){
+  .property-map{height:360px}
+  .property-map-heading{padding:32px 6% 18px;width:100%}
+}
+
+</style>
 
 </head>
 
@@ -2979,6 +3040,30 @@
             )}
 
           </p>
+
+          ${
+            window.selectedPropertyId && property.localizacao
+              ? `
+                <section class="property-map-section">
+                  <div class="property-map-heading">
+                    <div class="eyebrow">
+                      LOCALIZAÇÃO
+                    </div>
+                    <h2>Onde se encontra este imóvel</h2>
+                  </div>
+
+                  <iframe
+                    class="property-map"
+                    src="https://www.google.com/maps?q=${encodeURIComponent(property.localizacao)}&z=16&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen
+                    title="Mapa da localização de ${escapeHtml(property.titulo || 'imóvel')}">
+                  </iframe>
+                </section>
+              `
+              : ''
+          }
 
 
 
