@@ -1354,6 +1354,13 @@
   .property-map-heading{padding:32px 6% 18px;width:100%}
 }
 
+
+.property-map-section{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding:42px 0 0;background:#f5f6f7}
+.property-map-heading{max-width:1200px;margin:0 auto 20px;padding:0 24px}
+.property-map-address{margin:10px 0 0;color:#6b7280;font-size:15px}
+.property-map{display:block;width:100%;height:520px;border:0;margin:0}
+@media(max-width:760px){.property-map{height:400px}.property-map-heading{padding:0 18px}}
+
 </style>
 
 </head>
@@ -3042,7 +3049,7 @@
           </p>
 
           ${
-            window.selectedPropertyId && property.localizacao
+            window.selectedPropertyId && property.endereco
               ? `
                 <section class="property-map-section">
                   <div class="property-map-heading">
@@ -3050,11 +3057,12 @@
                       LOCALIZAÇÃO
                     </div>
                     <h2>Onde se encontra este imóvel</h2>
+                    <p class="property-map-address"><i class="fa-solid fa-location-dot"></i> ${escapeHtml(property.endereco || '')}</p>
                   </div>
 
                   <iframe
                     class="property-map"
-                    src="https://www.google.com/maps?q=${encodeURIComponent(property.localizacao)}&z=16&output=embed"
+                    src="https://www.google.com/maps?q=${encodeURIComponent(property.endereco)}&z=16&output=embed"
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade"
                     allowfullscreen
